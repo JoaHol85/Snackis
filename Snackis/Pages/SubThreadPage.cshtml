@@ -1,0 +1,22 @@
+﻿@page
+@model Snackis.Pages.SubThreadPageModel
+@{
+}
+
+<div class="text-center m-5">
+    <h1>@Model.MainThreadCopy.Title - @Model.MainThreadCopy.Id</h1>
+</div>
+
+
+<div class="col-md-12 text-right">
+    <a class="btn btn-primary" href="/NewSubThread?MainThreadId=@Model.MainThreadCopy.Id">Skapa ny tråd</a>
+</div>
+
+@foreach (var subThread in Model.ListOfSubThreads)
+{
+    <div class="card p-3 m-2" style="background-color:grey">
+        <a href="/MessagePage?SubThreadId=@subThread.Id"><h3 style="padding-bottom:2px">@subThread.HeaderText</h3></a>
+        <hr class="pt-0" />
+        <h6>Skapat av: @Model.GetUserNickName(subThread.SnackisUserId), skapat den: @subThread.Time</h6>
+    </div>
+}

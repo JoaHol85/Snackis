@@ -1,0 +1,85 @@
+﻿@page
+@model Snackis.Pages.Admin.AdminModel
+@{
+}
+
+
+@if (Model.AdminIsLoggedIn)
+{
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card text-center">
+                <form method="post">
+                    <div class="card-body text-center">
+                        <div class="card-header">
+                            <h3>Skapa "Main Tråd"</h3>
+                        </div>
+                        <div class="m-3">
+                            <label>Titel:</label><br />
+                            <input type="text" style="width:100%" name="AMainThread.Title" /><br />
+                            <label>Titelexempel:</label><br />
+                            <input type="text" style="width:100%" name="AMainThread.TitleExample1" /><br />
+                            <label>Titelexempel:</label><br />
+                            <input type="text" style="width:100%" name="AMainThread.TitleExample2" /><br />
+                            <label>Titelexempel:</label><br />
+                            <input type="text" style="width:100%" name="AMainThread.TitleExample3" />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button asp-page-handler="MainThread" type="submit" class="btn btn-primary">Spara Bastråd</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-center">
+                <form method="post">
+                    <div class="card-body text-center">
+                        <div class="card-header">
+                            <h3>Skapa ny "Roll"</h3>
+                        </div>
+                        <div class="m-3">
+                            <label>Rollnamn</label><br />
+                            <input type="text" name="RoleName" /><br />
+                        </div>
+                        <div>
+                            @foreach (var roles in Model.RoleList)
+                            {
+                                @roles.Name<br />
+                            }
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button asp-page-handler="CreateRole" type="submit" class="btn btn-primary">Spara Roll</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body text-center">
+                    <div class="card-header">
+                        <h3>???</h3>
+                    </div>
+                    <div class="m-3">
+                        <table>
+                            <tr>
+                                <th>Anv namn</th>
+                                @foreach (var role in Model.RoleList)
+                                {
+                                    <th>@role.Name</th>
+                                }
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

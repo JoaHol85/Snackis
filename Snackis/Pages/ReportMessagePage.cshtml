@@ -1,0 +1,64 @@
+﻿@page
+@model Snackis.Pages.ReportMessagePageModel
+@{
+    int color = 0;
+}
+
+@*// SKA VISAS OM MAN INTE ÄR INLOGGAD SOM ADMIN*@
+<!--<div class="col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-header text-center">
+                <h3>Anmäl inlägg</h3>
+            </div>
+            @Model.ReportedMessage.TextMessage
+        </div>
+        <div class="card-footer">
+            <form method="post">
+                <small>Skriv vad det är som stör dig i meddelandet:</small>
+                <textarea name="MessageToAdmin" maxlength="250" cols="145" rows="2"></textarea>
+                <small>max 250 tecken</small>
+                <button style="float: right">Skicka</button>
+            </form>
+        </div>
+    </div>
+</div>-->
+@*// SKA VISAS NÄR MAN ÄR INLOGGAD SOM ADMIN MED KNAPPAR OSV -SKA TILLÄGGAS-*@
+
+<div class="text-center">
+    <h1>ANMÄLT INLÄGG</h1>
+</div>
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <small style="font-weight:900">Rapporterat inlägg:</small><br />
+            @Model.ReportedMessage.TextMessage<br />
+            <small style="font-weight:900">Från användaren:</small><br />
+        </div>
+        <div class="card-body">
+            <small style="font-weight:900">Kommentarer av rapporterare:</small><br />
+            @foreach (var message in Model.ListOfReports)
+            {
+                if (color % 2 == 0)
+                {
+                    <div>
+                        @message.Text
+                    </div>
+                }
+
+                if (color % 2 == 1)
+                {
+                    <div style="background-color: grey">
+                        @message.Text
+                    </div>
+                }
+                color++;
+            }
+        </div>
+        <div class="card-footer">
+            Här ska finnas alternativ på vad texten ska fyllas med i en < select >
+            <a href="/ReportMessagePage?DeleteMessageId=@Model.ReportedMessage.Id&ReportedMessageId=@Model.ReportedMessage.Id">Ta bort inlägg</a>
+        </div>
+    </div>
+</div>
