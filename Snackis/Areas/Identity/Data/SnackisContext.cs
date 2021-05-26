@@ -21,6 +21,8 @@ namespace Snackis.Data
         public DbSet<SubThread> SubThreads { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<ReportedMessage> ReportedMessages { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<GroupMessage> GroupMessages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

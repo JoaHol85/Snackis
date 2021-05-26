@@ -10,6 +10,7 @@ namespace Snackis.Data.Models
     {
         public int Id { get; set; }
         public int GroupStarterId { get; set; }
+        public string GroupName { get; set; }
         public string password { get; set; }
         public virtual ICollection<SnackisUser> Users { get; set; }
         public ICollection<GroupMessage> GroupMessages { get; set; }
