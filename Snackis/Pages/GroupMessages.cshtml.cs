@@ -7,22 +7,27 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Snackis.Areas.Identity.Data;
 using Snackis.Data.Models;
+using Snackis.Services;
 
 namespace Snackis.Pages
 {
     public class GroupMessagesModel : PageModel
     {
         private readonly UserManager<SnackisUser> _userManager;
+        private readonly UserServices _userServices;
+        private readonly GroupServices _groupServices;
 
 
-        public GroupMessagesModel(UserManager<SnackisUser> userManager)
+        public GroupMessagesModel(GroupServices groupServices, UserServices userServices, UserManager<SnackisUser> userManager)
         {
+            _groupServices = groupServices;
+            _userServices = userServices;
             _userManager = userManager;
         }
 
 
         public List<Group> ListOfGroups { get; set; }
-
+        public List<SnackisUser> Users { get; set; }
 
 
 
@@ -31,6 +36,8 @@ namespace Snackis.Pages
 
         public async Task OnGet()
         {
+            Users = await _userServices.GetAllUsersAsync();
+            ListOfGroups = await _groupServices.GetAllGroupsAsync();
             //var user = await _userManager.GetUserAsync(User);
             //ListOfGroups = user.Groups.ToList(); 
         }

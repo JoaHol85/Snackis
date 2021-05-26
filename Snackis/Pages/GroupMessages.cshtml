@@ -3,16 +3,58 @@
 @{
 }
 
+
+
 <div class="row col-md-12">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header text-center">
+                    <h3>GRUPPER</h3>
+                </div>
+                <div>
+                    @if (Model.ListOfGroups != null)
+                    {
+                        foreach (var group in Model.ListOfGroups)
+                        {
+                            @group.GroupName;
+                        }
+                    }
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary">Skapa Grupp</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@*<div class="row col-md-12">
     <div class="col-md-6">
         <div class="card">
-            <select>
-                <option>Option1</option>
-                <option>Option2</option>
-                <option>Option3</option>
-                <option>Option4</option>
-                <option>Option5</option>
-            </select>
+            <div class="card-body">
+                <div class="card-header text-center">
+                    <h3>Grupper:</h3>
+                </div>
+                <div class="text-center">
+                    <label>Gå till grupp:</label><br />
+                    <select>
+                        @if (Model.Users != null)
+                        {
+                            @foreach (var user in Model.Users)
+                            {
+                                <option value="@user.Id">@user.NickName</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary">Gå till Grupp</button>
+            </div>
         </div>
     </div>
 
@@ -25,18 +67,20 @@
                 <div class="text-center">
                     <label>Välj användare att bjuda in</label><br />
                     <select>
-                        <option>Option1</option>
-                        <option>Option2</option>
-                        <option>Option3</option>
-                        <option>Option4</option>
-                        <option>Option5</option>
+                        @if (Model.Users != null)
+                        {
+                            @foreach (var user in Model.Users)
+                            {
+                                <option value="@user.Id">@user.NickName</option>
+                            }
+                        }
                     </select>
                 </div>
             </div>
             <div class="card-footer">
-                <button>Bjud in</button>
+                <button class="btn btn-primary">Bjud in</button>
             </div>
         </div>
     </div>
 
-</div>
+</div>*@

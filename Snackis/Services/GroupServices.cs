@@ -1,4 +1,6 @@
-﻿using Snackis.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Snackis.Data;
+using Snackis.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,9 @@ namespace Snackis.Services
             _context = context;
         }
 
-
+        public async Task<List<Group>> GetAllGroupsAsync()
+        {
+            return await _context.Groups.ToListAsync();
+        }
     }
 }
