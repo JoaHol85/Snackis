@@ -32,6 +32,7 @@ namespace Snackis
                     policy => policy.RequireRole("Admin"));
             });
 
+            services.AddTransient<GroupServices>();
             services.AddTransient<AdminServices>();
             services.AddTransient<MessageServices>();
             services.AddTransient<SubThreadServices>();

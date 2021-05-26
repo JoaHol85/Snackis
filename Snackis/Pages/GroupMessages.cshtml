@@ -23,7 +23,14 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-primary">Skapa Grupp</button>
+                <button id="CreateGroupBtn" style="width: 100%" class="btn btn-primary" onclick="ShowItem('CreateGroupBtn', 'CreateGroupDiv', 'Dölj', 'Skapa Grupp')">Skapa Grupp</button>
+                <div style="padding:0%" id="CreateGroupDiv" class="container d-none text-center mt-3">
+                    <form method="post">
+                        <label style="width:100%">Namn på grupp:</label>
+                        <input style="width:100%" type="text" name="AGroup.GroupName" />
+                        <button style="width:100%" class="btn btn-primary mt-1" type="submit">Skapa Grupp</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

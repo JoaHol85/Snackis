@@ -25,10 +25,11 @@ namespace Snackis.Pages
             _userManager = userManager;
         }
 
+        [BindProperty]
+        public Group AGroup { get; set; }
 
         public List<Group> ListOfGroups { get; set; }
         public List<SnackisUser> Users { get; set; }
-
 
 
 
@@ -40,6 +41,12 @@ namespace Snackis.Pages
             ListOfGroups = await _groupServices.GetAllGroupsAsync();
             //var user = await _userManager.GetUserAsync(User);
             //ListOfGroups = user.Groups.ToList(); 
+        }
+
+        public async Task OnPost()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            AGroup.GroupStartedById = user.Id;
         }
     }
 }
