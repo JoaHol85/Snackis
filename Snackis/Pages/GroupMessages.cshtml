@@ -17,7 +17,7 @@
                     {
                         foreach (var group in Model.ListOfGroups)
                         {
-                            @group.GroupName;
+                            <a href="/GroupMessages?GroupId=@group.Id">@group.GroupName</a>
                         }
                     }
                 </div>
@@ -28,11 +28,39 @@
                     <form method="post">
                         <label style="width:100%">Namn på grupp:</label>
                         <input style="width:100%" type="text" name="AGroup.GroupName" />
-                        <button style="width:100%" class="btn btn-primary mt-1" type="submit">Skapa Grupp</button>
+                        <button asp-page-handler="CreateGroup" style="width:100%" class="btn btn-primary mt-1" type="submit">Skapa Grupp</button>
                     </form>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header text-center">
+                    <h3>MEDDELANDEN</h3>
+                </div>
+                <div>
+                    @if (Model.ListOfGroupMessages != null)
+                    {
+                        foreach (var message in Model.ListOfGroupMessages)
+                        {
+                            @Model.GetUserNickName(message.SnackisUserId)<br />
+                            @message.Text<br />
+                            <small>@message.Time</small>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="card-footer">
+                <form method="post">
+                    <textarea name="AGroupMessage.Text" cols="102" rows="6"></textarea>
+                    <button href="/GroupMessages?MessageInGroup=@Model.GroupId&GroupId=@Model.GroupId" type="submit" class="btn btn-primary" style="float:right">Skicka</button>
+                </form>
+            </div>
+        </div>
+
     </div>
 </div>
 

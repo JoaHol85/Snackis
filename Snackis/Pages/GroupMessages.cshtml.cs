@@ -24,29 +24,52 @@ namespace Snackis.Pages
             _userServices = userServices;
             _userManager = userManager;
         }
+        [BindProperty(SupportsGet = true)]
+        public int GroupId { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int MessageInGroup { get; set; }
 
+
+        [BindProperty]
+        public GroupMessage AGroupMessage { get; set; }
         [BindProperty]
         public Group AGroup { get; set; }
 
         public List<Group> ListOfGroups { get; set; }
         public List<SnackisUser> Users { get; set; }
+        public List<GroupMessage> ListOfGroupMessages { get; set; }
 
 
 
 
-
-        public async Task OnGet()
+        public async Task OnGetAsync()
         {
-            Users = await _userServices.GetAllUsersAsync();
             ListOfGroups = await _groupServices.GetAllGroupsAsync();
-            //var user = await _userManager.GetUserAsync(User);
-            //ListOfGroups = user.Groups.ToList(); 
+            
+            if (GroupId != 0)
+            {
+                ListOfGroupMessages = await _groupServices.GetAllGroupMessagesInGroup(GroupId);
+            }
         }
 
-        public async Task OnPost()
+        public async Task OnPostAsync()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            await _groupServices.SaveGroupMessage(user, GroupId, AGroupMessage);
+        }
+
+        public async Task OnPostCreateGroupAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             AGroup.GroupStartedById = user.Id;
+            await _groupServices.SaveGroup(AGroup);
+            await OnGetAsync();
         }
+        public string GetUserNickName(string id)
+        {
+            var user = _userServices.GetUser(id);
+            return user.NickName;
+        }
+
     }
 }

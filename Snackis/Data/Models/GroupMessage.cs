@@ -11,7 +11,7 @@ namespace Snackis.Data.Models
         public int Id { get; set; }
         public string Text { get; set; }
         public DateTime Time { get; set; }
-        public int SnackisUserId { get; set; }
+        public string SnackisUserId { get; set; }
         public SnackisUser SnackisUser { get; set; }
         public int GroupId { get; set; }
         public Group Group { get; set; }
