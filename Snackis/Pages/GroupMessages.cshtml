@@ -1,6 +1,12 @@
 ﻿@page
 @model Snackis.Pages.GroupMessagesModel
+@using Snackis.Areas.Identity.Data
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<SnackisUser> UserManager
+@inject SignInManager<SnackisUser> SignInManager
+
 @{
+    var user = await UserManager.GetUserAsync(User);
 }
 
 
@@ -13,9 +19,9 @@
                     <h3>GRUPPER</h3>
                 </div>
                 <div>
-                    @if (Model.ListOfGroups != null)
+                    @if (Model.ListOfGroupWithUser != null)
                     {
-                        foreach (var group in Model.ListOfGroups)
+                        foreach (var group in Model.ListOfGroupWithUser)
                         {
                             <a href="/GroupMessages?GroupId=@group.Id">@group.GroupName</a>
                         }
@@ -25,11 +31,13 @@
             <div class="card-footer">
                 <button id="CreateGroupBtn" style="width: 100%" class="btn btn-primary" onclick="ShowItem('CreateGroupBtn', 'CreateGroupDiv', 'Dölj', 'Skapa Grupp')">Skapa Grupp</button>
                 <div style="padding:0%" id="CreateGroupDiv" class="container d-none text-center mt-3">
+                    
                     <form method="post">
                         <label style="width:100%">Namn på grupp:</label>
                         <input style="width:100%" type="text" name="AGroup.GroupName" />
                         <button asp-page-handler="CreateGroup" style="width:100%" class="btn btn-primary mt-1" type="submit">Skapa Grupp</button>
                     </form>
+                    
                 </div>
             </div>
         </div>
@@ -54,6 +62,37 @@
                 </div>
             </div>
             <div class="card-footer">
+                @if (user != null && Model.Group != null && Model.Group.GroupStartedById == user.Id)
+                {
+                <div class="row">
+                    <div>
+                        <form method="post">
+                            <label>Lägg till användare i chat:</label>
+                            <select name="AddUserToGroup">
+                                @foreach (var aUser in Model.ListOfUsers)
+                                {
+                                    <option value="@aUser.Id">@aUser.NickName</option>
+
+                                }
+                            </select>
+                            <button href="/GroupMessages?GroupId=@Model.GroupId" type="submit" class="btn btn-primary">Lägg till</button>
+                        </form>
+                    </div>
+                    <div>
+                        <form method="post">
+                            <label>Ta bort användare från chat:</label>
+                            <select name="RemoveUserFromGroup">
+                                @foreach (var aUser in Model.Group.Users)
+                                {
+                                    <option value="@aUser.Id">@aUser.NickName</option>
+
+                                }
+                            </select>
+                            <button href="/GroupMessages?GroupId=@Model.GroupId" type="submit" class="btn btn-primary">Ta bort</button>
+                        </form>
+                    </div>
+                </div>
+                }
                 <form method="post">
                     <textarea name="AGroupMessage.Text" cols="102" rows="6"></textarea>
                     <button href="/GroupMessages?MessageInGroup=@Model.GroupId&GroupId=@Model.GroupId" type="submit" class="btn btn-primary" style="float:right">Skicka</button>
@@ -63,9 +102,6 @@
 
     </div>
 </div>
-
-
-
 
 @*<div class="row col-md-12">
     <div class="col-md-6">

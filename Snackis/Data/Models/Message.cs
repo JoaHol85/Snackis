@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Snackis.Areas.Identity.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace Snackis.Data.Models
 
         //SKA FINNAS EN USER, DEN SOM SKRIVIT MEDDELANDET
         public string SnackisUserId { get; set; }
+        public SnackisUser SnackisUser { get; set; }
 
         public int SubThreadId { get; set; }
         public SubThread SubThread { get; set; }

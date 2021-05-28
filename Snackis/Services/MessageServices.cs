@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Snackis.Areas.Identity.Data;
 using Snackis.Data;
 using Snackis.Data.Models;
 using System;
@@ -19,7 +20,12 @@ namespace Snackis.Services
 
         public async Task<List<Message>> GetSubIdMessagesAsync(int subThreadId)
         {
-            return await _context.Messages.Where(m => m.SubThreadId == subThreadId).ToListAsync();
+            List<Message> messages = await _context.Messages.Where(m => m.SubThreadId == subThreadId).ToListAsync();
+            foreach (var message in messages)
+            {
+                message.SnackisUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == message.SnackisUserId);
+            }
+            return messages;
         }
 
         public async Task<Message> GetSingleMessage(int messageId)

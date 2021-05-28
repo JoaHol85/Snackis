@@ -26,45 +26,69 @@ namespace Snackis.Pages
         }
         [BindProperty(SupportsGet = true)]
         public int GroupId { get; set; }
-        [BindProperty(SupportsGet = true)]
-        public int MessageInGroup { get; set; }
+        //[BindProperty(SupportsGet = true)]
+        //public int MessageInGroup { get; set; }
 
 
         [BindProperty]
         public GroupMessage AGroupMessage { get; set; }
         [BindProperty]
         public Group AGroup { get; set; }
+        [BindProperty]
+        public string AddUserToGroup { get; set; }
+        [BindProperty]
+        public string RemoveUserFromGroup { get; set; }
 
-        public List<Group> ListOfGroups { get; set; }
-        public List<SnackisUser> Users { get; set; }
+        public List<SnackisUser> ListOfUsers { get; set; }
         public List<GroupMessage> ListOfGroupMessages { get; set; }
+        public Group Group { get; set; }
+        public List<Group> ListOfGroupWithUser { get; set; }
 
 
 
 
         public async Task OnGetAsync()
         {
-            ListOfGroups = await _groupServices.GetAllGroupsAsync();
-            
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user != null)
+            {
+                ListOfGroupWithUser = await _groupServices.GetAllGroupsFromUserAsync(user);
+            }
             if (GroupId != 0)
             {
-                ListOfGroupMessages = await _groupServices.GetAllGroupMessagesInGroup(GroupId);
+                Group = await _groupServices.GetSingleGroupByIdAsync(GroupId);
+                ListOfGroupMessages = Group.GroupMessages.ToList();
+                ListOfUsers = await _userServices.GetAllUsersAsync();
             }
         }
 
         public async Task OnPostAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
-            await _groupServices.SaveGroupMessage(user, GroupId, AGroupMessage);
+            if (AGroupMessage.Text != null)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                await _groupServices.SaveGroupMessageAsync(user, GroupId, AGroupMessage);
+            }
+            if (AddUserToGroup != null)
+            {
+                await _groupServices.AddUserToGroupAsync(AddUserToGroup, GroupId);
+            }
+            if (RemoveUserFromGroup != null)
+            {
+                await _groupServices.RemoveUserFromGroup(RemoveUserFromGroup, GroupId);
+            }
+            await OnGetAsync();
         }
 
         public async Task OnPostCreateGroupAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             AGroup.GroupStartedById = user.Id;
-            await _groupServices.SaveGroup(AGroup);
+            await _groupServices.SaveGroupAsync(AGroup);
             await OnGetAsync();
         }
+        
         public string GetUserNickName(string id)
         {
             var user = _userServices.GetUser(id);
