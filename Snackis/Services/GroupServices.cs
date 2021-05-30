@@ -51,6 +51,16 @@ namespace Snackis.Services
         //TEST!!!!!!!!!!!!! INTE KLARRRR!!!!
         public async Task RemoveUserFromGroup(string userId, int groupId)
         {
+
+            var x = await _context.Groups
+                .Include(g => g.Users)
+                .SingleOrDefaultAsync(g => g.Id == groupId);
+
+            var u = x.Users.FirstOrDefault(user => user.Id == userId);
+
+            x.Users.Remove(u);
+            await _context.SaveChangesAsync();
+
             //Group group = await _context.Groups.FirstOrDefaultAsync(g => g.Id == groupId);
             //var x = await _context.Users
             //    .Where(user => user.Groups.Select(grp => grp.Id).Contains(groupId)).ToListAsync();
