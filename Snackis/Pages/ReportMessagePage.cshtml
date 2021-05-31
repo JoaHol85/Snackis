@@ -1,11 +1,17 @@
 ﻿@page
 @model Snackis.Pages.ReportMessagePageModel
+@using Microsoft.AspNetCore.Identity
+@using Snackis.Areas.Identity.Data
+@inject SignInManager<SnackisUser> SignInManager
+@inject UserManager<SnackisUser> UserManager
 @{
+    var user = UserManager.GetUserAsync(User);
     int color = 0;
 }
 
-@*// SKA VISAS OM MAN INTE ÄR INLOGGAD SOM ADMIN*@
-<!--<div class="col-md-12">
+@if (User.IsInRole("User"))
+{
+<div class="col-md-12">
     <div class="card">
         <div class="card-body">
             <div class="card-header text-center">
@@ -22,12 +28,15 @@
             </form>
         </div>
     </div>
-</div>-->
-@*// SKA VISAS NÄR MAN ÄR INLOGGAD SOM ADMIN MED KNAPPAR OSV -SKA TILLÄGGAS-*@
+</div>
+}
 
+@if (User.IsInRole("Admin"))
+{
 <div class="text-center">
     <h1>ANMÄLT INLÄGG</h1>
 </div>
+
 
 <div class="col-md-12">
     <div class="card">
@@ -62,3 +71,4 @@
         </div>
     </div>
 </div>
+}

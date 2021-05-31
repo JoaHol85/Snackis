@@ -1,5 +1,9 @@
 ﻿@page
 @model Snackis.Pages.MessagePageModel
+@using Microsoft.AspNetCore.Identity
+@using Snackis.Areas.Identity.Data 
+@inject UserManager<SnackisUser> UserManager
+@inject SignInManager<SnackisUser> SignInManager
 @{
 }
 
@@ -36,6 +40,8 @@
 
 }
 
+@if (SignInManager.IsSignedIn(User))
+{
 <div class="card m-3">
     <div class="card-body m-1 p-1">
         <form method="post">
@@ -45,3 +51,4 @@
         </form>
     </div>
 </div>
+}
