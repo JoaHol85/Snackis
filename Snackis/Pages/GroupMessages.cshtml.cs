@@ -40,10 +40,10 @@ namespace Snackis.Pages
         public string RemoveUserFromGroup { get; set; }
 
         public List<SnackisUser> ListOfUsers { get; set; }
+        public List<SnackisUser> ListOfUsersNotInGroup { get; set; }
         public List<GroupMessage> ListOfGroupMessages { get; set; }
         public Group Group { get; set; }
         public List<Group> ListOfGroupWithUser { get; set; }
-
 
 
 
@@ -60,6 +60,18 @@ namespace Snackis.Pages
                 Group = await _groupServices.GetSingleGroupByIdAsync(GroupId);
                 ListOfGroupMessages = Group.GroupMessages.ToList();
                 ListOfUsers = await _userServices.GetAllUsersAsync();
+                List<SnackisUser> list = new();
+                //TEST
+                foreach (var aUser in ListOfUsers)
+                {
+                    bool inGroup = Group.Users.Contains(aUser);
+                    if (!inGroup && Group.GroupStartedById != aUser.Id)
+                    {
+                        list.Add(aUser);
+                    }
+                }
+                ListOfUsersNotInGroup = list;
+                //TEST
             }
         }
 

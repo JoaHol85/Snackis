@@ -59,11 +59,12 @@ namespace Snackis.Services
                 user.Groups.Add(group);
                 await _context.SaveChangesAsync();
             }
+
+
         }
         //TEST!!!!!!!!!!!!! INTE KLARRRR!!!!
         public async Task RemoveUserFromGroup(string userId, int groupId)
         {
-
             var x = await _context.Groups
                 .Include(g => g.Users)
                 .SingleOrDefaultAsync(g => g.Id == groupId);
@@ -72,45 +73,6 @@ namespace Snackis.Services
 
             x.Users.Remove(u);
             await _context.SaveChangesAsync();
-
-            //Group group = await _context.Groups.FirstOrDefaultAsync(g => g.Id == groupId);
-            //var x = await _context.Users
-            //    .Where(user => user.Groups.Select(grp => grp.Id).Contains(groupId)).ToListAsync();
-            //_context.Remove(x);
-            //await _context.SaveChangesAsync();
-            
-            
-            //_context.Groups.Remove(x => x.Users.Where(z => z.id == userId));
-
-
-
-            //var group = this._context.Groups
-            //    .Include(g => g.Users)
-            //    .Include(g => g.GroupMessages)
-            //    .SingleOrDefault(g => g.Id == groupId);
-
-            //if (group != null)
-            //{
-            //    foreach (var gUser in group.Users
-            //            .Where(u => u.Id == userId)
-            //    {
-            //        group.Users.Remove(gUser);
-            //    }
-            //    this._db.SaveChanges();
-            //}
-
-            
-
-
-
-
-            //var group = await GetSingleGroupByIdAsync(groupId);
-            //List<SnackisUser> newUsersList = group.Users.ToList();
-            //newUsersList.Remove(user);
-            //group.Users.Clear();
-            //group.Users = (newUsersList);
-
-            //await _context.SaveChangesAsync();
         }
 
         public async Task<List<Group>> GetAllGroupsFromUserAsync(SnackisUser user)

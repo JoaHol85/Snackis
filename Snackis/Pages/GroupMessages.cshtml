@@ -69,7 +69,7 @@
                         <form method="post">
                             <label>Lägg till användare i chat:</label>
                             <select name="AddUserToGroup">
-                                @foreach (var aUser in Model.ListOfUsers)
+                                @foreach (var aUser in Model.ListOfUsersNotInGroup)
                                 {
                                     <option value="@aUser.Id">@aUser.NickName</option>
 
