@@ -30,6 +30,8 @@ namespace Snackis
             {
                 options.AddPolicy("RoleMustBeAdmin",
                     policy => policy.RequireRole("Admin"));
+                options.AddPolicy("RoleMustBeUser",
+                    policy => policy.RequireRole("User"));
             });
 
             services.AddTransient<GroupServices>();
@@ -45,6 +47,7 @@ namespace Snackis
             services.AddRazorPages(options =>
             {
                 options.Conventions.AuthorizeFolder("/Admin", "RoleMustBeAdmin");
+                options.Conventions.AuthorizePage("/UserInfo", "RoleMustBeUser");
             });
         }
 
