@@ -25,22 +25,22 @@
                     {
                         <div>
                             @message.Time ,
-                            <a href="MessagePage?SmileyNumber=1&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/HappyEmoji.svg" height="30" width="30" /></a>@message.SmileyInfo.HappySmiley
-                            <a href="MessagePage?SmileyNumber=2&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/LaughingEmoji.svg" height="30" width="30" /></a>@message.SmileyInfo.LaughingSmiley
-                            <a href="MessagePage?SmileyNumber=3&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/SadEmoji.svg" height="30" width="30" /></a>@message.SmileyInfo.SadSmiley
-                            <a href="MessagePage?SmileyNumber=4&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/AngryEmoji.svg" height="30" width="30" /></a>@message.SmileyInfo.AngrySmiley
-                            <a href="MessagePage?SmileyNumber=5&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/ThumbUp.svg" height="30" width="30" /></a>@message.SmileyInfo.ThumbUp
+                            <a href="MessagePage?SmileyNumber=1&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" /></a>@message.SmileyInfo.HappySmiley
+                            <a href="MessagePage?SmileyNumber=2&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing"/></a>@message.SmileyInfo.LaughingSmiley
+                            <a href="MessagePage?SmileyNumber=3&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad"/></a>@message.SmileyInfo.SadSmiley
+                            <a href="MessagePage?SmileyNumber=4&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry"/></a>@message.SmileyInfo.AngrySmiley
+                            <a href="MessagePage?SmileyNumber=5&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumbUp"/></a>@message.SmileyInfo.ThumbUp
                         </div>
                     }
                     else
                     {
                         <div>
                             @message.Time ,
-                            <img src="~/img/HappyEmoji.svg" height="30" width="30" />@message.SmileyInfo.HappySmiley
-                            <img src="~/img/LaughingEmoji.svg" height="30" width="30" />@message.SmileyInfo.LaughingSmiley
-                            <img src="~/img/SadEmoji.svg" height="30" width="30" />@message.SmileyInfo.SadSmiley
-                            <img src="~/img/AngryEmoji.svg" height="30" width="30" />@message.SmileyInfo.AngrySmiley
-                            <img src="~/img/ThumbUp.svg" height="30" width="30" />@message.SmileyInfo.ThumbUp
+                            <img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy"/>@message.SmileyInfo.HappySmiley
+                            <img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing"/>@message.SmileyInfo.LaughingSmiley
+                            <img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad"/>@message.SmileyInfo.SadSmiley
+                            <img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry"/>@message.SmileyInfo.AngrySmiley
+                            <img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumpUp"/>@message.SmileyInfo.ThumbUp
                         </div>
                     }
                 </div>
