@@ -47,7 +47,14 @@
         <div class="card">
             <div class="card-body">
                 <div class="card-header text-center">
-                    <h3>MEDDELANDEN</h3>
+                    @if (Model.Group != null)
+                    {
+                        <h3>@Model.Group.GroupName</h3>
+                    }
+                    else
+                    {
+                        <h3>Meddelanden:</h3>
+                    }
                 </div>
                 <div>
                     @if (Model.ListOfGroupMessages != null)
