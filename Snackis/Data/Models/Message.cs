@@ -14,12 +14,15 @@ namespace Snackis.Data.Models
         public int TimesReported { get; set; }
         public int Likes { get; set; }
 
-        //SKA FINNAS EN USER, DEN SOM SKRIVIT MEDDELANDET
         public string SnackisUserId { get; set; }
         public SnackisUser SnackisUser { get; set; }
 
         public int SubThreadId { get; set; }
         public SubThread SubThread { get; set; }
+
+        // nytt nedanför
+        public SmileyInfo SmileyInfo { get; set; }
+
 
     }
 }

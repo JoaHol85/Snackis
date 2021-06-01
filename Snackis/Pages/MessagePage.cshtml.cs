@@ -30,10 +30,14 @@ namespace Snackis.Pages
 
         [BindProperty(SupportsGet = true)]
         public int SubThreadId { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int SmileyNumber { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int MessageId { get; set; }
+
 
         [BindProperty]
         public Message AMessage { get; set; }
-
 
         public List<Message> ListOfMessages { get; set; }
         public SubThread SubThreadCopy { get; set; }
@@ -46,10 +50,15 @@ namespace Snackis.Pages
             {
                 IsSignedIn = true;
             }
+            if (SmileyNumber != 0 && _signInManager.IsSignedIn(User))
+            {
+                var user = await _userManager.GetUserAsync(User);
+                await _messageServices.AddSmileyToMessageAsync(user, SmileyNumber, MessageId);
+            }
 
             ListOfMessages = await _messageServices.GetSubIdMessagesAsync(SubThreadId);
-            SubThreadCopy = await _subServices.GetSingleSubThread(SubThreadId);
-
+            SubThreadCopy = await _subServices.GetSingleSubThreadAync(SubThreadId);
+            
         }
 
         public async Task OnPost()
@@ -57,10 +66,8 @@ namespace Snackis.Pages
             if (AMessage.TextMessage != null)
             {
                 var user = await _userManager.GetUserAsync(User);
-                AMessage.SnackisUserId = user.Id;
-                AMessage.Time = DateTime.Now;
-                AMessage.SubThreadId = SubThreadId;
-                await _messageServices.SaveMessage(AMessage);
+                await _messageServices.SaveMessageAsync(AMessage, user, SubThreadId);
+
             }
             await OnGetAsync();
         }

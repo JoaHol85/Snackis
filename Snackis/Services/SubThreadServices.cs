@@ -28,7 +28,7 @@ namespace Snackis.Services
         }
 
 
-        public async Task<SubThread> GetSingleSubThread(int subThreadId)
+        public async Task<SubThread> GetSingleSubThreadAync(int subThreadId)
         {
             return await _context.SubThreads.FindAsync(subThreadId);
         }
@@ -42,7 +42,7 @@ namespace Snackis.Services
             await _context.SaveChangesAsync();
             message.Time = DateTime.Now;
             message.SubThreadId = subThread.Id;
-            await _messageServices.SaveMessage(message);
+            await _messageServices.SaveMessageAsync(message, user, subThread.Id);
             return subThread.Id;
         }
     }

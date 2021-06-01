@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Snackis.Data;
 
 namespace Snackis.Migrations
 {
     [DbContext(typeof(SnackisContext))]
-    partial class SnackisContextModelSnapshot : ModelSnapshot
+    [Migration("20210531094206_v18")]
+    partial class v18
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -399,14 +401,17 @@ namespace Snackis.Migrations
                     b.Property<int>("SmileyNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("SnackisUserId")
+                    b.Property<int>("SnackisUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SnackisUserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SmileyInfoId");
 
-                    b.HasIndex("SnackisUserId");
+                    b.HasIndex("SnackisUserId1");
 
                     b.ToTable("SmileyMessageUsers");
                 });
@@ -571,7 +576,7 @@ namespace Snackis.Migrations
 
                     b.HasOne("Snackis.Areas.Identity.Data.SnackisUser", "SnackisUser")
                         .WithMany()
-                        .HasForeignKey("SnackisUserId");
+                        .HasForeignKey("SnackisUserId1");
 
                     b.Navigation("SmileyInfo");
 

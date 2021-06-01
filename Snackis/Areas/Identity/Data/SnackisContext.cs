@@ -23,6 +23,9 @@ namespace Snackis.Data
         public DbSet<ReportedMessage> ReportedMessages { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupMessage> GroupMessages { get; set; }
+        public DbSet<SmileyInfo> SmileyInfos { get; set; }
+        public DbSet<SmileyMessageUser> SmileyMessageUsers { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

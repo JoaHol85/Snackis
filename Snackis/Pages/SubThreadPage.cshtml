@@ -1,16 +1,24 @@
 ﻿@page
 @model Snackis.Pages.SubThreadPageModel
+@using Microsoft.AspNetCore.Identity
+@using Snackis.Areas.Identity.Data
+@inject SignInManager<SnackisUser> SignInManager
+@inject UserManager<SnackisUser> UserManager
 @{
 }
+
 
 <div class="text-center m-5">
     <h1>@Model.MainThreadCopy.Title - @Model.MainThreadCopy.Id</h1>
 </div>
 
 
-<div class="col-md-12 text-right">
-    <a class="btn btn-primary" href="/NewSubThread?MainThreadId=@Model.MainThreadCopy.Id">Skapa ny tråd</a>
-</div>
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="col-md-12 text-right">
+        <a class="btn btn-primary" href="/NewSubThread?MainThreadId=@Model.MainThreadCopy.Id">Skapa ny tråd</a>
+    </div>
+}
 
 @foreach (var subThread in Model.ListOfSubThreads)
 {
