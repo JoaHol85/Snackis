@@ -38,5 +38,20 @@ namespace Snackis.Services
             return users;
         }
 
+        public async Task<SnackisUser> GetUserWithMessagesAndSubThreadsAsync(string userId)
+        {
+            var user = await _context.Users
+                .Include(u => u.Messages)
+                .Include(u => u.SubThreads)
+                .FirstAsync(u => u.Id == userId);
+
+            foreach (var message in user.Messages)
+            {
+                message.SubThread = await _context.SubThreads.FirstAsync(s => s.Id == message.SubThreadId);
+            }
+
+            return user;
+        }
+
     }
 }

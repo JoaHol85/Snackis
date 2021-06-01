@@ -13,11 +13,10 @@ namespace Snackis.Areas.Identity.Data
         [PersonalData]
         public string NickName { get; set; }
         public ICollection<SubThread> SubThreads { get; set; }
+        public ICollection<Message> Messages { get; set; }
 
-        //Grupper
         public virtual ICollection<Group> Groups { get; set; }
         public ICollection<GroupMessage> GroupMessages { get; set; }
-        //Grupper
 
     }
 }

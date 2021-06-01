@@ -2,3 +2,91 @@
 @model Snackis.Pages.UserInfoModel
 @{
 }
+
+<div class="row">
+    
+    <div class="col-md-12 pb-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header text-center">
+                    <h3>@Model.SnackisUser.NickName</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        bild
+                    </div>
+                    <div class="col-md-4">
+                        hej
+                    </div>
+                    <div class="col-md-4">
+                        hej
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header text-center">
+                    <h3>Senaste inläggen</h3>
+                </div>
+                <table width="100%">
+                    <tr>
+                        <th>Trådnamn:</th>
+                        <th>Tid:</th>
+                    </tr>
+                @foreach (var message in Model.SnackisUser.Messages.OrderByDescending(m => m.Time).Take(10))
+                {
+                <tr>
+                    <td>
+                        @message.SubThread.HeaderText
+                    </td>
+                    <td>
+                        @message.Time
+                    </td>
+                </tr>
+                }
+                </table>
+            </div>
+            <div class="card-footer">
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header text-center">
+                    <h3>Senaste trådstarterna</h3>
+                </div>
+                <table width="100%">
+                    <tr>
+                        <th>Trådnamn:</th>
+                        <th>Tid:</th>
+                    </tr>
+                    @foreach (var subThread in Model.SnackisUser.SubThreads.OrderByDescending(m => m.Time).Take(10))
+                    {
+                        <tr>
+                            <td>
+                                @subThread.HeaderText
+                            </td>
+                            <td>
+                                @subThread.Time
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+            </div>
+            <div class="card-footer">
+
+            </div>
+        </div>
+
+    </div>
+</div>

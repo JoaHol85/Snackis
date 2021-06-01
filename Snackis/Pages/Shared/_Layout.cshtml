@@ -39,6 +39,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/UserInfo">UserInfo</a>
+                                </li>
                             </ul>
                         }
                         @if (await UserManager.IsInRoleAsync(user, "Admin"))
@@ -50,6 +53,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-page="/Admin/ReportedMessages">Rapporterade Meddelanden</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/UserInfo">UserInfo</a>
+                                </li>
+
                             </ul>
                         }
                     }
@@ -63,6 +70,10 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-page="/GroupMessages">Gruppmeddelanden</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/UserInfo">UserInfo</a>
+                    </li>
+
                 </ul>
                     <partial name="_LoginPartial" />
                 </div>
