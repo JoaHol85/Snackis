@@ -19,7 +19,7 @@ namespace Snackis.Services
 
         public async Task PostMainThreadAsync(MainThread mainThread)
         {
-            var response = _context.MainThreads.Add(mainThread);
+            _context.MainThreads.Add(mainThread);
             await _context.SaveChangesAsync();
         }
 

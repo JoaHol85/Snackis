@@ -60,13 +60,13 @@ namespace Snackis.Pages
 
         public async Task UploadImage(SnackisUser user)
         {
-            UserImage img = new UserImage();
+            UserImage img = new();
             var files = Request.Form.Files;
             var file = files[0];
             img.Title = file.FileName;
             img.SnackisUserId = user.Id;
 
-            using (MemoryStream ms = new MemoryStream())
+            using (MemoryStream ms = new())
             {
                 file.CopyTo(ms);
                 img.Data = ms.ToArray();
