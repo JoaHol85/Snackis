@@ -18,5 +18,7 @@ namespace Snackis.Areas.Identity.Data
         public virtual ICollection<Group> Groups { get; set; }
         public ICollection<GroupMessage> GroupMessages { get; set; }
 
+        public UserImage UserImage { get; set; }
+
     }
 }

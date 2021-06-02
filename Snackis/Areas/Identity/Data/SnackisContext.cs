@@ -25,6 +25,7 @@ namespace Snackis.Data
         public DbSet<GroupMessage> GroupMessages { get; set; }
         public DbSet<SmileyInfo> SmileyInfos { get; set; }
         public DbSet<SmileyMessageUser> SmileyMessageUsers { get; set; }
+        public DbSet<UserImage> UserImages { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

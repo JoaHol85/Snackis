@@ -13,7 +13,16 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        bild
+                        <div style="width:100px">
+                            <img src="@Model.ImageUrl" width="100" height="100" alt="Alternate Text" />
+                        </div>
+
+                        <div>
+                            <form method="post" enctype="multipart/form-data">
+                                <input type="file" id="file1" name="file1"/>
+                                <button type="submit" class="btn btn-primary">Ladda upp bild</button>
+                            </form>
+                        </div>
                     </div>
                     <div class="col-md-4">
                         hej

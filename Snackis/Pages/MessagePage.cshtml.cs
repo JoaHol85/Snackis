@@ -78,5 +78,20 @@ namespace Snackis.Pages
             return user.NickName;
         }
 
+        public string GetUserImage(SnackisUser user)
+        {
+            string ImageUrl;
+            UserImage img = _userServices.GetImage(user);
+            if (img == null)
+            {
+                ImageUrl = "http://placehold.it/300x300";
+            }
+            else
+            {
+                string imageBase64Data = Convert.ToBase64String(img.Data);
+                ImageUrl = string.Format($"data:image/jpg;base64, {imageBase64Data}");
+            }
+            return ImageUrl;
+        }
     }
 }

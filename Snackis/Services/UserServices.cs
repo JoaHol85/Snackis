@@ -5,6 +5,7 @@ using Snackis.Data;
 using Snackis.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -51,6 +52,21 @@ namespace Snackis.Services
             }
 
             return user;
+        }
+
+        public async Task SaveImage(UserImage img)
+        {
+            if (_context.UserImages.FirstOrDefault(i => i.SnackisUserId == img.SnackisUserId) != null)
+            {
+                _context.UserImages
+                    .Remove(_context.UserImages.FirstOrDefault(i => i.SnackisUserId == img.SnackisUserId));
+            }
+            _context.Add(img);
+            await _context.SaveChangesAsync();
+        }
+        public UserImage GetImage(SnackisUser user)
+        {
+            return _context.UserImages.FirstOrDefault(i => i.SnackisUserId == user.Id);
         }
 
     }
