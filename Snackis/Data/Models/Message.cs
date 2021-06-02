@@ -17,6 +17,8 @@ namespace Snackis.Data.Models
         public string SnackisUserId { get; set; }
         public SnackisUser SnackisUser { get; set; }
 
+        public int? MessageId { get; set; }
+
         public int SubThreadId { get; set; }
         public SubThread SubThread { get; set; }
 

@@ -18,3 +18,15 @@ function ShowItem(buttonID, divID, buttonTextDivShowing, buttonTextDivHidden)
         button.textContent = buttonTextDivHidden;
     }
 };
+
+function ShowItemNoTextChange(aDivID) {
+    //const aButton = document.getElementById(aButtonID);
+    const aDiv = document.getElementById(aDivID);
+
+    if (aDiv.classList.contains('d-none')) {
+        aDiv.classList.remove('d-none');
+    }
+    else {
+        aDiv.classList.add('d-none');
+    }
+};

@@ -1,7 +1,7 @@
 ﻿@page
 @model Snackis.Pages.MessagePageModel
 @using Microsoft.AspNetCore.Identity
-@using Snackis.Areas.Identity.Data 
+@using Snackis.Areas.Identity.Data
 @inject UserManager<SnackisUser> UserManager
 @inject SignInManager<SnackisUser> SignInManager
 @{
@@ -14,64 +14,133 @@
 
 @foreach (var message in Model.ListOfMessages)
 {
-    <div class="card m-3" style="background-color:grey">
-        <div class="row">
-            <div class="col-md-1 text-center">
-                <a href="/UserInfo?UserId=@message.SnackisUserId">@message.SnackisUser.NickName</a>
-                <div style="width:100px">
-                    <img src="@Model.GetUserImage(message.SnackisUser)" width="80" height="80" alt="Alternate Text" />
+<div class="row">
+    <div class="col-md-12">
+        <div class="card m-3" style="background-color:grey">
+            <div class="row">
+                <div class="text-center col-md-1">
+                    <a href="/UserInfo?UserId=@message.SnackisUserId">@message.SnackisUser.NickName</a>
+                    <div style="align-items:center">
+                        <img src="@Model.GetUserImage(message.SnackisUser)" width="80" height="80" alt="Alternate Text" />
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-11">
-                <div class="card-header">
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <div>
-                            @message.Time ,
-                            <a href="MessagePage?SmileyNumber=1&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" /></a>@message.SmileyInfo.HappySmiley
-                            <a href="MessagePage?SmileyNumber=2&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing"/></a>@message.SmileyInfo.LaughingSmiley
-                            <a href="MessagePage?SmileyNumber=3&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad"/></a>@message.SmileyInfo.SadSmiley
-                            <a href="MessagePage?SmileyNumber=4&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry"/></a>@message.SmileyInfo.AngrySmiley
-                            <a href="MessagePage?SmileyNumber=5&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumbUp"/></a>@message.SmileyInfo.ThumbUp
-                        </div>
-                    }
-                    else
-                    {
-                        <div>
-                            @message.Time ,
-                            <img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy"/>@message.SmileyInfo.HappySmiley
-                            <img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing"/>@message.SmileyInfo.LaughingSmiley
-                            <img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad"/>@message.SmileyInfo.SadSmiley
-                            <img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry"/>@message.SmileyInfo.AngrySmiley
-                            <img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumpUp"/>@message.SmileyInfo.ThumbUp
-                        </div>
-                    }
-                </div>
-                <div class="card-body">
-                    <p>@message.TextMessage</p>
-                </div>
-                <div class="card-footer">
-                    @if (Model.IsSignedIn)
-                    {
-                        <button class="btn btn-primary">Svara på detta meddelande</button>
-                        <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@message.Id">Anmäl inlägget</a>
-                    }
+                <div class="col-md-11">
+                    <div class="card-header">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            @message.Time
+                            <div style="float:right">
+                                <a href="MessagePage?SmileyNumber=1&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" /></a>@message.SmileyInfo.HappySmiley
+                                <a href="MessagePage?SmileyNumber=2&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" /></a>@message.SmileyInfo.LaughingSmiley
+                                <a href="MessagePage?SmileyNumber=3&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad" /></a>@message.SmileyInfo.SadSmiley
+                                <a href="MessagePage?SmileyNumber=4&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" /></a>@message.SmileyInfo.AngrySmiley
+                                <a href="MessagePage?SmileyNumber=5&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumbUp" /></a>@message.SmileyInfo.ThumbUp
+                            </div>
+                        }
+                        else
+                        {
+                            @message.Time
+                            <div style="float:right">
+                                <img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" />@message.SmileyInfo.HappySmiley
+                                <img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" />@message.SmileyInfo.LaughingSmiley
+                                <img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad" />@message.SmileyInfo.SadSmiley
+                                <img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" />@message.SmileyInfo.AngrySmiley
+                                <img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumpUp" />@message.SmileyInfo.ThumbUp
+                            </div>
+                        }
+                    </div>
+                    <div class="card-body">
+                        <p>@message.TextMessage</p>
+                    </div>
+                    <div class="card-footer">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentera</button>
+                            <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@message.Id">Anmäl inlägget</a>
+                        }
+                        else
+                        {
+                            <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentarer</button>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
+<div class="d-none" id="@message.Id">
+    <div class="row">
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-11">
+            <div class="card m-3 mt-0" style="background-color:grey">
+                <div class="row">
+                    <div class="text-center col-md-1">
+                        <a href="/UserInfo?UserId=@message.SnackisUserId">@message.SnackisUser.NickName</a>
+                        <div style="align-items:center">
+                            <img src="@Model.GetUserImage(message.SnackisUser)" width="80" height="80" alt="Alternate Text" />
+                        </div>
+                    </div>
+                    <div class="col-md-11">
+                        <div class="card-header">
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                @message.Time
+                                <div style="float:right">
+                                    <a href="MessagePage?SmileyNumber=1&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" /></a>@message.SmileyInfo.HappySmiley
+                                    <a href="MessagePage?SmileyNumber=2&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" /></a>@message.SmileyInfo.LaughingSmiley
+                                    <a href="MessagePage?SmileyNumber=3&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad" /></a>@message.SmileyInfo.SadSmiley
+                                    <a href="MessagePage?SmileyNumber=4&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" /></a>@message.SmileyInfo.AngrySmiley
+                                    <a href="MessagePage?SmileyNumber=5&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumbUp" /></a>@message.SmileyInfo.ThumbUp
+                                </div>
+                            }
+                            else
+                            {
+                                @message.Time
+                                <div style="float:right">
+                                    <img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" />@message.SmileyInfo.HappySmiley
+                                    <img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" />@message.SmileyInfo.LaughingSmiley
+                                    <img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad" />@message.SmileyInfo.SadSmiley
+                                    <img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" />@message.SmileyInfo.AngrySmiley
+                                    <img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumpUp" />@message.SmileyInfo.ThumbUp
+                                </div>
+                            }
+                        </div>
+                        <div class="card-body">
+                            <p>@message.TextMessage</p>
+                        </div>
+                        <div class="card-footer">
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentera</button>
+                                <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@message.Id">Anmäl inlägget</a>
+                            }
+                            else
+                            {
+                                <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentarer</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    //TEST
+    //TEST
 }
 
 @if (SignInManager.IsSignedIn(User))
 {
-<div class="card m-3">
-    <div class="card-body m-1 p-1">
-        <form method="post">
-            <small style="font-weight:900">Skapa inlägg:</small>
-            <textarea rows="10" cols="148" class="form-control" name="AMessage.TextMessage"></textarea>
-            <button type="submit" style="float:right" class="btn btn-primary">Skicka inlägg</button>
-        </form>
+    <div class="card m-3">
+        <div class="card-body m-1 p-1">
+            <form method="post">
+                <small style="font-weight:900">Skapa inlägg:</small>
+                <textarea rows="10" cols="148" class="form-control" name="AMessage.TextMessage"></textarea>
+                <button type="submit" style="float:right" class="btn btn-primary">Skicka inlägg</button>
+            </form>
+        </div>
     </div>
-</div>
 }
