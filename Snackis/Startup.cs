@@ -34,6 +34,8 @@ namespace Snackis
                     policy => policy.RequireRole("User"));
             });
 
+            services.AddMvc(option => option.EnableEndpointRouting = false);    //NYTT KANSKE SKA VARA TRUE??
+
             services.AddTransient<GroupServices>();
             services.AddTransient<AdminServices>();
             services.AddTransient<MessageServices>();
@@ -69,10 +71,10 @@ namespace Snackis
             app.UseStaticFiles();
 
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseMvc();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
