@@ -33,17 +33,7 @@ namespace Snackis.Services
                 .Include(g => g.Users)
                 .Include(g => g.GroupMessages)
                 .SingleOrDefaultAsync(g => g.Id == groupId);
-                    
-
-
-            //Group group = await _context.Groups.FirstOrDefaultAsync(g => g.Id == groupId);
-            //group.GroupMessages = await _context.GroupMessages.Where(m => m.GroupId == groupId).ToListAsync();
-            ////TEST
-            //var usersInGroup = await _context.Users
-            //    .Where(user => user.Groups.Select(grp => grp.Id).Contains(groupId)).ToListAsync();
-            //group.Users = new List<SnackisUser>();
-            //group.Users = usersInGroup;
-            ////TEST
+       
             return group;
         }
 
@@ -62,7 +52,7 @@ namespace Snackis.Services
 
 
         }
-        //TEST!!!!!!!!!!!!! INTE KLARRRR!!!!
+
         public async Task RemoveUserFromGroup(string userId, int groupId)
         {
             var x = await _context.Groups
