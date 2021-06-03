@@ -1,6 +1,10 @@
 ﻿@page
 @model Snackis.Pages.UserInfoModel
+@using Microsoft.AspNetCore.Identity
+@using Snackis.Areas.Identity.Data 
+@inject UserManager<SnackisUser> UserManager
 @{
+    var user = await UserManager.GetUserAsync(User);
 }
 
 <div class="row">
@@ -18,10 +22,13 @@
                         </div>
 
                         <div>
-                            <form method="post" enctype="multipart/form-data">
-                                <input type="file" id="file1" name="file1"/>
-                                <button type="submit" class="btn btn-primary">Ladda upp bild</button>
-                            </form>
+                            @if (user.Id == Model.SnackisUser.Id)
+                            {
+                                <form method="post" enctype="multipart/form-data">
+                                    <input type="file" id="file1" name="file1"/>
+                                    <button type="submit" class="btn btn-primary">Ladda upp bild</button>
+                                </form>
+                            }
                         </div>
                     </div>
                     <div class="col-md-4">

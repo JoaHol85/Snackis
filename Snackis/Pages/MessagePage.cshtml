@@ -52,12 +52,12 @@
                         <div class="card-body">
                             <p>@message.TextMessage</p>
                         </div>
-                        <div class="card-footer">
+                        <div class="card-footer p-0">
                             @if (SignInManager.IsSignedIn(User))
                             {
                                 <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentarer</button>
                                 <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@message.Id">Anmäl inlägget</a>
-                                <button onclick="ShowItemNoTextChange(@message.Id@message.Id)" class="btn btn-primary">Kommentera</button>
+                                <button style="float:right" onclick="ShowItemNoTextChange(@message.Id@message.Id)" class="btn btn-primary">Kommentera</button>
                                 <div class="d-none" id="@message.Id@message.Id">
                                     <form method="post" asp-page-handler="PostComment">
                                         <input type="hidden" name="Amessage.MessageId" value="@message.Id" />
@@ -122,12 +122,12 @@
                             <div class="card-body">
                                 <p>@comment1.TextMessage</p>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-footer p-0">
                                 @if (SignInManager.IsSignedIn(User))
                                 {
                                     <button onclick="ShowItemNoTextChange(@comment1.Id)" class="btn btn-primary">Kommentarer</button>
                                     <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@comment1.Id">Anmäl inlägget</a>
-                                    <button onclick="ShowItemNoTextChange(@comment1.Id@comment1.Id)" class="btn btn-primary">Kommentera</button>
+                                    <button style="float:right" onclick="ShowItemNoTextChange(@comment1.Id@comment1.Id)" class="btn btn-primary">Kommentera</button>
                                     <div class="d-none" id="@comment1.Id@comment1.Id">
                                         <form method="post" asp-page-handler="PostComment">
                                             <input type="hidden" name="Amessage.MessageId" value="@comment1.Id" />
@@ -192,12 +192,12 @@
                                     <div class="card-body">
                                         <p>@comment2.TextMessage</p>
                                     </div>
-                                    <div class="card-footer">
+                                    <div class="card-footer p-0">
                                         @if (SignInManager.IsSignedIn(User))
                                         {
                                             <button onclick="ShowItemNoTextChange(@comment2.Id)" class="btn btn-primary">Kommentarer</button>
                                             <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@comment2.Id">Anmäl inlägget</a>
-                                            <button onclick="ShowItemNoTextChange(@comment2.Id@comment2.Id)" class="btn btn-primary">Kommentera</button>
+                                            <button style="float:right" onclick="ShowItemNoTextChange(@comment2.Id@comment2.Id)" class="btn btn-primary">Kommentera</button>
                                             <div class="d-none" id="@comment2.Id@comment2.Id">
                                                 <form method="post" asp-page-handler="PostComment">
                                                     <input type="hidden" name="Amessage.MessageId" value="@comment2.Id" />
@@ -263,12 +263,12 @@
                                             <div class="card-body">
                                                 <p>@comment3.TextMessage</p>
                                             </div>
-                                            <div class="card-footer">
+                                            <div class="card-footer p-0">
                                                 @if (SignInManager.IsSignedIn(User))
                                                 {
                                                     <button onclick="ShowItemNoTextChange(@comment3.Id)" class="btn btn-primary">Kommentarer</button>
                                                     <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@comment3.Id">Anmäl inlägget</a>
-                                                    <button onclick="ShowItemNoTextChange(@comment3.Id@comment3.Id)" class="btn btn-primary">Kommentera</button>
+                                                    <button style="float:right" onclick="ShowItemNoTextChange(@comment3.Id@comment3.Id)" class="btn btn-primary">Kommentera</button>
                                                     <div class="d-none" id="@comment3.Id@comment3.Id">
                                                         <form method="post" asp-page-handler="PostComment">
                                                             <input type="hidden" name="Amessage.MessageId" value="@comment3.Id" />
@@ -300,13 +300,13 @@
                                     <div class="col-md-8">
                                         <div class="card mt-1 mb-1" style="background-color:grey">
                                             <div class="row">
-                                                <div class="text-center col-md-2" style="width:100px">
+                                                <div class="text-center col-md-3" style="width:100px">
                                                     <a href="/UserInfo?UserId=@comment4.SnackisUserId">@comment4.SnackisUser.NickName</a>
                                                     <div style="align-items:center">
                                                         <img src="@Model.GetUserImage(comment4.SnackisUser)" width="120" height="120" alt="Alternate Text" class="ml-3" />
                                                     </div>
                                                 </div>
-                                                <div class="col-md-10">
+                                                <div class="col-md-9">
                                                     <div class="card-header">
                                                         @if (SignInManager.IsSignedIn(User))
                                                         {
@@ -334,12 +334,12 @@
                                                             <div class="card-body">
                                                                 <p>@comment4.TextMessage</p>
                                                             </div>
-                                                            <div class="card-footer">
+                                                            <div class="card-footer p-0">
                                                         @if (SignInManager.IsSignedIn(User))
                                                         {
                                                             <button onclick="ShowItemNoTextChange(@comment4.Id)" class="btn btn-primary">Kommentarer</button>
                                                             <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@comment4.Id">Anmäl inlägget</a>
-                                                            <button onclick="ShowItemNoTextChange(@comment4.Id@comment4.Id)" class="btn btn-primary">Kommentera</button>
+                                                            <button style="float:right" onclick="ShowItemNoTextChange(@comment4.Id@comment4.Id)" class="btn btn-primary">Kommentera</button>
                                                             <div class="d-none" id="@comment4.Id@comment4.Id">
                                                                 <form method="post" asp-page-handler="PostComment">
                                                                     <input type="hidden" name="Amessage.MessageId" value="@comment4.Id" />
