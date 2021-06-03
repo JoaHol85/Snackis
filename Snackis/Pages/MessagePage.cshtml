@@ -11,79 +11,20 @@
     <h1>@Model.SubThreadCopy.HeaderText</h1>
 </div>
 
-
-@foreach (var message in Model.ListOfMessages)
+@*ORGINAL MEDDELANDET:*@
+@foreach (var message in Model.ListOfMessages.Where(m => m.MessageId == null).OrderBy(m => m.Time))
 {
-<div class="row">
-    <div class="col-md-12">
-        <div class="card m-3" style="background-color:grey">
-            <div class="row">
-                <div class="text-center col-md-1">
-                    <a href="/UserInfo?UserId=@message.SnackisUserId">@message.SnackisUser.NickName</a>
-                    <div style="align-items:center">
-                        <img src="@Model.GetUserImage(message.SnackisUser)" width="80" height="80" alt="Alternate Text" />
-                    </div>
-                </div>
-                <div class="col-md-11">
-                    <div class="card-header">
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            @message.Time
-                            <div style="float:right">
-                                <a href="MessagePage?SmileyNumber=1&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" /></a>@message.SmileyInfo.HappySmiley
-                                <a href="MessagePage?SmileyNumber=2&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" /></a>@message.SmileyInfo.LaughingSmiley
-                                <a href="MessagePage?SmileyNumber=3&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad" /></a>@message.SmileyInfo.SadSmiley
-                                <a href="MessagePage?SmileyNumber=4&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" /></a>@message.SmileyInfo.AngrySmiley
-                                <a href="MessagePage?SmileyNumber=5&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumbUp" /></a>@message.SmileyInfo.ThumbUp
-                            </div>
-                        }
-                        else
-                        {
-                            @message.Time
-                            <div style="float:right">
-                                <img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" />@message.SmileyInfo.HappySmiley
-                                <img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" />@message.SmileyInfo.LaughingSmiley
-                                <img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad" />@message.SmileyInfo.SadSmiley
-                                <img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" />@message.SmileyInfo.AngrySmiley
-                                <img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumpUp" />@message.SmileyInfo.ThumbUp
-                            </div>
-                        }
-                    </div>
-                    <div class="card-body">
-                        <p>@message.TextMessage</p>
-                    </div>
-                    <div class="card-footer">
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentera</button>
-                            <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@message.Id">Anmäl inlägget</a>
-                        }
-                        else
-                        {
-                            <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentarer</button>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="d-none" id="@message.Id">
     <div class="row">
-        <div class="col-md-1">
-
-        </div>
-        <div class="col-md-11">
-            <div class="card m-3 mt-0" style="background-color:grey">
+        <div class="col-md-12">
+            <div class="card mt-2 mb-2" style="background-color:grey">
                 <div class="row">
-                    <div class="text-center col-md-1">
+                    <div class="text-center col-md-2">
                         <a href="/UserInfo?UserId=@message.SnackisUserId">@message.SnackisUser.NickName</a>
                         <div style="align-items:center">
-                            <img src="@Model.GetUserImage(message.SnackisUser)" width="80" height="80" alt="Alternate Text" />
+                            <img src="@Model.GetUserImage(message.SnackisUser)" width="120" height="120" alt="Alternate Text" class="ml-3"/>
                         </div>
                     </div>
-                    <div class="col-md-11">
+                    <div class="col-md-10">
                         <div class="card-header">
                             @if (SignInManager.IsSignedIn(User))
                             {
@@ -114,8 +55,17 @@
                         <div class="card-footer">
                             @if (SignInManager.IsSignedIn(User))
                             {
-                                <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentera</button>
+                                <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentarer</button>
                                 <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@message.Id">Anmäl inlägget</a>
+                                <button onclick="ShowItemNoTextChange(@message.Id@message.Id)" class="btn btn-primary">Kommentera</button>
+                                <div class="d-none" id="@message.Id@message.Id">
+                                    <form method="post" asp-page-handler="PostComment">
+                                        <input type="hidden" name="Amessage.MessageId" value="@message.Id" />
+                                        <input type="hidden" name="Amessage.SubThreadId" value="@message.SubThreadId" />
+                                        <textarea name="Amessage.TextMessage" class="mt-1" cols="132" rows="2"></textarea>
+                                        <button type="submit" class="btn btn-primary">Skicka</button>
+                                    </form>
+                                </div>
                             }
                             else
                             {
@@ -127,9 +77,296 @@
             </div>
         </div>
     </div>
-</div>
-    //TEST
-    //TEST
+    <div class="d-none" id="@message.Id">
+    @*KOMMENTAR 1*@
+    @foreach (var comment1 in Model.ListOfMessages.Where(m => m.MessageId == message.Id))
+    {
+        <div class="row">
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-md-11">
+                <div class="card mt-1 mb-1" style="background-color:grey">
+                    <div class="row">
+                        <div class="text-center col-md-2">
+                            <a href="/UserInfo?UserId=@comment1.SnackisUserId">@comment1.SnackisUser.NickName</a>
+                            <div style="align-items:center">
+                                <img src="@Model.GetUserImage(comment1.SnackisUser)" width="120" height="120" alt="Alternate Text" class="ml-3" />
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="card-header">
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    @comment1.Time
+                                    <div style="float:right">
+                                        <a href="MessagePage?SmileyNumber=1&SubThreadId=@Model.SubThreadId&MessageId=@comment1.Id" name="SmileyNumber"><img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" /></a>@comment1.SmileyInfo.HappySmiley
+                                        <a href="MessagePage?SmileyNumber=2&SubThreadId=@Model.SubThreadId&MessageId=@comment1.Id" name="SmileyNumber"><img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" /></a>@comment1.SmileyInfo.LaughingSmiley
+                                        <a href="MessagePage?SmileyNumber=3&SubThreadId=@Model.SubThreadId&MessageId=@comment1.Id" name="SmileyNumber"><img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad" /></a>@comment1.SmileyInfo.SadSmiley
+                                        <a href="MessagePage?SmileyNumber=4&SubThreadId=@Model.SubThreadId&MessageId=@comment1.Id" name="SmileyNumber"><img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" /></a>@comment1.SmileyInfo.AngrySmiley
+                                        <a href="MessagePage?SmileyNumber=5&SubThreadId=@Model.SubThreadId&MessageId=@comment1.Id" name="SmileyNumber"><img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumbUp" /></a>@comment1.SmileyInfo.ThumbUp
+                                    </div>
+                                }
+                                else
+                                {
+                                    @comment1.Time
+                                    <div style="float:right">
+                                        <img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" />@comment1.SmileyInfo.HappySmiley
+                                        <img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" />@comment1.SmileyInfo.LaughingSmiley
+                                        <img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad" />@comment1.SmileyInfo.SadSmiley
+                                        <img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" />@comment1.SmileyInfo.AngrySmiley
+                                        <img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumpUp" />@comment1.SmileyInfo.ThumbUp
+                                    </div>
+                                }
+                            </div>
+                            <div class="card-body">
+                                <p>@comment1.TextMessage</p>
+                            </div>
+                            <div class="card-footer">
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <button onclick="ShowItemNoTextChange(@comment1.Id)" class="btn btn-primary">Kommentarer</button>
+                                    <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@comment1.Id">Anmäl inlägget</a>
+                                    <button onclick="ShowItemNoTextChange(@comment1.Id@comment1.Id)" class="btn btn-primary">Kommentera</button>
+                                    <div class="d-none" id="@comment1.Id@comment1.Id">
+                                        <form method="post" asp-page-handler="PostComment">
+                                            <input type="hidden" name="Amessage.MessageId" value="@comment1.Id" />
+                                            <input type="hidden" name="Amessage.SubThreadId" value="@comment1.SubThreadId" />
+                                            <textarea name="Amessage.TextMessage" class="mt-1" cols="119" rows="2"></textarea>
+                                            <button type="submit" class="btn btn-primary">Skicka</button>
+                                        </form>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <button onclick="ShowItemNoTextChange(@comment1.Id)" class="btn btn-primary">Kommentarer</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-none" id="@comment1.Id">
+            @*//KOMMENTAR 2*@
+            @foreach (var comment2 in Model.ListOfMessages.Where(m => m.MessageId == comment1.Id))
+            {
+                <div class="row">
+                    <div class="col-md-2">
+
+                    </div>
+                    <div class="col-md-10">
+                        <div class="card mt-1 mb-1" style="background-color:grey">
+                            <div class="row">
+                                <div class="text-center col-md-2" style="width:100px">
+                                    <a href="/UserInfo?UserId=@comment2.SnackisUserId">@comment2.SnackisUser.NickName</a>
+                                    <div style="align-items:center">
+                                        <img src="@Model.GetUserImage(comment2.SnackisUser)" width="120" height="120" alt="Alternate Text" class="ml-3" />
+                                    </div>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="card-header">
+                                        @if (SignInManager.IsSignedIn(User))
+                                        {
+                                            @comment2.Time
+                                            <div style="float:right">
+                                                <a href="MessagePage?SmileyNumber=1&SubThreadId=@Model.SubThreadId&MessageId=@comment2.Id" name="SmileyNumber"><img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" /></a>@comment2.SmileyInfo.HappySmiley
+                                                <a href="MessagePage?SmileyNumber=2&SubThreadId=@Model.SubThreadId&MessageId=@comment2.Id" name="SmileyNumber"><img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" /></a>@comment2.SmileyInfo.LaughingSmiley
+                                                <a href="MessagePage?SmileyNumber=3&SubThreadId=@Model.SubThreadId&MessageId=@comment2.Id" name="SmileyNumber"><img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad" /></a>@comment2.SmileyInfo.SadSmiley
+                                                <a href="MessagePage?SmileyNumber=4&SubThreadId=@Model.SubThreadId&MessageId=@comment2.Id" name="SmileyNumber"><img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" /></a>@comment2.SmileyInfo.AngrySmiley
+                                                <a href="MessagePage?SmileyNumber=5&SubThreadId=@Model.SubThreadId&MessageId=@comment2.Id" name="SmileyNumber"><img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumbUp" /></a>@comment2.SmileyInfo.ThumbUp
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            @comment2.Time
+                                            <div style="float:right">
+                                                <img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" />@comment2.SmileyInfo.HappySmiley
+                                                <img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" />@comment2.SmileyInfo.LaughingSmiley
+                                                <img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad" />@comment2.SmileyInfo.SadSmiley
+                                                <img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" />@comment2.SmileyInfo.AngrySmiley
+                                                <img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumpUp" />@comment2.SmileyInfo.ThumbUp
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="card-body">
+                                        <p>@comment2.TextMessage</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        @if (SignInManager.IsSignedIn(User))
+                                        {
+                                            <button onclick="ShowItemNoTextChange(@comment2.Id)" class="btn btn-primary">Kommentarer</button>
+                                            <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@comment2.Id">Anmäl inlägget</a>
+                                            <button onclick="ShowItemNoTextChange(@comment2.Id@comment2.Id)" class="btn btn-primary">Kommentera</button>
+                                            <div class="d-none" id="@comment2.Id@comment2.Id">
+                                                <form method="post" asp-page-handler="PostComment">
+                                                    <input type="hidden" name="Amessage.MessageId" value="@comment2.Id" />
+                                                    <input type="hidden" name="Amessage.SubThreadId" value="@comment2.SubThreadId" />
+                                                    <textarea name="Amessage.TextMessage" class="mt-1" cols="111" rows="2"></textarea>
+                                                    <button type="submit" class="btn btn-primary">Skicka</button>
+                                                </form>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <button onclick="ShowItemNoTextChange(@comment2.Id)" class="btn btn-primary">Kommentarer</button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-none" id="@comment2.Id">
+                    @*//KOMMENTAR 3*@
+                    @foreach (var comment3 in Model.ListOfMessages.Where(m => m.MessageId == comment2.Id))
+                    {
+                        <div class="row">
+                            <div class="col-md-3">
+
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card mt-1 mb-1" style="background-color:grey">
+                                    <div class="row">
+                                        <div class="text-center col-md-2" style="width:100px">
+                                            <a href="/UserInfo?UserId=@comment3.SnackisUserId">@comment3.SnackisUser.NickName</a>
+                                            <div style="align-items:center">
+                                                <img src="@Model.GetUserImage(comment3.SnackisUser)" width="120" height="120" alt="Alternate Text" class="ml-3" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="card-header">
+                                                @if (SignInManager.IsSignedIn(User))
+                                                {
+                                                    @comment3.Time
+                                                    <div style="float:right">
+                                                        <a href="MessagePage?SmileyNumber=1&SubThreadId=@Model.SubThreadId&MessageId=@comment3.Id" name="SmileyNumber"><img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" /></a>@comment3.SmileyInfo.HappySmiley
+                                                        <a href="MessagePage?SmileyNumber=2&SubThreadId=@Model.SubThreadId&MessageId=@comment3.Id" name="SmileyNumber"><img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" /></a>@comment3.SmileyInfo.LaughingSmiley
+                                                        <a href="MessagePage?SmileyNumber=3&SubThreadId=@Model.SubThreadId&MessageId=@comment3.Id" name="SmileyNumber"><img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad" /></a>@comment3.SmileyInfo.SadSmiley
+                                                        <a href="MessagePage?SmileyNumber=4&SubThreadId=@Model.SubThreadId&MessageId=@comment3.Id" name="SmileyNumber"><img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" /></a>@comment3.SmileyInfo.AngrySmiley
+                                                        <a href="MessagePage?SmileyNumber=5&SubThreadId=@Model.SubThreadId&MessageId=@comment3.Id" name="SmileyNumber"><img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumbUp" /></a>@comment3.SmileyInfo.ThumbUp
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    @comment2.Time
+                                                    <div style="float:right">
+                                                        <img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" />@comment3.SmileyInfo.HappySmiley
+                                                        <img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" />@comment3.SmileyInfo.LaughingSmiley
+                                                        <img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad" />@comment3.SmileyInfo.SadSmiley
+                                                        <img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" />@comment3.SmileyInfo.AngrySmiley
+                                                        <img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumpUp" />@comment3.SmileyInfo.ThumbUp
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="card-body">
+                                                <p>@comment3.TextMessage</p>
+                                            </div>
+                                            <div class="card-footer">
+                                                @if (SignInManager.IsSignedIn(User))
+                                                {
+                                                    <button onclick="ShowItemNoTextChange(@comment3.Id)" class="btn btn-primary">Kommentarer</button>
+                                                    <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@comment3.Id">Anmäl inlägget</a>
+                                                    <button onclick="ShowItemNoTextChange(@comment3.Id@comment3.Id)" class="btn btn-primary">Kommentera</button>
+                                                    <div class="d-none" id="@comment3.Id@comment3.Id">
+                                                        <form method="post" asp-page-handler="PostComment">
+                                                            <input type="hidden" name="Amessage.MessageId" value="@comment3.Id" />
+                                                            <input type="hidden" name="Amessage.SubThreadId" value="@comment3.SubThreadId" />
+                                                            <textarea name="Amessage.TextMessage" class="mt-1" cols="88" rows="2"></textarea>
+                                                            <button type="submit" class="btn btn-primary">Skicka</button>
+                                                        </form>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <button onclick="ShowItemNoTextChange(@comment3.Id)" class="btn btn-primary">Kommentarer</button>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-none" id="@comment3.Id">
+                            @*//KOMMENTAR 4*@
+                            @foreach (var comment4 in Model.ListOfMessages.Where(m => m.MessageId == comment3.Id))
+                            {
+                                <div class="row">
+                                    <div class="col-md-4">
+
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card mt-1 mb-1" style="background-color:grey">
+                                            <div class="row">
+                                                <div class="text-center col-md-2" style="width:100px">
+                                                    <a href="/UserInfo?UserId=@comment4.SnackisUserId">@comment4.SnackisUser.NickName</a>
+                                                    <div style="align-items:center">
+                                                        <img src="@Model.GetUserImage(comment4.SnackisUser)" width="120" height="120" alt="Alternate Text" class="ml-3" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <div class="card-header">
+                                                        @if (SignInManager.IsSignedIn(User))
+                                                        {
+                                                            @comment4.Time
+                                                            <div style="float:right">
+                                                                <a href="MessagePage?SmileyNumber=1&SubThreadId=@Model.SubThreadId&MessageId=@comment4.Id" name="SmileyNumber"><img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" /></a>@comment4.SmileyInfo.HappySmiley
+                                                                <a href="MessagePage?SmileyNumber=2&SubThreadId=@Model.SubThreadId&MessageId=@comment4.Id" name="SmileyNumber"><img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" /></a>@comment4.SmileyInfo.LaughingSmiley
+                                                                <a href="MessagePage?SmileyNumber=3&SubThreadId=@Model.SubThreadId&MessageId=@comment4.Id" name="SmileyNumber"><img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad" /></a>@comment4.SmileyInfo.SadSmiley
+                                                                <a href="MessagePage?SmileyNumber=4&SubThreadId=@Model.SubThreadId&MessageId=@comment4.Id" name="SmileyNumber"><img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" /></a>@comment4.SmileyInfo.AngrySmiley
+                                                                <a href="MessagePage?SmileyNumber=5&SubThreadId=@Model.SubThreadId&MessageId=@comment4.Id" name="SmileyNumber"><img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumbUp" /></a>@comment4.SmileyInfo.ThumbUp
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            @comment4.Time
+                                                            <div style="float:right">
+                                                                <img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" />@comment4.SmileyInfo.HappySmiley
+                                                                <img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" />@comment4.SmileyInfo.LaughingSmiley
+                                                                <img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad" />@comment4.SmileyInfo.SadSmiley
+                                                                <img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" />@comment4.SmileyInfo.AngrySmiley
+                                                                <img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumpUp" />@comment4.SmileyInfo.ThumbUp
+                                                            </div>
+                                                                }
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <p>@comment4.TextMessage</p>
+                                                            </div>
+                                                            <div class="card-footer">
+                                                        @if (SignInManager.IsSignedIn(User))
+                                                        {
+                                                            <button onclick="ShowItemNoTextChange(@comment4.Id)" class="btn btn-primary">Kommentarer</button>
+                                                            <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@comment4.Id">Anmäl inlägget</a>
+                                                            <button onclick="ShowItemNoTextChange(@comment4.Id@comment4.Id)" class="btn btn-primary">Kommentera</button>
+                                                            <div class="d-none" id="@comment4.Id@comment4.Id">
+                                                                <form method="post" asp-page-handler="PostComment">
+                                                                    <input type="hidden" name="Amessage.MessageId" value="@comment4.Id" />
+                                                                    <input type="hidden" name="Amessage.SubThreadId" value="@comment4.SubThreadId" />
+                                                                    <textarea name="Amessage.TextMessage" class="mt-1" cols="111" rows="2"></textarea>
+                                                                    <button type="submit" class="btn btn-primary">Skicka</button>
+                                                                </form>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <button onclick="ShowItemNoTextChange(@comment4.Id)" class="btn btn-primary">Kommentarer</button>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+            </div>
+    }
+    </div>
 }
 
 @if (SignInManager.IsSignedIn(User))

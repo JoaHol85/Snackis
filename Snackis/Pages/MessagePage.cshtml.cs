@@ -72,6 +72,17 @@ namespace Snackis.Pages
             await OnGetAsync();
         }
 
+        public async Task OnPostPostCommentAsync()
+        {
+            if (AMessage.TextMessage != null && AMessage.MessageId != null)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                await _messageServices.SaveMessageAsync(AMessage, user, AMessage.SubThreadId);
+                SubThreadId = AMessage.SubThreadId;
+            }
+            await OnGetAsync();
+        }
+
         public string GetUserImage(SnackisUser user)
         {
             string ImageUrl;
