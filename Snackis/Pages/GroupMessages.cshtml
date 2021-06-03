@@ -18,12 +18,12 @@
                 <div class="card-header text-center">
                     <h3>GRUPPER</h3>
                 </div>
-                <div>
+                <div class="pt-3">
                     @if (Model.ListOfGroupWithUser != null)
                     {
                         foreach (var group in Model.ListOfGroupWithUser)
                         {
-                            <a href="/GroupMessages?GroupId=@group.Id">@group.GroupName</a>
+                            <a href="/GroupMessages?GroupId=@group.Id">@group.GroupName</a><br />
                         }
                     }
                 </div>
