@@ -29,6 +29,9 @@
                             @if (SignInManager.IsSignedIn(User))
                             {
                                 @message.Time
+                                <div class="ml-5" style="float:right">
+                                    <a class="" href="/ReportMessagePage?ReportedMessageId=@message.Id"><img width="20" height="20" title="Anmäl inlägg" src="~/img/WarningIcon.png" /></a>
+                                </div>
                                 <div style="float:right">
                                     <a href="MessagePage?SmileyNumber=1&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" /></a>@message.SmileyInfo.HappySmiley
                                     <a href="MessagePage?SmileyNumber=2&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" /></a>@message.SmileyInfo.LaughingSmiley
@@ -40,6 +43,9 @@
                             else
                             {
                                 @message.Time
+                                <div class="ml-5" style="float:right">
+                                    <a><img width="20" height="20" title="Anmäl inlägg (måste vara inloggad)" src="~/img/WarningIcon.png" /></a>
+                                </div>
                                 <div style="float:right">
                                     <img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" />@message.SmileyInfo.HappySmiley
                                     <img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" />@message.SmileyInfo.LaughingSmiley
@@ -49,14 +55,13 @@
                                 </div>
                             }
                         </div>
-                        <div class="card-body">
-                            <p>@message.TextMessage</p>
+                        <div class="card-body m-2 p-2">
+                            @message.TextMessage
                         </div>
                         <div class="card-footer p-0">
                             @if (SignInManager.IsSignedIn(User))
                             {
-                                <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentarer</button>
-                                <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@message.Id">Anmäl inlägget</a>
+                                <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == message.Id).Count())</button>
                                 <button style="float:right" onclick="ShowItemNoTextChange(@message.Id@message.Id)" class="btn btn-primary">Kommentera</button>
                                 <div class="d-none" id="@message.Id@message.Id">
                                     <form method="post" asp-page-handler="PostComment">
@@ -69,7 +74,7 @@
                             }
                             else
                             {
-                                <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentarer</button>
+                                <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == message.Id).Count())</button>
                             }
                         </div>
                     </div>
@@ -99,7 +104,10 @@
                                 @if (SignInManager.IsSignedIn(User))
                                 {
                                     @comment1.Time
-                                    <div style="float:right">
+                                    <div class="ml-5" style="float:right">
+                                        <a class="" href="/ReportMessagePage?ReportedMessageId=@comment1.Id"><img width="20" height="20" title="Anmäl inlägg" src="~/img/WarningIcon.png" /></a>
+                                    </div>
+                                    <div style="float:right" class="mr-5">
                                         <a href="MessagePage?SmileyNumber=1&SubThreadId=@Model.SubThreadId&MessageId=@comment1.Id" name="SmileyNumber"><img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" /></a>@comment1.SmileyInfo.HappySmiley
                                         <a href="MessagePage?SmileyNumber=2&SubThreadId=@Model.SubThreadId&MessageId=@comment1.Id" name="SmileyNumber"><img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" /></a>@comment1.SmileyInfo.LaughingSmiley
                                         <a href="MessagePage?SmileyNumber=3&SubThreadId=@Model.SubThreadId&MessageId=@comment1.Id" name="SmileyNumber"><img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad" /></a>@comment1.SmileyInfo.SadSmiley
@@ -110,6 +118,9 @@
                                 else
                                 {
                                     @comment1.Time
+                                    <div class="ml-5" style="float:right">
+                                        <a><img width="20" height="20" title="Anmäl inlägg (måste vara inloggad)" src="~/img/WarningIcon.png" /></a>
+                                    </div>
                                     <div style="float:right">
                                         <img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" />@comment1.SmileyInfo.HappySmiley
                                         <img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" />@comment1.SmileyInfo.LaughingSmiley
@@ -169,6 +180,9 @@
                                         @if (SignInManager.IsSignedIn(User))
                                         {
                                             @comment2.Time
+                                            <div class="ml-5" style="float:right">
+                                                <a class="" href="/ReportMessagePage?ReportedMessageId=@comment2.Id"><img width="20" height="20" title="Anmäl inlägg" src="~/img/WarningIcon.png" /></a>
+                                            </div>
                                             <div style="float:right">
                                                 <a href="MessagePage?SmileyNumber=1&SubThreadId=@Model.SubThreadId&MessageId=@comment2.Id" name="SmileyNumber"><img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" /></a>@comment2.SmileyInfo.HappySmiley
                                                 <a href="MessagePage?SmileyNumber=2&SubThreadId=@Model.SubThreadId&MessageId=@comment2.Id" name="SmileyNumber"><img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" /></a>@comment2.SmileyInfo.LaughingSmiley
@@ -180,6 +194,9 @@
                                         else
                                         {
                                             @comment2.Time
+                                            <div class="ml-5" style="float:right">
+                                                <a><img width="20" height="20" title="Anmäl inlägg (måste vara inloggad)" src="~/img/WarningIcon.png" /></a>
+                                            </div>
                                             <div style="float:right">
                                                 <img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" />@comment2.SmileyInfo.HappySmiley
                                                 <img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" />@comment2.SmileyInfo.LaughingSmiley
@@ -240,6 +257,9 @@
                                                 @if (SignInManager.IsSignedIn(User))
                                                 {
                                                     @comment3.Time
+                                                    <div class="ml-5" style="float:right">
+                                                        <a class="" href="/ReportMessagePage?ReportedMessageId=@comment3.Id"><img width="20" height="20" title="Anmäl inlägg" src="~/img/WarningIcon.png" /></a>
+                                                    </div>
                                                     <div style="float:right">
                                                         <a href="MessagePage?SmileyNumber=1&SubThreadId=@Model.SubThreadId&MessageId=@comment3.Id" name="SmileyNumber"><img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" /></a>@comment3.SmileyInfo.HappySmiley
                                                         <a href="MessagePage?SmileyNumber=2&SubThreadId=@Model.SubThreadId&MessageId=@comment3.Id" name="SmileyNumber"><img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" /></a>@comment3.SmileyInfo.LaughingSmiley
@@ -250,7 +270,10 @@
                                                 }
                                                 else
                                                 {
-                                                    @comment2.Time
+                                                    @comment3.Time
+                                                    <div class="ml-5" style="float:right">
+                                                        <a><img width="20" height="20" title="Anmäl inlägg (måste vara inloggad)" src="~/img/WarningIcon.png" /></a>
+                                                    </div>
                                                     <div style="float:right">
                                                         <img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" />@comment3.SmileyInfo.HappySmiley
                                                         <img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" />@comment3.SmileyInfo.LaughingSmiley
@@ -311,6 +334,9 @@
                                                         @if (SignInManager.IsSignedIn(User))
                                                         {
                                                             @comment4.Time
+                                                            <div class="ml-5" style="float:right">
+                                                                <a class="" href="/ReportMessagePage?ReportedMessageId=@comment4.Id"><img width="20" height="20" title="Anmäl inlägg" src="~/img/WarningIcon.png" /></a>
+                                                            </div>
                                                             <div style="float:right">
                                                                 <a href="MessagePage?SmileyNumber=1&SubThreadId=@Model.SubThreadId&MessageId=@comment4.Id" name="SmileyNumber"><img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" /></a>@comment4.SmileyInfo.HappySmiley
                                                                 <a href="MessagePage?SmileyNumber=2&SubThreadId=@Model.SubThreadId&MessageId=@comment4.Id" name="SmileyNumber"><img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" /></a>@comment4.SmileyInfo.LaughingSmiley
@@ -322,6 +348,9 @@
                                                         else
                                                         {
                                                             @comment4.Time
+                                                            <div class="ml-5" style="float:right">
+                                                                <a><img width="20" height="20" title="Anmäl inlägg (måste vara inloggad)" src="~/img/WarningIcon.png" /></a>
+                                                            </div>
                                                             <div style="float:right">
                                                                 <img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" />@comment4.SmileyInfo.HappySmiley
                                                                 <img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" />@comment4.SmileyInfo.LaughingSmiley
@@ -329,8 +358,8 @@
                                                                 <img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" />@comment4.SmileyInfo.AngrySmiley
                                                                 <img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumpUp" />@comment4.SmileyInfo.ThumbUp
                                                             </div>
-                                                                }
-                                                            </div>
+                                                        }
+                                                    </div>
                                                             <div class="card-body">
                                                                 <p>@comment4.TextMessage</p>
                                                             </div>
