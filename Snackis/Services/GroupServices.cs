@@ -17,16 +17,6 @@ namespace Snackis.Services
         {
             _context = context;
         }
-
-        //public async Task<List<Group>> GetAllGroupsAsync()
-        //{
-        //    //List<Group> groups = await _context.Groups.ToListAsync();
-        //    //foreach (var group in groups)
-        //    //{
-        //    //    List<SnackisUser> list = _context.
-        //    //}
-        //}
-
         public async Task<Group> GetSingleGroupByIdAsync(int groupId)
         {
             Group group = await _context.Groups
