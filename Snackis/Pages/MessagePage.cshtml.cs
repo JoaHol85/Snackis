@@ -98,5 +98,6 @@ namespace Snackis.Pages
             }
             return ImageUrl;
         }
+
     }
 }

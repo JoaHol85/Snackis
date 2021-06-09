@@ -61,7 +61,10 @@
                         <div class="card-footer p-0">
                             @if (SignInManager.IsSignedIn(User))
                             {
-                                <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == message.Id).Count())</button>
+                                if (Model.ListOfMessages.Where(m => m.MessageId == message.Id).Count() >= 1)
+                                {
+                                    <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == message.Id).Count())</button>
+                                }
                                 <button style="float:right" onclick="ShowItemNoTextChange(@message.Id@message.Id)" class="btn btn-primary">Kommentera</button>
                                 <div class="d-none" id="@message.Id@message.Id">
                                     <form method="post" asp-page-handler="PostComment">
@@ -74,7 +77,10 @@
                             }
                             else
                             {
-                                <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == message.Id).Count())</button>
+                                if (Model.ListOfMessages.Where(m => m.MessageId == message.Id).Count() >= 1)
+                                {
+                                    <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == message.Id).Count())</button>
+                                }
                             }
                         </div>
                     </div>
@@ -136,7 +142,11 @@
                             <div class="card-footer p-0">
                                 @if (SignInManager.IsSignedIn(User))
                                 {
-                                    <button onclick="ShowItemNoTextChange(@comment1.Id)" class="btn btn-primary">Kommentarer</button>
+                                    if (Model.ListOfMessages.Where(m => m.MessageId == comment1.Id).Count() >= 1)
+                                    {
+                                        <button onclick="ShowItemNoTextChange(@comment1.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment1.Id).Count())</button>
+                                    }
+
                                     <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@comment1.Id">Anmäl inlägget</a>
                                     <button style="float:right" onclick="ShowItemNoTextChange(@comment1.Id@comment1.Id)" class="btn btn-primary">Kommentera</button>
                                     <div class="d-none" id="@comment1.Id@comment1.Id">
@@ -150,7 +160,10 @@
                                 }
                                 else
                                 {
-                                    <button onclick="ShowItemNoTextChange(@comment1.Id)" class="btn btn-primary">Kommentarer</button>
+                                    if (Model.ListOfMessages.Where(m => m.MessageId == comment1.Id).Count() >= 1)
+                                    {
+                                        <button onclick="ShowItemNoTextChange(@comment1.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment1.Id).Count())</button>
+                                    }
                                 }
                             </div>
                         </div>
@@ -212,7 +225,11 @@
                                     <div class="card-footer p-0">
                                         @if (SignInManager.IsSignedIn(User))
                                         {
-                                            <button onclick="ShowItemNoTextChange(@comment2.Id)" class="btn btn-primary">Kommentarer</button>
+                                            if (Model.ListOfMessages.Where(m => m.MessageId == comment2.Id).Count() >= 1)
+                                            {
+                                                <button onclick="ShowItemNoTextChange(@comment2.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment2.Id).Count()</button>
+                                            }
+
                                             <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@comment2.Id">Anmäl inlägget</a>
                                             <button style="float:right" onclick="ShowItemNoTextChange(@comment2.Id@comment2.Id)" class="btn btn-primary">Kommentera</button>
                                             <div class="d-none" id="@comment2.Id@comment2.Id">
@@ -226,7 +243,10 @@
                                         }
                                         else
                                         {
-                                            <button onclick="ShowItemNoTextChange(@comment2.Id)" class="btn btn-primary">Kommentarer</button>
+                                            if (Model.ListOfMessages.Where(m => m.MessageId == comment2.Id).Count() >= 1)
+                                            {
+                                                <button onclick="ShowItemNoTextChange(@comment2.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment2.Id).Count()</button>
+                                            }
                                         }
                                     </div>
                                 </div>
@@ -289,7 +309,11 @@
                                             <div class="card-footer p-0">
                                                 @if (SignInManager.IsSignedIn(User))
                                                 {
-                                                    <button onclick="ShowItemNoTextChange(@comment3.Id)" class="btn btn-primary">Kommentarer</button>
+                                                    if (Model.ListOfMessages.Where(m => m.MessageId == comment3.Id).Count() >= 1)
+                                                    {
+                                                        <button onclick="ShowItemNoTextChange(@comment3.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment3.Id).Count()</button>
+                                                    }
+
                                                     <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@comment3.Id">Anmäl inlägget</a>
                                                     <button style="float:right" onclick="ShowItemNoTextChange(@comment3.Id@comment3.Id)" class="btn btn-primary">Kommentera</button>
                                                     <div class="d-none" id="@comment3.Id@comment3.Id">
@@ -303,7 +327,10 @@
                                                 }
                                                 else
                                                 {
-                                                    <button onclick="ShowItemNoTextChange(@comment3.Id)" class="btn btn-primary">Kommentarer</button>
+                                                    if (Model.ListOfMessages.Where(m => m.MessageId == comment3.Id).Count() >= 1)
+                                                    {
+                                                        <button onclick="ShowItemNoTextChange(@comment3.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment3.Id).Count()</button>
+                                                    }
                                                 }
                                             </div>
                                         </div>
@@ -364,25 +391,31 @@
                                                                 <p>@comment4.TextMessage</p>
                                                             </div>
                                                             <div class="card-footer p-0">
-                                                        @if (SignInManager.IsSignedIn(User))
-                                                        {
-                                                            <button onclick="ShowItemNoTextChange(@comment4.Id)" class="btn btn-primary">Kommentarer</button>
-                                                            <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@comment4.Id">Anmäl inlägget</a>
-                                                            <button style="float:right" onclick="ShowItemNoTextChange(@comment4.Id@comment4.Id)" class="btn btn-primary">Kommentera</button>
-                                                            <div class="d-none" id="@comment4.Id@comment4.Id">
-                                                                <form method="post" asp-page-handler="PostComment">
-                                                                    <input type="hidden" name="Amessage.MessageId" value="@comment4.Id" />
-                                                                    <input type="hidden" name="Amessage.SubThreadId" value="@comment4.SubThreadId" />
-                                                                    <textarea name="Amessage.TextMessage" class="mt-1" cols="111" rows="2"></textarea>
-                                                                    <button type="submit" class="btn btn-primary">Skicka</button>
-                                                                </form>
+                                                                @if (SignInManager.IsSignedIn(User))
+                                                                {
+                                                                    if (Model.ListOfMessages.Where(m => m.MessageId == comment4.Id).Count() >= 1)
+                                                                    {
+                                                                        <button onclick="ShowItemNoTextChange(@comment4.Id)" class="btn btn-primary">Kommentarer</button>
+                                                                    }
+                                                                    <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@comment4.Id">Anmäl inlägget</a>
+                                                                    <button style="float:right" onclick="ShowItemNoTextChange(@comment4.Id@comment4.Id)" class="btn btn-primary">Kommentera(@Model.ListOfMessages.Where(m => m.MessageId == comment4.Id).Count()</button>
+                                                                    <div class="d-none" id="@comment4.Id@comment4.Id">
+                                                                        <form method="post" asp-page-handler="PostComment">
+                                                                            <input type="hidden" name="Amessage.MessageId" value="@comment4.Id" />
+                                                                            <input type="hidden" name="Amessage.SubThreadId" value="@comment4.SubThreadId" />
+                                                                            <textarea name="Amessage.TextMessage" class="mt-1" cols="111" rows="2"></textarea>
+                                                                            <button type="submit" class="btn btn-primary">Skicka</button>
+                                                                        </form>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (Model.ListOfMessages.Where(m => m.MessageId == comment4.Id).Count() >= 1)
+                                                                    {
+                                                                        <button onclick="ShowItemNoTextChange(@comment4.Id)" class="btn btn-primary">Kommentarer</button>
+                                                                    }
+                                                                }
                                                             </div>
-                                                        }
-                                                        else
-                                                        {
-                                                            <button onclick="ShowItemNoTextChange(@comment4.Id)" class="btn btn-primary">Kommentarer</button>
-                                                        }
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
