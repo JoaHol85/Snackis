@@ -70,7 +70,7 @@
                                     <form method="post" asp-page-handler="PostComment">
                                         <input type="hidden" name="Amessage.MessageId" value="@message.Id" />
                                         <input type="hidden" name="Amessage.SubThreadId" value="@message.SubThreadId" />
-                                        <textarea name="Amessage.TextMessage" class="mt-1" cols="132" rows="2"></textarea>
+                                        <textarea name="Amessage.TextMessage" class="mt-1" cols="125" rows="2"></textarea>
                                         <button type="submit" class="btn btn-primary">Skicka</button>
                                     </form>
                                 </div>
@@ -147,13 +147,12 @@
                                         <button onclick="ShowItemNoTextChange(@comment1.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment1.Id).Count())</button>
                                     }
 
-                                    <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@comment1.Id">Anmäl inlägget</a>
                                     <button style="float:right" onclick="ShowItemNoTextChange(@comment1.Id@comment1.Id)" class="btn btn-primary">Kommentera</button>
                                     <div class="d-none" id="@comment1.Id@comment1.Id">
                                         <form method="post" asp-page-handler="PostComment">
                                             <input type="hidden" name="Amessage.MessageId" value="@comment1.Id" />
                                             <input type="hidden" name="Amessage.SubThreadId" value="@comment1.SubThreadId" />
-                                            <textarea name="Amessage.TextMessage" class="mt-1" cols="119" rows="2"></textarea>
+                                            <textarea name="Amessage.TextMessage" class="mt-1" cols="114" rows="2"></textarea>
                                             <button type="submit" class="btn btn-primary">Skicka</button>
                                         </form>
                                     </div>
@@ -227,16 +226,15 @@
                                         {
                                             if (Model.ListOfMessages.Where(m => m.MessageId == comment2.Id).Count() >= 1)
                                             {
-                                                <button onclick="ShowItemNoTextChange(@comment2.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment2.Id).Count()</button>
+                                                <button onclick="ShowItemNoTextChange(@comment2.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment2.Id).Count())</button>
                                             }
 
-                                            <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@comment2.Id">Anmäl inlägget</a>
                                             <button style="float:right" onclick="ShowItemNoTextChange(@comment2.Id@comment2.Id)" class="btn btn-primary">Kommentera</button>
                                             <div class="d-none" id="@comment2.Id@comment2.Id">
                                                 <form method="post" asp-page-handler="PostComment">
                                                     <input type="hidden" name="Amessage.MessageId" value="@comment2.Id" />
                                                     <input type="hidden" name="Amessage.SubThreadId" value="@comment2.SubThreadId" />
-                                                    <textarea name="Amessage.TextMessage" class="mt-1" cols="111" rows="2"></textarea>
+                                                    <textarea name="Amessage.TextMessage" class="mt-1" cols="102" rows="2"></textarea>
                                                     <button type="submit" class="btn btn-primary">Skicka</button>
                                                 </form>
                                             </div>
@@ -245,7 +243,7 @@
                                         {
                                             if (Model.ListOfMessages.Where(m => m.MessageId == comment2.Id).Count() >= 1)
                                             {
-                                                <button onclick="ShowItemNoTextChange(@comment2.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment2.Id).Count()</button>
+                                                <button onclick="ShowItemNoTextChange(@comment2.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment2.Id).Count())</button>
                                             }
                                         }
                                     </div>
@@ -311,16 +309,15 @@
                                                 {
                                                     if (Model.ListOfMessages.Where(m => m.MessageId == comment3.Id).Count() >= 1)
                                                     {
-                                                        <button onclick="ShowItemNoTextChange(@comment3.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment3.Id).Count()</button>
+                                                        <button onclick="ShowItemNoTextChange(@comment3.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment3.Id).Count())</button>
                                                     }
 
-                                                    <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@comment3.Id">Anmäl inlägget</a>
                                                     <button style="float:right" onclick="ShowItemNoTextChange(@comment3.Id@comment3.Id)" class="btn btn-primary">Kommentera</button>
                                                     <div class="d-none" id="@comment3.Id@comment3.Id">
                                                         <form method="post" asp-page-handler="PostComment">
                                                             <input type="hidden" name="Amessage.MessageId" value="@comment3.Id" />
                                                             <input type="hidden" name="Amessage.SubThreadId" value="@comment3.SubThreadId" />
-                                                            <textarea name="Amessage.TextMessage" class="mt-1" cols="88" rows="2"></textarea>
+                                                            <textarea name="Amessage.TextMessage" class="mt-1" cols="91" rows="2"></textarea>
                                                             <button type="submit" class="btn btn-primary">Skicka</button>
                                                         </form>
                                                     </div>
@@ -329,7 +326,7 @@
                                                 {
                                                     if (Model.ListOfMessages.Where(m => m.MessageId == comment3.Id).Count() >= 1)
                                                     {
-                                                        <button onclick="ShowItemNoTextChange(@comment3.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment3.Id).Count()</button>
+                                                        <button onclick="ShowItemNoTextChange(@comment3.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment3.Id).Count())</button>
                                                     }
                                                 }
                                             </div>
@@ -395,10 +392,9 @@
                                                                 {
                                                                     if (Model.ListOfMessages.Where(m => m.MessageId == comment4.Id).Count() >= 1)
                                                                     {
-                                                                        <button onclick="ShowItemNoTextChange(@comment4.Id)" class="btn btn-primary">Kommentarer</button>
+                                                                <button onclick="ShowItemNoTextChange(@comment4.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment4.Id).Count())</button>
                                                                     }
-                                                                    <a class="btn btn-primary" href="/ReportMessagePage?ReportedMessageId=@comment4.Id">Anmäl inlägget</a>
-                                                                    <button style="float:right" onclick="ShowItemNoTextChange(@comment4.Id@comment4.Id)" class="btn btn-primary">Kommentera(@Model.ListOfMessages.Where(m => m.MessageId == comment4.Id).Count()</button>
+                                                                    <button style="float:right" onclick="ShowItemNoTextChange(@comment4.Id@comment4.Id)" class="btn btn-primary">Kommentera</button>
                                                                     <div class="d-none" id="@comment4.Id@comment4.Id">
                                                                         <form method="post" asp-page-handler="PostComment">
                                                                             <input type="hidden" name="Amessage.MessageId" value="@comment4.Id" />

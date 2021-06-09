@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Snackis.Data;
+using Snackis.Data.Models;
+using Snackis.Gateway;
 using Snackis.Services;
 using System;
 using System.Collections.Generic;
@@ -36,6 +38,8 @@ namespace Snackis
 
             services.AddMvc(option => option.EnableEndpointRouting = false);    //NYTT KANSKE SKA VARA TRUE??
 
+            services.AddHttpClient<BadWordGateway>();
+            services.AddTransient<IBadWordGateway, BadWordGateway>();
             services.AddTransient<GroupServices>();
             services.AddTransient<AdminServices>();
             services.AddTransient<MessageServices>();

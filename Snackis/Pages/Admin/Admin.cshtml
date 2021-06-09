@@ -1,38 +1,84 @@
 ﻿@page
 @model Snackis.Pages.Admin.AdminModel
 @{
+    var badWordsNumber = 0;
 }
 
 
 @if (Model.AdminIsLoggedIn)
 {
-    <div class="row">
-        <div class="col-md-5">
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <form method="post">
+                <div class="card-body text-center">
+                    <div class="card-header">
+                        <h3>Skapa "Main Tråd"</h3>
+                    </div>
+                    <div class="m-3">
+                        <label>Titel:</label><br />
+                        <input type="text" style="width:100%" name="AMainThread.Title" /><br />
+                        <label>Titelexempel:</label><br />
+                        <input type="text" style="width:100%" name="AMainThread.TitleExample1" /><br />
+                        <label>Titelexempel:</label><br />
+                        <input type="text" style="width:100%" name="AMainThread.TitleExample2" /><br />
+                        <label>Titelexempel:</label><br />
+                        <input type="text" style="width:100%" name="AMainThread.TitleExample3" />
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button asp-page-handler="MainThread" type="submit" class="btn btn-primary">Spara Bastråd</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="col-md-12 mb-3">
             <div class="card text-center">
                 <form method="post">
                     <div class="card-body text-center">
                         <div class="card-header">
-                            <h3>Skapa "Main Tråd"</h3>
+                            <h3>Lägg till "fult ord"</h3>
                         </div>
                         <div class="m-3">
-                            <label>Titel:</label><br />
-                            <input type="text" style="width:100%" name="AMainThread.Title" /><br />
-                            <label>Titelexempel:</label><br />
-                            <input type="text" style="width:100%" name="AMainThread.TitleExample1" /><br />
-                            <label>Titelexempel:</label><br />
-                            <input type="text" style="width:100%" name="AMainThread.TitleExample2" /><br />
-                            <label>Titelexempel:</label><br />
-                            <input type="text" style="width:100%" name="AMainThread.TitleExample3" />
+                            <label>Fult ord:</label><br />
+                            <input type="text" name="ABadWord.CensoredWord" /><br />
+                        </div>
+                        <div>
+
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button asp-page-handler="MainThread" type="submit" class="btn btn-primary">Spara Bastråd</button>
+                        <button asp-page-handler="AddBadWord" type="submit" class="btn btn-primary">Spara fult ord</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card text-center">
+                <form method="post">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <h3>Fula ord</h3>
+                        </div>
+                        <div>
+                            @foreach (var word in Model.ListOfBadWords)
+                            {
+                                    @word.CensoredWord<a title="Ta bort" href="/Admin/Admin?DeleteBadWordId=@word.Id">X</a><br />
+                            }
+                        </div>
+                    </div>
+                    <div class="card-footer">
                     </div>
                 </form>
             </div>
         </div>
 
-        <div class="col-md-3">
+    </div>
+
+    <div class="col-md-4">
+        <div class="col-md-12 mb-3">
             <div class="card text-center">
                 <form method="post">
                     <div class="card-body text-center">
@@ -57,7 +103,7 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-12">
             <div class="card text-center">
                 <div class="card-body text-center">
                     <div class="card-header">
@@ -82,4 +128,5 @@
             </div>
         </div>
     </div>
+</div>
 }
