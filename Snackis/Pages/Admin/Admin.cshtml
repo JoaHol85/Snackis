@@ -63,7 +63,7 @@
                             <h3>Fula ord</h3>
                         </div>
                         <div>
-                            @foreach (var word in Model.ListOfBadWords)
+                            @foreach (var word in Model.ListOfBadWords.OrderBy(w => w.CensoredWord))
                             {
                                     @word.CensoredWord<a title="Ta bort" href="/Admin/Admin?DeleteBadWordId=@word.Id">X</a><br />
                             }

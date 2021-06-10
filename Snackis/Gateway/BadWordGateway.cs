@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Snackis.Gateway
 {
@@ -38,5 +39,28 @@ namespace Snackis.Gateway
         {
             var response = await _httpClient.DeleteAsync(_configuration["BadWordAPIConnection"] + "/" + id);
         }
+
+        //Test
+        public async Task<string> CheckForBadWords(string message)
+        {
+            message = HttpUtility.UrlEncode(message);
+
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(_configuration["CensorMessageAPI"]),
+                Headers =
+                {
+                    {"text", message }
+                },
+            };
+
+            var response = await _httpClient.SendAsync(request);
+            string censoredMessage = await response.Content.ReadAsStringAsync();
+
+            return censoredMessage;
+        }
+
+        //TEST
     }
 }

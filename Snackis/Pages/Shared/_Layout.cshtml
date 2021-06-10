@@ -38,20 +38,15 @@
                     </ul>
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        var user = await UserManager.GetUserAsync(User);
-
-                        @if (await UserManager.IsInRoleAsync(user, "User"))
+                        @if (User.IsInRole("User"))
                         {
                             <ul class="navbar-nav flex-grow-1">
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-page="/GroupMessages">Gruppmeddelanden</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="/UserInfo?UserId=@user.Id" class="nav-link text-dark">UserInfo</a>
-                                </li>
                             </ul>
                         }
-                        @if (await UserManager.IsInRoleAsync(user, "Admin"))
+                        @if (User.IsInRole("Admin"))
                         {
                             <ul class="navbar-nav flex-grow-1">
                                 <li class="nav-item">
@@ -60,10 +55,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-page="/Admin/ReportedMessages">Rapporterade Meddelanden</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="/UserInfo?UserId=@user.Id" class="nav-link text-dark" >UserInfo</a>
-                                </li>
-
                             </ul>
                         }
                     }

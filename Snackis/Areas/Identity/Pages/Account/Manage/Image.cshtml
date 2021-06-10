@@ -1,0 +1,33 @@
+﻿@page
+@model Snackis.Areas.Identity.Pages.Account.Manage.ImageModel
+@inject UserManager<SnackisUser> UserManager
+@{
+    ViewData["Title"] = "Change Image";
+    ViewData["ActivePage"] = ManageNavPages.Image;
+    var user = UserManager.GetUserAsync(User);
+}
+
+
+
+
+<h4>Ändra profilbild</h4>
+
+<div class="col-md-12 pb-3">
+    <div style="width:100px">
+        <img src="@Model.ImageUrl" width="100" height="100" alt="Alternate Text" />
+    </div>
+
+    <div class="m-3">
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" id="file1" name="file1" />
+            <button type="submit" class="btn btn-primary">Ladda upp bild</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

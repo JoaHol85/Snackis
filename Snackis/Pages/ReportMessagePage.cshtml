@@ -2,14 +2,16 @@
 @model Snackis.Pages.ReportMessagePageModel
 @using Microsoft.AspNetCore.Identity
 @using Snackis.Areas.Identity.Data
+@using Snackis.Gateway
 @inject SignInManager<SnackisUser> SignInManager
 @inject UserManager<SnackisUser> UserManager
+@inject BadWordGateway BadWordGateway 
 @{
     var user = UserManager.GetUserAsync(User);
     int color = 0;
 }
 
-@if (User.IsInRole("User"))
+@if (User.IsInRole("User") && !User.IsInRole("Admin"))
 {
 <div class="col-md-12">
     <div class="card">
@@ -17,7 +19,7 @@
             <div class="card-header text-center">
                 <h3>Anmäl inlägg</h3>
             </div>
-            @Model.ReportedMessage.TextMessage
+            @await BadWordGateway.CheckForBadWords(Model.ReportedMessage.TextMessage)
         </div>
         <div class="card-footer">
             <form method="post">
@@ -31,7 +33,7 @@
 </div>
 }
 
-@if (User.IsInRole("Admin"))
+@if (User.IsInRole("Admin") && User.IsInRole("User"))
 {
 <div class="text-center">
     <h1>ANMÄLT INLÄGG</h1>

@@ -2,8 +2,10 @@
 @model Snackis.Pages.MessagePageModel
 @using Microsoft.AspNetCore.Identity
 @using Snackis.Areas.Identity.Data
+@using Snackis.Gateway
 @inject UserManager<SnackisUser> UserManager
 @inject SignInManager<SnackisUser> SignInManager
+@inject BadWordGateway _gateway  
 @{
 }
 
@@ -56,7 +58,8 @@
                             }
                         </div>
                         <div class="card-body">
-                            @message.TextMessage
+                            @await _gateway.CheckForBadWords(message.TextMessage)
+                            @*@message.TextMessage*@
                         </div>
                         <div class="card-footer p-0">
                             @if (SignInManager.IsSignedIn(User))
@@ -137,7 +140,7 @@
                                 }
                             </div>
                             <div class="card-body">
-                                <p>@comment1.TextMessage</p>
+                                @await _gateway.CheckForBadWords(comment1.TextMessage)
                             </div>
                             <div class="card-footer p-0">
                                 @if (SignInManager.IsSignedIn(User))
@@ -219,7 +222,7 @@
                                         }
                                     </div>
                                     <div class="card-body">
-                                        <p>@comment2.TextMessage</p>
+                                        @await _gateway.CheckForBadWords(comment2.TextMessage)
                                     </div>
                                     <div class="card-footer p-0">
                                         @if (SignInManager.IsSignedIn(User))
@@ -302,7 +305,7 @@
                                                 }
                                             </div>
                                             <div class="card-body">
-                                                <p>@comment3.TextMessage</p>
+                                                @await _gateway.CheckForBadWords(comment3.TextMessage)
                                             </div>
                                             <div class="card-footer p-0">
                                                 @if (SignInManager.IsSignedIn(User))
@@ -384,11 +387,11 @@
                                                             </div>
                                                         }
                                                     </div>
-                                                            <div class="card-body">
-                                                                <p>@comment4.TextMessage</p>
-                                                            </div>
+                                                    <div class="card-body">
+                                                        @await _gateway.CheckForBadWords(comment4.TextMessage)
+                                                    </div>
                                                             <div class="card-footer p-0">
-                                                                @if (SignInManager.IsSignedIn(User))
+                                                                @*@if (SignInManager.IsSignedIn(User))
                                                                 {
                                                                     if (Model.ListOfMessages.Where(m => m.MessageId == comment4.Id).Count() >= 1)
                                                                     {
@@ -410,7 +413,7 @@
                                                                     {
                                                                         <button onclick="ShowItemNoTextChange(@comment4.Id)" class="btn btn-primary">Kommentarer</button>
                                                                     }
-                                                                }
+                                                                }*@
                                                             </div>
                                                 </div>
                                             </div>

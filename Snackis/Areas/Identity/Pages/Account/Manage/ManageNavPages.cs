@@ -13,6 +13,8 @@ namespace Snackis.Areas.Identity.Pages.Account.Manage
         public static string Email => "Email";
 
         public static string ChangePassword => "ChangePassword";
+        
+        public static string Image => "Image";      //TEST
 
         public static string DownloadPersonalData => "DownloadPersonalData";
 
@@ -29,6 +31,8 @@ namespace Snackis.Areas.Identity.Pages.Account.Manage
         public static string EmailNavClass(ViewContext viewContext) => PageNavClass(viewContext, Email);
 
         public static string ChangePasswordNavClass(ViewContext viewContext) => PageNavClass(viewContext, ChangePassword);
+        
+        public static string ImageNavClass(ViewContext viewContext) => PageNavClass(viewContext, Image);    //TEST
 
         public static string DownloadPersonalDataNavClass(ViewContext viewContext) => PageNavClass(viewContext, DownloadPersonalData);
 
