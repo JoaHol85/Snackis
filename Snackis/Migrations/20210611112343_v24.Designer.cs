@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Snackis.Data;
 
 namespace Snackis.Migrations
 {
     [DbContext(typeof(SnackisContext))]
-    partial class SnackisContextModelSnapshot : ModelSnapshot
+    [Migration("20210611112343_v24")]
+    partial class v24
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -344,32 +346,6 @@ namespace Snackis.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("Snackis.Data.Models.MessageImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<byte[]>("Data")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<int?>("MessageId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MessageId");
-
-                    b.ToTable("MessageImages");
-                });
-
             modelBuilder.Entity("Snackis.Data.Models.ReportedMessage", b =>
                 {
                     b.Property<int>("Id")
@@ -478,6 +454,9 @@ namespace Snackis.Migrations
                     b.Property<byte[]>("Data")
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<int?>("MessageId")
+                        .HasColumnType("int");
+
                     b.Property<string>("SnackisUserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -488,6 +467,8 @@ namespace Snackis.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MessageId");
 
                     b.HasIndex("SnackisUserId")
                         .IsUnique()
@@ -596,13 +577,6 @@ namespace Snackis.Migrations
                     b.Navigation("SubThread");
                 });
 
-            modelBuilder.Entity("Snackis.Data.Models.MessageImage", b =>
-                {
-                    b.HasOne("Snackis.Data.Models.Message", null)
-                        .WithMany("MessageImages")
-                        .HasForeignKey("MessageId");
-                });
-
             modelBuilder.Entity("Snackis.Data.Models.ReportedMessage", b =>
                 {
                     b.HasOne("Snackis.Data.Models.Message", "Message")
@@ -661,6 +635,10 @@ namespace Snackis.Migrations
 
             modelBuilder.Entity("Snackis.Data.Models.UserImage", b =>
                 {
+                    b.HasOne("Snackis.Data.Models.Message", null)
+                        .WithMany("MessageImages")
+                        .HasForeignKey("MessageId");
+
                     b.HasOne("Snackis.Areas.Identity.Data.SnackisUser", "SnackisUser")
                         .WithOne("UserImage")
                         .HasForeignKey("Snackis.Data.Models.UserImage", "SnackisUserId");

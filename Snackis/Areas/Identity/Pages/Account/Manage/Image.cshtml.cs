@@ -37,7 +37,7 @@ namespace Snackis.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             SnackisUser = user;
             
-            UserImage img = _userServices.GetImage(user);
+            UserImage img = _userServices.GetUserImage(user);
             if (img == null)
             {
                 ImageUrl = "http://placehold.it/300x300";
@@ -71,7 +71,7 @@ namespace Snackis.Areas.Identity.Pages.Account.Manage
                 file.CopyTo(ms);
                 img.Data = ms.ToArray();
             }
-            await _userServices.SaveImage(img);
+            await _userServices.SaveUserImage(img);
         }
 
     }

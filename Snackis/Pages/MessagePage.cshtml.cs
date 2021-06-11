@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -42,6 +43,7 @@ namespace Snackis.Pages
         public List<Message> ListOfMessages { get; set; }
         public SubThread SubThreadCopy { get; set; }
         public bool IsSignedIn { get; set; } = false;
+        public string CompleteMessage { get; set; }
 
 
         public async Task OnGetAsync()
@@ -66,8 +68,31 @@ namespace Snackis.Pages
             if (AMessage.TextMessage != null)
             {
                 var user = await _userManager.GetUserAsync(User);
-                await _messageServices.SaveMessageAsync(AMessage, user, SubThreadId);
+                //if (messageId != 0)
+                //{
+                AMessage.MessageImages = new List<MessageImage>();
+                var files = Request.Form.Files;
+                foreach (var file in files)
+                {
+                    MessageImage img = new();
+                    //var file = files[0];
+                    img.Title = file.FileName;
+                    //img.MessageId = messageId;
 
+                    using (MemoryStream ms = new())
+                    {
+                        file.CopyTo(ms);
+                        img.Data = ms.ToArray();
+                    }
+                    AMessage.MessageImages.Add(img);
+                }
+                int messageId = await _messageServices.SaveMessageAsync(AMessage, user, SubThreadId);
+                    //bool done = await _messageServices.SaveMessageImage(img);
+                    //if (!done)
+                    //{
+                    //    CompleteMessage = "Det gick inte att ladda upp fler bilder till detta meddelande, högst tillåtna antal = 3.";
+                    //}
+                //}
             }
             await OnGetAsync();
         }
@@ -86,7 +111,7 @@ namespace Snackis.Pages
         public string GetUserImage(SnackisUser user)
         {
             string ImageUrl;
-            UserImage img = _userServices.GetImage(user);
+            UserImage img = _userServices.GetUserImage(user);
             if (img == null)
             {
                 ImageUrl = "http://placehold.it/300x300";
@@ -98,6 +123,8 @@ namespace Snackis.Pages
             }
             return ImageUrl;
         }
+
+
 
     }
 }

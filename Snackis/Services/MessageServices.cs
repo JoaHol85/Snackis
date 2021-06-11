@@ -63,7 +63,7 @@ namespace Snackis.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task SaveMessageAsync(Message message, SnackisUser user, int subThreadId)
+        public async Task<int> SaveMessageAsync(Message message, SnackisUser user, int subThreadId)
         {
             message.SnackisUserId = user.Id;
             message.Time = DateTime.Now;
@@ -75,6 +75,7 @@ namespace Snackis.Services
             };
             _context.SmileyInfos.Add(smiley);
             await _context.SaveChangesAsync();
+            return message.Id;
         }
 
         public async Task ReportMessageAsync(Message message, string text)
@@ -170,5 +171,34 @@ namespace Snackis.Services
             await _context.SaveChangesAsync();
 
         }
+
+        public async Task<bool> SaveMessageImage(MessageImage img)
+        {
+            var listOfImagesForMessage = await _context.MessageImages.Where(i => i.MessageId == img.MessageId).ToListAsync();
+            int imagesInMessage = listOfImagesForMessage.Count();
+            if (imagesInMessage >= 3)
+            {
+                return false;
+            }
+            _context.MessageImages.Add(img);
+            await _context.SaveChangesAsync();
+            return true;
+
+
+
+
+
+
+
+            //if (_context.UserImages.FirstOrDefault(i => i.SnackisUserId == img.SnackisUserId) != null)
+            //{
+            //    _context.UserImages
+            //        .Remove(_context.UserImages.FirstOrDefault(i => i.SnackisUserId == img.SnackisUserId));
+            //}
+            //_context.Add(img);
+            //await _context.SaveChangesAsync();
+        }
+
+
     }
 }

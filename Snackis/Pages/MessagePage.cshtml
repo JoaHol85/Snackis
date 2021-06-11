@@ -59,7 +59,6 @@
                         </div>
                         <div class="card-body">
                             @await _gateway.CheckForBadWords(message.TextMessage)
-                            @*@message.TextMessage*@
                         </div>
                         <div class="card-footer p-0">
                             @if (SignInManager.IsSignedIn(User))
@@ -434,9 +433,12 @@
 {
     <div class="card m-3">
         <div class="card-body m-1 p-1">
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 <small style="font-weight:900">Skapa inlägg:</small>
                 <textarea rows="10" cols="148" class="form-control" name="AMessage.TextMessage"></textarea>
+                <input type="file" id="file1" name="file1" />
+                <input type="file" id="file2" name="file2" />
+                <input type="file" id="file3" name="file3" />
                 <button type="submit" style="float:right" class="btn btn-primary">Skicka inlägg</button>
             </form>
         </div>

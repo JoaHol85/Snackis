@@ -37,7 +37,7 @@ namespace Snackis.Pages
         {
             var user = await _userService.GetUserWithMessagesAndSubThreadsAsync(UserId);
             SnackisUser = user;
-            UserImage img = _userService.GetImage(user);
+            UserImage img = _userService.GetUserImage(user);
             if (img == null)
             {
                 ImageUrl = "http://placehold.it/300x300";
@@ -71,7 +71,7 @@ namespace Snackis.Pages
                 file.CopyTo(ms);
                 img.Data = ms.ToArray();
             }
-            await _userService.SaveImage(img);
+            await _userService.SaveUserImage(img);
         }
 
 

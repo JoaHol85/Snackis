@@ -54,7 +54,7 @@ namespace Snackis.Services
             return user;
         }
 
-        public async Task SaveImage(UserImage img)
+        public async Task SaveUserImage(UserImage img)
         {
             if (_context.UserImages.FirstOrDefault(i => i.SnackisUserId == img.SnackisUserId) != null)
             {
@@ -64,7 +64,11 @@ namespace Snackis.Services
             _context.Add(img);
             await _context.SaveChangesAsync();
         }
-        public UserImage GetImage(SnackisUser user)
+
+
+
+
+        public UserImage GetUserImage(SnackisUser user)
         {
             return _context.UserImages.FirstOrDefault(i => i.SnackisUserId == user.Id);
         }

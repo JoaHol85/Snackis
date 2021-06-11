@@ -26,7 +26,7 @@ namespace Snackis.Data.Models
 
         // nytt nedanför
 
-        public virtual ICollection<UserImage> MessageImages { get; set; }
+        public ICollection<MessageImage> MessageImages { get; set; }
 
     }
 }
