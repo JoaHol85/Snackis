@@ -124,6 +124,21 @@ namespace Snackis.Pages
             return ImageUrl;
         }
 
+        public string GetImage(MessageImage image)
+        {
+            string ImageUrl;
+            MessageImage img = image;
+            if (img == null)
+            {
+                ImageUrl = "http://placehold.it/300x300";
+            }
+            else
+            {
+                string imageBase64Data = Convert.ToBase64String(img.Data);
+                ImageUrl = string.Format($"data:image/jpg;base64, {imageBase64Data}");
+            }
+            return ImageUrl;
+        }
 
 
     }

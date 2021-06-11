@@ -59,6 +59,17 @@
                         </div>
                         <div class="card-body">
                             @await _gateway.CheckForBadWords(message.TextMessage)
+                            @if (message.MessageImages != null)
+                            {
+                                <div style="align-items:center">
+                                @foreach (var img in message.MessageImages)
+                                {
+                                    <a href="/ShowImage?ImageId=@img.Id" target="_blank">
+                                    <img src="@Model.GetImage(img)" width="250" height="250" alt="Alternate Text" class="m-3" />
+                                    </a>
+                                }
+                                </div>
+                            }
                         </div>
                         <div class="card-footer p-0">
                             @if (SignInManager.IsSignedIn(User))
@@ -72,7 +83,7 @@
                                     <form method="post" asp-page-handler="PostComment">
                                         <input type="hidden" name="Amessage.MessageId" value="@message.Id" />
                                         <input type="hidden" name="Amessage.SubThreadId" value="@message.SubThreadId" />
-                                        <textarea name="Amessage.TextMessage" class="mt-1" cols="125" rows="2"></textarea>
+                                        <textarea name="Amessage.TextMessage" class="ml-3 mt-1 mr-3" cols="123" rows="2"></textarea>
                                         <button type="submit" class="btn btn-primary">Skicka</button>
                                     </form>
                                 </div>
@@ -115,7 +126,7 @@
                                     <div class="ml-5" style="float:right">
                                         <a class="" href="/ReportMessagePage?ReportedMessageId=@comment1.Id"><img width="20" height="20" title="Anmäl inlägg" src="~/img/WarningIcon.png" /></a>
                                     </div>
-                                    <div style="float:right" class="mr-5">
+                                    <div style="float:right">
                                         <a href="MessagePage?SmileyNumber=1&SubThreadId=@Model.SubThreadId&MessageId=@comment1.Id" name="SmileyNumber"><img src="~/img/HappyEmoji.svg" height="30" width="30" title="Happy" /></a>@comment1.SmileyInfo.HappySmiley
                                         <a href="MessagePage?SmileyNumber=2&SubThreadId=@Model.SubThreadId&MessageId=@comment1.Id" name="SmileyNumber"><img src="~/img/LaughingEmoji.svg" height="30" width="30" title="Laughing" /></a>@comment1.SmileyInfo.LaughingSmiley
                                         <a href="MessagePage?SmileyNumber=3&SubThreadId=@Model.SubThreadId&MessageId=@comment1.Id" name="SmileyNumber"><img src="~/img/SadEmoji.svg" height="30" width="30" title="Sad" /></a>@comment1.SmileyInfo.SadSmiley
@@ -148,13 +159,12 @@
                                     {
                                         <button onclick="ShowItemNoTextChange(@comment1.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment1.Id).Count())</button>
                                     }
-
                                     <button style="float:right" onclick="ShowItemNoTextChange(@comment1.Id@comment1.Id)" class="btn btn-primary">Kommentera</button>
                                     <div class="d-none" id="@comment1.Id@comment1.Id">
                                         <form method="post" asp-page-handler="PostComment">
                                             <input type="hidden" name="Amessage.MessageId" value="@comment1.Id" />
                                             <input type="hidden" name="Amessage.SubThreadId" value="@comment1.SubThreadId" />
-                                            <textarea name="Amessage.TextMessage" class="mt-1" cols="114" rows="2"></textarea>
+                                            <textarea name="Amessage.TextMessage" class="ml-3 mt-1 mr-3" cols="123" rows="2"></textarea>
                                             <button type="submit" class="btn btn-primary">Skicka</button>
                                         </form>
                                     </div>
@@ -236,7 +246,7 @@
                                                 <form method="post" asp-page-handler="PostComment">
                                                     <input type="hidden" name="Amessage.MessageId" value="@comment2.Id" />
                                                     <input type="hidden" name="Amessage.SubThreadId" value="@comment2.SubThreadId" />
-                                                    <textarea name="Amessage.TextMessage" class="mt-1" cols="102" rows="2"></textarea>
+                                                    <textarea name="Amessage.TextMessage" class="mt-1 ml-3" cols="100" rows="2"></textarea>
                                                     <button type="submit" class="btn btn-primary">Skicka</button>
                                                 </form>
                                             </div>
@@ -319,7 +329,7 @@
                                                         <form method="post" asp-page-handler="PostComment">
                                                             <input type="hidden" name="Amessage.MessageId" value="@comment3.Id" />
                                                             <input type="hidden" name="Amessage.SubThreadId" value="@comment3.SubThreadId" />
-                                                            <textarea name="Amessage.TextMessage" class="mt-1" cols="91" rows="2"></textarea>
+                                                            <textarea name="Amessage.TextMessage" class="mt-1 ml-3" cols="89" rows="2"></textarea>
                                                             <button type="submit" class="btn btn-primary">Skicka</button>
                                                         </form>
                                                     </div>

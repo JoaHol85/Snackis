@@ -20,7 +20,11 @@ namespace Snackis.Services
 
         public async Task<List<Message>> GetSubIdMessagesAsync(int subThreadId)
         {
-            var x = await _context.Messages.Where(m => m.SubThreadId == subThreadId).ToListAsync();
+            //var x = await _context.Messages.Where(m => m.SubThreadId == subThreadId).ToListAsync();
+            var x = await _context.Messages
+                .Include(m => m.MessageImages)
+                .Where(m => m.SubThreadId == subThreadId)
+                .ToListAsync();
 
             foreach (var message in x)
             {
