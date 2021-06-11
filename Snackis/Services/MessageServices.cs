@@ -33,7 +33,9 @@ namespace Snackis.Services
 
         public async Task<Message> GetSingleMessage(int messageId)
         {
-            return await _context.Messages.FirstAsync(m => m.Id == messageId);
+            var message = await _context.Messages.FirstAsync(m => m.Id == messageId);
+            message.SnackisUser = await _context.Users.FirstAsync(u => u.Id == message.SnackisUserId);
+            return message;
         }
 
 
@@ -87,8 +89,9 @@ namespace Snackis.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task ChangeRemovedMessage(Message message)
+        public async Task ChangeRemovedMessage(Message message, string newText)
         {
+            message.TextMessage = newText;
             // Här ska finnas kod för att ändra texten i meddelandet.
             message.TimesReported = 0;
             await _context.SaveChangesAsync();

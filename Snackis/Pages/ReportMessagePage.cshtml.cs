@@ -21,13 +21,17 @@ namespace Snackis.Pages
 
         [BindProperty(SupportsGet = true)]
         public int ReportedMessageId { get; set; }
-        [BindProperty(SupportsGet = true)]
+        //[BindProperty(SupportsGet = true)]
+        //public int DeleteMessageId { get; set; }
+        [BindProperty]
         public int DeleteMessageId { get; set; }
 
 
 
         [BindProperty]
         public string MessageToAdmin { get; set; }
+        [BindProperty]
+        public string NewMessage { get; set; }
 
 
         public Message ReportedMessage { get; set; }
@@ -44,12 +48,19 @@ namespace Snackis.Pages
             ReportedMessage = await _messageServices.GetSingleMessage(ReportedMessageId);
             ListOfReports = await _messageServices.GetReportedMessagesAsync(ReportedMessageId);
 
+            //<--OM INLOGGAD SOM ADMIN
+        }
+
+        public async Task<IActionResult> OnPostChangeMessageAsync()
+        {
             if (DeleteMessageId != 0)
             {
                 await DeleteReportedMessageAndOtherAsync();
             }
-            //<--OM INLOGGAD SOM ADMIN
+            return Redirect("/admin/ReportedMessages");
         }
+
+
         public async Task OnPost()
         {
             ReportedMessage = await _messageServices.GetSingleMessage(ReportedMessageId);
@@ -59,11 +70,9 @@ namespace Snackis.Pages
 
         public async Task DeleteReportedMessageAndOtherAsync()
         {
+            ReportedMessage = await _messageServices.GetSingleMessage(ReportedMessageId);
             await _messageServices.DeleterReportedMessagesAsync(DeleteMessageId);   //Ta bort alla anmälningar - klar
-            await _messageServices.ChangeRemovedMessage(ReportedMessage);           //Ta bort alla "reports" - klar
-            //Ändra meddelandet till typ "meddelande raderat" och ta bort möjligheten att anmäla inlägg.
-            //KAN HA OLIKA FÖRUTBESTÄMDA MEDDELANDEN SOM SÄTTS IN ISTÄLLET FÖR ORGINALMEDDELANDET.
-
+            await _messageServices.ChangeRemovedMessage(ReportedMessage, NewMessage);           //Ta bort alla "reports" - klar
         }
     }
 }

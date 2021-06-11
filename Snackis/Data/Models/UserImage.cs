@@ -15,5 +15,8 @@ namespace Snackis.Data.Models
 
         public string SnackisUserId { get; set; }
         public SnackisUser SnackisUser { get; set; }
+
+        //nytt nedan
+        public int MessageId { get; set; }
     }
 }

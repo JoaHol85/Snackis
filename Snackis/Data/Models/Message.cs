@@ -22,9 +22,11 @@ namespace Snackis.Data.Models
         public int SubThreadId { get; set; }
         public SubThread SubThread { get; set; }
 
-        // nytt nedanför
         public SmileyInfo SmileyInfo { get; set; }
 
+        // nytt nedanför
+
+        public virtual ICollection<UserImage> MessageImages { get; set; }
 
     }
 }

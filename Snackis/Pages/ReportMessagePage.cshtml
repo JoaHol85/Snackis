@@ -44,8 +44,13 @@
     <div class="card">
         <div class="card-header">
             <small style="font-weight:900">Rapporterat inlägg:</small><br />
-            @Model.ReportedMessage.TextMessage<br />
-            <small style="font-weight:900">Från användaren:</small><br />
+            <form method="post" >
+                <input type="hidden" value="@Model.ReportedMessage.Id" asp-for="DeleteMessageId" />
+                <input type="hidden" value="@Model.ReportedMessage.Id" asp-for="ReportedMessageId" />
+                <textarea cols="145" rows="10" name="NewMessage">@Model.ReportedMessage.TextMessage</textarea>
+                <small style="font-weight:900">Från användaren: <a href="/UserInfo?UserId=@Model.ReportedMessage.SnackisUserId">@Model.ReportedMessage.SnackisUser.NickName</a></small><br />
+                <button asp-page-handler="ChangeMessage" type="submit" class="btn btn-primary float-right">Ändra inlägg och ta bort rapporteringar</button>
+            </form>
         </div>
         <div class="card-body">
             <small style="font-weight:900">Kommentarer av rapporterare:</small><br />
@@ -68,8 +73,8 @@
             }
         </div>
         <div class="card-footer">
-            Här ska finnas alternativ på vad texten ska fyllas med i en < select >
-            <a href="/ReportMessagePage?DeleteMessageId=@Model.ReportedMessage.Id&ReportedMessageId=@Model.ReportedMessage.Id">Ta bort inlägg</a>
+
+            @*<a href="/ReportMessagePage?DeleteMessageId=@Model.ReportedMessage.Id&ReportedMessageId=@Model.ReportedMessage.Id">Ta bort inlägg</a>*@
         </div>
     </div>
 </div>

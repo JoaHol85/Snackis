@@ -40,7 +40,6 @@ namespace Snackis.Gateway
             var response = await _httpClient.DeleteAsync(_configuration["BadWordAPIConnection"] + "/" + id);
         }
 
-        //Test
         public async Task<string> CheckForBadWords(string message)
         {
             message = HttpUtility.UrlEncode(message);
@@ -60,7 +59,5 @@ namespace Snackis.Gateway
 
             return censoredMessage;
         }
-
-        //TEST
     }
 }
