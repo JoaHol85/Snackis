@@ -11,9 +11,9 @@ namespace Snackis.Pages.Admin
 {
     public class ReportedMessagesModel : PageModel
     {
-        private readonly MessageServices _messageServices;
+        private readonly IMessageServices _messageServices;
 
-        public ReportedMessagesModel(MessageServices messageServices)
+        public ReportedMessagesModel(IMessageServices messageServices)
         {
             _messageServices = messageServices;
         }

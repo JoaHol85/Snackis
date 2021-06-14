@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Snackis.Services
 {
-    public class SubThreadServices
+    public class SubThreadServices : ISubThreadServices
     {
         private readonly SnackisContext _context;
-        private readonly MessageServices _messageServices;
+        private readonly IMessageServices _messageServices;
 
-        public SubThreadServices(SnackisContext context, MessageServices messageServices)
+        public SubThreadServices(SnackisContext context, IMessageServices messageServices)
         {
             _messageServices = messageServices;
             _context = context;

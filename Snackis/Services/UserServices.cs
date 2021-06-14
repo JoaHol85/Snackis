@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace Snackis.Services
 {
-    public class UserServices
+    public class UserServices : IUserServices
     {
         private readonly SnackisContext _context;
-        private readonly GroupServices _groupService;
+        private readonly IGroupServices _groupService;
 
-        public UserServices(SnackisContext context, GroupServices groupService)
+        public UserServices(SnackisContext context, IGroupServices groupService)
         {
             _groupService = groupService;
             _context = context;

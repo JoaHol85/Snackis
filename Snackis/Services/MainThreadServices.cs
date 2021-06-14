@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Snackis.Services
 {
-    public class MainThreadServices
+    public class MainThreadServices : IMainThreadServices
     {
         private readonly SnackisContext _context;
 

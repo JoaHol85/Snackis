@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Snackis.Services
 {
-    public class MessageServices
+    public class MessageServices : IMessageServices
     {
         private readonly SnackisContext _context;
 
@@ -53,7 +53,7 @@ namespace Snackis.Services
             return await _context.ReportedMessages.Where(r => r.MessageId == id).ToListAsync();
         }
 
-        public async Task DeleteMessage(int id)
+        public async Task DeleteMessageAsync(int id)
         {
             Message msg = await _context.Messages.FirstAsync(m => m.Id == id);
             _context.Messages.Remove(msg);

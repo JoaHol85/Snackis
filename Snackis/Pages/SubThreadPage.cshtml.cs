@@ -15,12 +15,12 @@ namespace Snackis.Pages
     {
         private readonly UserManager<SnackisUser> _userManager;
         private readonly SignInManager<SnackisUser> _signInManager;
-        private readonly SubThreadServices _subService;
-        private readonly MainThreadServices _mainService;
-        private readonly UserServices _userServices;
+        private readonly ISubThreadServices _subService;
+        private readonly IMainThreadServices _mainService;
+        private readonly IUserServices _userServices;
 
 
-        public SubThreadPageModel(UserServices userServices, MainThreadServices mainService, SubThreadServices subService, UserManager<SnackisUser> userManager, SignInManager<SnackisUser> signInManager)
+        public SubThreadPageModel(IUserServices userServices, IMainThreadServices mainService, ISubThreadServices subService, UserManager<SnackisUser> userManager, SignInManager<SnackisUser> signInManager)
         {
             _userServices = userServices;
             _mainService = mainService;

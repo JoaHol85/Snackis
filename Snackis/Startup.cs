@@ -40,12 +40,12 @@ namespace Snackis
 
             services.AddHttpClient<BadWordGateway>();
             services.AddTransient<IBadWordGateway, BadWordGateway>();
-            services.AddTransient<GroupServices>();
-            services.AddTransient<AdminServices>();
-            services.AddTransient<MessageServices>();
-            services.AddTransient<SubThreadServices>();
-            services.AddTransient<MainThreadServices>();
-            services.AddTransient<UserServices>();
+            services.AddTransient<IGroupServices, GroupServices>();
+            services.AddTransient<IAdminServices, AdminServices>();
+            services.AddTransient<IMessageServices, MessageServices>();
+            services.AddTransient<ISubThreadServices, SubThreadServices>();
+            services.AddTransient<IMainThreadServices, MainThreadServices>();
+            services.AddTransient<IUserServices, UserServices>();
 
             services.AddDbContext<SnackisContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SnackisContextConnection")));

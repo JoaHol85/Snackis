@@ -14,11 +14,11 @@ namespace Snackis.Pages
     public class GroupMessagesModel : PageModel
     {
         private readonly UserManager<SnackisUser> _userManager;
-        private readonly UserServices _userServices;
-        private readonly GroupServices _groupServices;
+        private readonly IUserServices _userServices;
+        private readonly IGroupServices _groupServices;
 
 
-        public GroupMessagesModel(GroupServices groupServices, UserServices userServices, UserManager<SnackisUser> userManager)
+        public GroupMessagesModel(IGroupServices groupServices, IUserServices userServices, UserManager<SnackisUser> userManager)
         {
             _groupServices = groupServices;
             _userServices = userServices;

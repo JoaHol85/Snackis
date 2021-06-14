@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Snackis.Services
 {
-    public class AdminServices
+    public class AdminServices: IAdminServices
     {
         private readonly SnackisContext _context;
 

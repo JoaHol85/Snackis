@@ -13,9 +13,9 @@ namespace Snackis.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        private readonly MainThreadServices _mainServices;
+        private readonly IMainThreadServices _mainServices;
 
-        public IndexModel(ILogger<IndexModel> logger, MainThreadServices mainServices)
+        public IndexModel(ILogger<IndexModel> logger, IMainThreadServices mainServices)
         {
             _mainServices = mainServices;
             _logger = logger;

@@ -16,10 +16,10 @@ namespace Snackis.Pages.Admin
         private readonly IBadWordGateway _gateway;
         private readonly SignInManager<SnackisUser> _signInManager;
         private readonly UserManager<SnackisUser> _userManager;
-        private readonly AdminServices _adminServices;
+        private readonly IAdminServices _adminServices;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AdminModel(RoleManager<IdentityRole> roleManager, IBadWordGateway gateway, AdminServices adminServices, SignInManager<SnackisUser> signInManager, UserManager<SnackisUser> userManager)
+        public AdminModel(RoleManager<IdentityRole> roleManager, IBadWordGateway gateway, IAdminServices adminServices, SignInManager<SnackisUser> signInManager, UserManager<SnackisUser> userManager)
         {
             _roleManager = roleManager;
             _adminServices = adminServices;

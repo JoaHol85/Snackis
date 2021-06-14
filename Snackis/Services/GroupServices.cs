@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Snackis.Services
 {
-    public class GroupServices
+    public class GroupServices : IGroupServices
     {
         private readonly SnackisContext _context;
 

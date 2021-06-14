@@ -14,11 +14,11 @@ namespace Snackis.Pages.Shared
 {
     public class NewSubThreadModel : PageModel
     {
-        private readonly SubThreadServices _subService;
+        private readonly ISubThreadServices _subService;
         private readonly UserManager<SnackisUser> _userManager;
         private readonly SignInManager<SnackisUser> _signInManager;
 
-        public NewSubThreadModel(SubThreadServices subService, UserManager<SnackisUser> userManager, SignInManager<SnackisUser> signInManager)
+        public NewSubThreadModel(ISubThreadServices subService, UserManager<SnackisUser> userManager, SignInManager<SnackisUser> signInManager)
         {
             _subService = subService;
             _userManager = userManager;

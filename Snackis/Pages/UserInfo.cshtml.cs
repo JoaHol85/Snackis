@@ -14,10 +14,10 @@ namespace Snackis.Pages
 {
     public class UserInfoModel : PageModel
     {
-        private readonly UserServices _userService;
+        private readonly IUserServices _userService;
         private readonly UserManager<SnackisUser> _userManager;
 
-        public UserInfoModel(UserServices userService, UserManager<SnackisUser> userManager)
+        public UserInfoModel(IUserServices userService, UserManager<SnackisUser> userManager)
         {
             _userService = userService;
             _userManager = userManager;
