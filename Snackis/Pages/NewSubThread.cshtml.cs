@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -38,9 +39,27 @@ namespace Snackis.Pages.Shared
 
         public async Task<IActionResult> OnPost()
         {
-            var user = await _userManager.GetUserAsync(User);
-            int subThreadId = await _subService.CreateNewSubThreadAsync(ASubThread, AMessage, user);
-            return RedirectToPage($"./MessagePage", new { SubThreadId = subThreadId });
+            if (AMessage.TextMessage != null && ASubThread.HeaderText != null)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                AMessage.MessageImages = new List<MessageImage>();
+                var files = Request.Form.Files;
+                foreach (var file in files)
+                {
+                    MessageImage img = new();
+                    img.Title = file.FileName;
+
+                    using (MemoryStream ms = new())
+                    {
+                        file.CopyTo(ms);
+                        img.Data = ms.ToArray();
+                    }
+                    AMessage.MessageImages.Add(img);
+                }
+                int subThreadId = await _subService.CreateNewSubThreadAsync(ASubThread, AMessage, user);
+                return RedirectToPage($"./MessagePage", new { SubThreadId = subThreadId });
+            }
+            return Page();
         }
     }
 }

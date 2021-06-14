@@ -28,6 +28,9 @@ namespace Snackis.Controllers
             {
                 message.SnackisUser = new();
                 message.SnackisUser.NickName = _context.Users.FirstOrDefault(u => u.Id == message.SnackisUserId).NickName;
+                List<MessageImage> messageImages = new();
+                messageImages = await _context.MessageImages.Where(m => m.MessageId == message.Id).ToListAsync();
+                message.MessageImages = messageImages;
             }
             return list;
         }

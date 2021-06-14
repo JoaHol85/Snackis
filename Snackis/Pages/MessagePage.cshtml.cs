@@ -68,16 +68,12 @@ namespace Snackis.Pages
             if (AMessage.TextMessage != null)
             {
                 var user = await _userManager.GetUserAsync(User);
-                //if (messageId != 0)
-                //{
                 AMessage.MessageImages = new List<MessageImage>();
                 var files = Request.Form.Files;
                 foreach (var file in files)
                 {
                     MessageImage img = new();
-                    //var file = files[0];
                     img.Title = file.FileName;
-                    //img.MessageId = messageId;
 
                     using (MemoryStream ms = new())
                     {
@@ -86,13 +82,7 @@ namespace Snackis.Pages
                     }
                     AMessage.MessageImages.Add(img);
                 }
-                int messageId = await _messageServices.SaveMessageAsync(AMessage, user, SubThreadId);
-                    //bool done = await _messageServices.SaveMessageImage(img);
-                    //if (!done)
-                    //{
-                    //    CompleteMessage = "Det gick inte att ladda upp fler bilder till detta meddelande, högst tillåtna antal = 3.";
-                    //}
-                //}
+                await _messageServices.SaveMessageAsync(AMessage, user, SubThreadId);
             }
             await OnGetAsync();
         }
@@ -102,9 +92,23 @@ namespace Snackis.Pages
             if (AMessage.TextMessage != null && AMessage.MessageId != null)
             {
                 var user = await _userManager.GetUserAsync(User);
+                AMessage.MessageImages = new List<MessageImage>();
+                var files = Request.Form.Files;
+                foreach (var file in files)
+                {
+                    MessageImage img = new();
+                    img.Title = file.FileName;
+
+                    using (MemoryStream ms = new())
+                    {
+                        file.CopyTo(ms);
+                        img.Data = ms.ToArray();
+                    }
+                    AMessage.MessageImages.Add(img);
+                }
                 await _messageServices.SaveMessageAsync(AMessage, user, AMessage.SubThreadId);
-                SubThreadId = AMessage.SubThreadId;
             }
+            SubThreadId = AMessage.SubThreadId;
             await OnGetAsync();
         }
 
@@ -124,7 +128,7 @@ namespace Snackis.Pages
             return ImageUrl;
         }
 
-        public string GetImage(MessageImage image)
+        public string GetMessageImage(MessageImage image)
         {
             string ImageUrl;
             MessageImage img = image;

@@ -23,7 +23,7 @@
                     <div class="text-center col-md-2">
                         <a href="/UserInfo?UserId=@message.SnackisUserId">@message.SnackisUser.NickName</a>
                         <div style="align-items:center">
-                            <img src="@Model.GetUserImage(message.SnackisUser)" width="120" height="120" alt="Alternate Text" class="ml-3"/>
+                            <img src="@Model.GetUserImage(message.SnackisUser)" width="120" height="120" alt="Ingen bild" class="ml-3"/>
                         </div>
                     </div>
                     <div class="col-md-10">
@@ -65,7 +65,7 @@
                                 @foreach (var img in message.MessageImages)
                                 {
                                     <a href="/ShowImage?ImageId=@img.Id" target="_blank">
-                                    <img src="@Model.GetImage(img)" width="250" height="250" alt="Alternate Text" class="m-3" />
+                                    <img src="@Model.GetMessageImage(img)" width="250" height="250" alt="@img.Title" class="m-3" />
                                     </a>
                                 }
                                 </div>
@@ -80,11 +80,14 @@
                                 }
                                 <button style="float:right" onclick="ShowItemNoTextChange(@message.Id@message.Id)" class="btn btn-primary">Kommentera</button>
                                 <div class="d-none" id="@message.Id@message.Id">
-                                    <form method="post" asp-page-handler="PostComment">
+                                    <form method="post" asp-page-handler="PostComment" enctype="multipart/form-data">
                                         <input type="hidden" name="Amessage.MessageId" value="@message.Id" />
                                         <input type="hidden" name="Amessage.SubThreadId" value="@message.SubThreadId" />
                                         <textarea name="Amessage.TextMessage" class="ml-3 mt-1 mr-3" cols="123" rows="2"></textarea>
-                                        <button type="submit" class="btn btn-primary">Skicka</button>
+                                        <input type="file" id="file1" name="file1" class="ml-3"/>
+                                        <input type="file" id="file2" name="file2" />
+                                        <input type="file" id="file3" name="file3" />
+                                        <button type="submit" class="btn btn-primary mt-1 ml-3">Skicka</button>
                                     </form>
                                 </div>
                             }
@@ -115,7 +118,7 @@
                         <div class="text-center col-md-2">
                             <a href="/UserInfo?UserId=@comment1.SnackisUserId">@comment1.SnackisUser.NickName</a>
                             <div style="align-items:center">
-                                <img src="@Model.GetUserImage(comment1.SnackisUser)" width="120" height="120" alt="Alternate Text" class="ml-3" />
+                                <img src="@Model.GetUserImage(comment1.SnackisUser)" width="120" height="120" alt="Ingen Bild" class="ml-3" />
                             </div>
                         </div>
                         <div class="col-md-10">
@@ -151,6 +154,17 @@
                             </div>
                             <div class="card-body">
                                 @await _gateway.CheckForBadWords(comment1.TextMessage)
+                                @if (comment1.MessageImages != null)
+                                {
+                                    <div style="align-items:center">
+                                        @foreach (var img in comment1.MessageImages)
+                                        {
+                                            <a href="/ShowImage?ImageId=@img.Id" target="_blank">
+                                                <img src="@Model.GetMessageImage(img)" width="200" height="200" alt="@img.Title" class="m-3" />
+                                            </a>
+                                        }
+                                    </div>
+                                }
                             </div>
                             <div class="card-footer p-0">
                                 @if (SignInManager.IsSignedIn(User))
@@ -161,11 +175,22 @@
                                     }
                                     <button style="float:right" onclick="ShowItemNoTextChange(@comment1.Id@comment1.Id)" class="btn btn-primary">Kommentera</button>
                                     <div class="d-none" id="@comment1.Id@comment1.Id">
-                                        <form method="post" asp-page-handler="PostComment">
+                                        <form method="post" asp-page-handler="PostComment" enctype="multipart/form-data">
                                             <input type="hidden" name="Amessage.MessageId" value="@comment1.Id" />
                                             <input type="hidden" name="Amessage.SubThreadId" value="@comment1.SubThreadId" />
-                                            <textarea name="Amessage.TextMessage" class="ml-3 mt-1 mr-3" cols="123" rows="2"></textarea>
-                                            <button type="submit" class="btn btn-primary">Skicka</button>
+                                            <textarea name="Amessage.TextMessage" class="ml-3 mt-1 mr-3" cols="112" rows="2"></textarea>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <input type="file" id="file1" name="file1" class="ml-3" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="file" id="file2" name="file2" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="file" id="file3" name="file3" />
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary ml-3 mt-1">Skicka</button>
                                         </form>
                                     </div>
                                 }
@@ -196,7 +221,7 @@
                                 <div class="text-center col-md-2" style="width:100px">
                                     <a href="/UserInfo?UserId=@comment2.SnackisUserId">@comment2.SnackisUser.NickName</a>
                                     <div style="align-items:center">
-                                        <img src="@Model.GetUserImage(comment2.SnackisUser)" width="120" height="120" alt="Alternate Text" class="ml-3" />
+                                        <img src="@Model.GetUserImage(comment2.SnackisUser)" width="120" height="120" alt="Ingen Bild" class="ml-3" />
                                     </div>
                                 </div>
                                 <div class="col-md-10">
@@ -232,6 +257,17 @@
                                     </div>
                                     <div class="card-body">
                                         @await _gateway.CheckForBadWords(comment2.TextMessage)
+                                        @if (comment2.MessageImages != null)
+                                        {
+                                            <div style="align-items:center">
+                                                @foreach (var img in comment2.MessageImages)
+                                                {
+                                                    <a href="/ShowImage?ImageId=@img.Id" target="_blank">
+                                                        <img src="@Model.GetMessageImage(img)" width="200" height="200" alt="@img.Title" class="m-3" />
+                                                    </a>
+                                                }
+                                            </div>
+                                        }
                                     </div>
                                     <div class="card-footer p-0">
                                         @if (SignInManager.IsSignedIn(User))
@@ -243,11 +279,22 @@
 
                                             <button style="float:right" onclick="ShowItemNoTextChange(@comment2.Id@comment2.Id)" class="btn btn-primary">Kommentera</button>
                                             <div class="d-none" id="@comment2.Id@comment2.Id">
-                                                <form method="post" asp-page-handler="PostComment">
+                                                <form method="post" asp-page-handler="PostComment" enctype="multipart/form-data">
                                                     <input type="hidden" name="Amessage.MessageId" value="@comment2.Id" />
                                                     <input type="hidden" name="Amessage.SubThreadId" value="@comment2.SubThreadId" />
                                                     <textarea name="Amessage.TextMessage" class="mt-1 ml-3" cols="100" rows="2"></textarea>
-                                                    <button type="submit" class="btn btn-primary">Skicka</button>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="file" id="file1" name="file1" class="ml-3" />
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <input type="file" id="file2" name="file2" />
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <input type="file" id="file3" name="file3" />
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary ml-3 mt-1">Skicka</button>
                                                 </form>
                                             </div>
                                         }
@@ -279,7 +326,7 @@
                                         <div class="text-center col-md-2" style="width:100px">
                                             <a href="/UserInfo?UserId=@comment3.SnackisUserId">@comment3.SnackisUser.NickName</a>
                                             <div style="align-items:center">
-                                                <img src="@Model.GetUserImage(comment3.SnackisUser)" width="120" height="120" alt="Alternate Text" class="ml-3" />
+                                                <img src="@Model.GetUserImage(comment3.SnackisUser)" width="120" height="120" alt="Ingen Bild" class="ml-3" />
                                             </div>
                                         </div>
                                         <div class="col-md-10">
@@ -315,6 +362,17 @@
                                             </div>
                                             <div class="card-body">
                                                 @await _gateway.CheckForBadWords(comment3.TextMessage)
+                                                @if (comment3.MessageImages != null)
+                                                {
+                                                    <div style="align-items:center">
+                                                        @foreach (var img in comment3.MessageImages)
+                                                        {
+                                                            <a href="/ShowImage?ImageId=@img.Id" target="_blank">
+                                                                <img src="@Model.GetMessageImage(img)" width="150" height="150" alt="@img.Title" class="m-3" />
+                                                            </a>
+                                                        }
+                                                    </div>
+                                                }
                                             </div>
                                             <div class="card-footer p-0">
                                                 @if (SignInManager.IsSignedIn(User))
@@ -326,11 +384,22 @@
 
                                                     <button style="float:right" onclick="ShowItemNoTextChange(@comment3.Id@comment3.Id)" class="btn btn-primary">Kommentera</button>
                                                     <div class="d-none" id="@comment3.Id@comment3.Id">
-                                                        <form method="post" asp-page-handler="PostComment">
+                                                        <form method="post" asp-page-handler="PostComment" enctype="multipart/form-data">
                                                             <input type="hidden" name="Amessage.MessageId" value="@comment3.Id" />
                                                             <input type="hidden" name="Amessage.SubThreadId" value="@comment3.SubThreadId" />
                                                             <textarea name="Amessage.TextMessage" class="mt-1 ml-3" cols="89" rows="2"></textarea>
-                                                            <button type="submit" class="btn btn-primary">Skicka</button>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <input type="file" id="file1" name="file1" class="ml-3" />
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <input type="file" id="file2" name="file2" />
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <input type="file" id="file3" name="file3" />
+                                                                </div>
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary ml-3 mt-1">Skicka</button>
                                                         </form>
                                                     </div>
                                                 }
@@ -362,7 +431,7 @@
                                                 <div class="text-center col-md-3" style="width:100px">
                                                     <a href="/UserInfo?UserId=@comment4.SnackisUserId">@comment4.SnackisUser.NickName</a>
                                                     <div style="align-items:center">
-                                                        <img src="@Model.GetUserImage(comment4.SnackisUser)" width="120" height="120" alt="Alternate Text" class="ml-3" />
+                                                        <img src="@Model.GetUserImage(comment4.SnackisUser)" width="120" height="120" alt="Ingen Bild" class="ml-3" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-9">
@@ -398,8 +467,23 @@
                                                     </div>
                                                     <div class="card-body">
                                                         @await _gateway.CheckForBadWords(comment4.TextMessage)
+
+
+                                                        @if (comment4.MessageImages != null)
+                                                        {
+                                                            <div style="align-items:center">
+                                                                @foreach (var img in comment4.MessageImages)
+                                                                {
+                                                                    <a href="/ShowImage?ImageId=@img.Id" target="_blank">
+                                                                        <img src="@Model.GetMessageImage(img)" width="135" height="135" alt="@img.Title" class="m-2" />
+                                                                    </a>
+                                                                }
+                                                            </div>
+                                                        }
+
+
                                                     </div>
-                                                            <div class="card-footer p-0">
+                                                            @*<div class="card-footer p-0">*@
                                                                 @*@if (SignInManager.IsSignedIn(User))
                                                                 {
                                                                     if (Model.ListOfMessages.Where(m => m.MessageId == comment4.Id).Count() >= 1)
@@ -423,7 +507,7 @@
                                                                         <button onclick="ShowItemNoTextChange(@comment4.Id)" class="btn btn-primary">Kommentarer</button>
                                                                     }
                                                                 }*@
-                                                            </div>
+                                                            @*</div>*@
                                                 </div>
                                             </div>
                                         </div>
