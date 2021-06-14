@@ -3,9 +3,12 @@
 @using Microsoft.AspNetCore.Identity
 @using Snackis.Areas.Identity.Data
 @using Snackis.Gateway
+@using Snackis.Services 
 @inject UserManager<SnackisUser> UserManager
 @inject SignInManager<SnackisUser> SignInManager
 @inject BadWordGateway _gateway  
+@inject IUserServices UserServices
+@inject IMessageServices MessageServices
 @{
 }
 
@@ -23,7 +26,7 @@
                     <div class="text-center col-md-2">
                         <a href="/UserInfo?UserId=@message.SnackisUserId">@message.SnackisUser.NickName</a>
                         <div style="align-items:center">
-                            <img src="@Model.GetUserImage(message.SnackisUser)" width="120" height="120" alt="Ingen bild" class="ml-3"/>
+                            <img src="@UserServices.ConvertUserImageToImage(message.SnackisUser)" width="120" height="120" alt="Ingen bild" class="ml-3"/>
                         </div>
                     </div>
                     <div class="col-md-10">
@@ -65,7 +68,7 @@
                                 @foreach (var img in message.MessageImages)
                                 {
                                     <a href="/ShowImage?ImageId=@img.Id" target="_blank">
-                                    <img src="@Model.GetMessageImage(img)" width="250" height="250" alt="@img.Title" class="m-3" />
+                                    <img src="@MessageServices.GetMessageImage(img)" width="250" height="250" alt="@img.Title" class="m-3" />
                                     </a>
                                 }
                                 </div>
@@ -118,7 +121,7 @@
                         <div class="text-center col-md-2">
                             <a href="/UserInfo?UserId=@comment1.SnackisUserId">@comment1.SnackisUser.NickName</a>
                             <div style="align-items:center">
-                                <img src="@Model.GetUserImage(comment1.SnackisUser)" width="120" height="120" alt="Ingen Bild" class="ml-3" />
+                                <img src="@UserServices.ConvertUserImageToImage(comment1.SnackisUser)" width="120" height="120" alt="Ingen Bild" class="ml-3" />
                             </div>
                         </div>
                         <div class="col-md-10">
@@ -160,7 +163,7 @@
                                         @foreach (var img in comment1.MessageImages)
                                         {
                                             <a href="/ShowImage?ImageId=@img.Id" target="_blank">
-                                                <img src="@Model.GetMessageImage(img)" width="200" height="200" alt="@img.Title" class="m-3" />
+                                                <img src="@MessageServices.GetMessageImage(img)" width="200" height="200" alt="@img.Title" class="m-3" />
                                             </a>
                                         }
                                     </div>
@@ -221,7 +224,7 @@
                                 <div class="text-center col-md-2" style="width:100px">
                                     <a href="/UserInfo?UserId=@comment2.SnackisUserId">@comment2.SnackisUser.NickName</a>
                                     <div style="align-items:center">
-                                        <img src="@Model.GetUserImage(comment2.SnackisUser)" width="120" height="120" alt="Ingen Bild" class="ml-3" />
+                                        <img src="@UserServices.ConvertUserImageToImage(comment2.SnackisUser)" width="120" height="120" alt="Ingen Bild" class="ml-3" />
                                     </div>
                                 </div>
                                 <div class="col-md-10">
@@ -263,7 +266,7 @@
                                                 @foreach (var img in comment2.MessageImages)
                                                 {
                                                     <a href="/ShowImage?ImageId=@img.Id" target="_blank">
-                                                        <img src="@Model.GetMessageImage(img)" width="200" height="200" alt="@img.Title" class="m-3" />
+                                                        <img src="@MessageServices.GetMessageImage(img)" width="200" height="200" alt="@img.Title" class="m-3" />
                                                     </a>
                                                 }
                                             </div>
@@ -326,7 +329,7 @@
                                         <div class="text-center col-md-2" style="width:100px">
                                             <a href="/UserInfo?UserId=@comment3.SnackisUserId">@comment3.SnackisUser.NickName</a>
                                             <div style="align-items:center">
-                                                <img src="@Model.GetUserImage(comment3.SnackisUser)" width="120" height="120" alt="Ingen Bild" class="ml-3" />
+                                                <img src="@UserServices.ConvertUserImageToImage(comment3.SnackisUser)" width="120" height="120" alt="Ingen Bild" class="ml-3" />
                                             </div>
                                         </div>
                                         <div class="col-md-10">
@@ -368,7 +371,7 @@
                                                         @foreach (var img in comment3.MessageImages)
                                                         {
                                                             <a href="/ShowImage?ImageId=@img.Id" target="_blank">
-                                                                <img src="@Model.GetMessageImage(img)" width="150" height="150" alt="@img.Title" class="m-3" />
+                                                                <img src="@MessageServices.GetMessageImage(img)" width="150" height="150" alt="@img.Title" class="m-3" />
                                                             </a>
                                                         }
                                                     </div>
@@ -431,7 +434,7 @@
                                                 <div class="text-center col-md-3" style="width:100px">
                                                     <a href="/UserInfo?UserId=@comment4.SnackisUserId">@comment4.SnackisUser.NickName</a>
                                                     <div style="align-items:center">
-                                                        <img src="@Model.GetUserImage(comment4.SnackisUser)" width="120" height="120" alt="Ingen Bild" class="ml-3" />
+                                                        <img src="@UserServices.ConvertUserImageToImage(comment4.SnackisUser)" width="120" height="120" alt="Ingen Bild" class="ml-3" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-9">
@@ -475,7 +478,7 @@
                                                                 @foreach (var img in comment4.MessageImages)
                                                                 {
                                                                     <a href="/ShowImage?ImageId=@img.Id" target="_blank">
-                                                                        <img src="@Model.GetMessageImage(img)" width="135" height="135" alt="@img.Title" class="m-2" />
+                                                                        <img src="@MessageServices.GetMessageImage(img)" width="135" height="135" alt="@img.Title" class="m-2" />
                                                                     </a>
                                                                 }
                                                             </div>

@@ -13,7 +13,9 @@ namespace Snackis.Services
         Task ChangeRemovedMessage(Message message, string newText);
         Task DecreaseSmileyCountAsync(int oldSmileyNumber, int messageId);
         Task DeleteMessageAsync(int id);
+        Task DeleteMessageImageAsync(int imageId);
         Task DeleterReportedMessagesAsync(int id);
+        string GetMessageImage(MessageImage image);     //TEST
         Task<List<Message>> GetMessagesWithReportingsAsync();
         Task<List<ReportedMessage>> GetReportedMessagesAsync(int id);
         Task<Message> GetSingleMessage(int messageId);

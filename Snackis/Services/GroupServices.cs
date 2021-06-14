@@ -23,7 +23,12 @@ namespace Snackis.Services
                 .Include(g => g.Users)
                 .Include(g => g.GroupMessages)
                 .SingleOrDefaultAsync(g => g.Id == groupId);
-       
+
+            foreach (var message in group.GroupMessages)
+            {
+                message.SnackisUser.UserImage = await _context.UserImages.FirstOrDefaultAsync(i => i.SnackisUserId == message.SnackisUserId);
+            }
+
             return group;
         }
 

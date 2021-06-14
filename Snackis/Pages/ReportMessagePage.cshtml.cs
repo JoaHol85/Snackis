@@ -21,6 +21,8 @@ namespace Snackis.Pages
 
         [BindProperty(SupportsGet = true)]
         public int ReportedMessageId { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int DeleteImageId { get; set; }
         //[BindProperty(SupportsGet = true)]
         //public int DeleteMessageId { get; set; }
         [BindProperty]
@@ -43,6 +45,10 @@ namespace Snackis.Pages
             if (ReportedMessageId == 0 && DeleteMessageId == 0)
             {
                 RedirectToPage("/Index");
+            }
+            if (DeleteImageId != 0)
+            {
+                await _messageServices.DeleteMessageImageAsync(DeleteImageId);
             }
             //OM INLOGGAD SOM ADMIN-->
             ReportedMessage = await _messageServices.GetSingleMessage(ReportedMessageId);

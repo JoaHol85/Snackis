@@ -111,39 +111,5 @@ namespace Snackis.Pages
             SubThreadId = AMessage.SubThreadId;
             await OnGetAsync();
         }
-
-        public string GetUserImage(SnackisUser user)
-        {
-            string ImageUrl;
-            UserImage img = _userServices.GetUserImage(user);
-            if (img == null)
-            {
-                ImageUrl = "http://placehold.it/300x300";
-            }
-            else
-            {
-                string imageBase64Data = Convert.ToBase64String(img.Data);
-                ImageUrl = string.Format($"data:image/jpg;base64, {imageBase64Data}");
-            }
-            return ImageUrl;
-        }
-
-        public string GetMessageImage(MessageImage image)
-        {
-            string ImageUrl;
-            MessageImage img = image;
-            if (img == null)
-            {
-                ImageUrl = "http://placehold.it/300x300";
-            }
-            else
-            {
-                string imageBase64Data = Convert.ToBase64String(img.Data);
-                ImageUrl = string.Format($"data:image/jpg;base64, {imageBase64Data}");
-            }
-            return ImageUrl;
-        }
-
-
     }
 }

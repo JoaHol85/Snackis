@@ -100,12 +100,6 @@ namespace Snackis.Pages
             await _groupServices.SaveGroupAsync(AGroup);
             await OnGetAsync();
         }
-        
-        public string GetUserNickName(string id)
-        {
-            var user = _userServices.GetUser(id);
-            return user.NickName;
-        }
-
+       
     }
 }

@@ -2,10 +2,12 @@
 @model Snackis.Pages.ReportMessagePageModel
 @using Microsoft.AspNetCore.Identity
 @using Snackis.Areas.Identity.Data
-@using Snackis.Gateway
+@using Snackis.Data.Models 
+@using Snackis.Services 
 @inject SignInManager<SnackisUser> SignInManager
 @inject UserManager<SnackisUser> UserManager
-@inject BadWordGateway BadWordGateway 
+@inject IBadWordGateway BadWordGateway 
+@inject IMessageServices MessageService 
 @{
     var user = UserManager.GetUserAsync(User);
     int color = 0;
@@ -44,13 +46,20 @@
     <div class="card">
         <div class="card-header">
             <small style="font-weight:900">Rapporterat inlägg:</small><br />
-            <form method="post" >
-                <input type="hidden" value="@Model.ReportedMessage.Id" asp-for="DeleteMessageId" />
-                <input type="hidden" value="@Model.ReportedMessage.Id" asp-for="ReportedMessageId" />
-                <textarea cols="145" rows="10" name="NewMessage">@Model.ReportedMessage.TextMessage</textarea>
-                <small style="font-weight:900">Från användaren: <a href="/UserInfo?UserId=@Model.ReportedMessage.SnackisUserId">@Model.ReportedMessage.SnackisUser.NickName</a></small><br />
-                <button asp-page-handler="ChangeMessage" type="submit" class="btn btn-primary float-right">Ändra inlägg och ta bort rapporteringar</button>
-            </form>
+                <form method="post">
+                    <input type="hidden" value="@Model.ReportedMessage.Id" asp-for="DeleteMessageId" />
+                    <input type="hidden" value="@Model.ReportedMessage.Id" asp-for="ReportedMessageId" />
+                    <textarea cols="145" rows="10" name="NewMessage">@Model.ReportedMessage.TextMessage</textarea>
+                    <small style="font-weight:900">Från användaren: <a href="/UserInfo?UserId=@Model.ReportedMessage.SnackisUserId">@Model.ReportedMessage.SnackisUser.NickName</a></small><br />
+                    <button asp-page-handler="ChangeMessage" type="submit" class="btn btn-primary float-right">Ändra inlägg och ta bort rapporteringar</button>
+                </form>
+                    @foreach (var image in Model.ReportedMessage.MessageImages)
+                    {
+                        <a href="/ShowImage?ImageId=@image.Id" target="_blank">
+                        <img src="@MessageService.GetMessageImage(image)" width="100" height="100" alt="@image.Title" class="m-3" />
+                        </a>
+                        <a href="/ReportMessagePage?DeleteImageId=@image.Id&ReportedMessageId=@Model.ReportedMessage.Id">Ta bort bild</a>
+                    }
         </div>
         <div class="card-body">
             <small style="font-weight:900">Kommentarer av rapporterare:</small><br />

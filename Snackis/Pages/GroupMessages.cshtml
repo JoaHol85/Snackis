@@ -2,8 +2,10 @@
 @model Snackis.Pages.GroupMessagesModel
 @using Snackis.Areas.Identity.Data
 @using Microsoft.AspNetCore.Identity
+@using Snackis.Services
 @inject UserManager<SnackisUser> UserManager
 @inject SignInManager<SnackisUser> SignInManager
+@inject IUserServices UserServices 
 
 @{
     var user = await UserManager.GetUserAsync(User);
@@ -45,7 +47,7 @@
 
     <div class="col-md-9">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" @*style="height:550px;overflow-y:scroll"*@>
                 <div class="card-header text-center">
                     @if (Model.Group != null)
                     {
@@ -59,11 +61,20 @@
                 <div>
                     @if (Model.ListOfGroupMessages != null)
                     {
-                        foreach (var message in Model.ListOfGroupMessages)
+                        foreach (var message in Model.ListOfGroupMessages.OrderByDescending(m => m.Time))
                         {
-                            @Model.GetUserNickName(message.SnackisUserId)<br />
-                            @message.Text<br />
-                            <small>@message.Time</small>
+                            <div class="m-1 p-1" style="border:1px solid black">
+                                <div class="row">
+                                    <div class="col-md-2 text-center">
+                                        <img src="@UserServices.ConvertUserImageToImage(message.SnackisUser)" width="80" height="80" alt="Ingen bild"/>
+                                        @message.SnackisUser.NickName
+                                    </div>
+                                    <div class="col-md-10">
+                                        <small class="float-right"> --- @message.Time</small><br />
+                                        @message.Text<br />
+                                    </div>
+                                </div>
+                            </div>
                         }
                     }
                 </div>

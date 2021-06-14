@@ -7,6 +7,7 @@ namespace Snackis.Data.Models
 {
     public interface IBadWordGateway
     {
+        Task<string> CheckForBadWords(string message);
         Task DeleteBadWordAsync(int id);
         Task<List<BadWord>> GetAllBadWordsAsync();
         Task<BadWord> PostBadWordAsync(BadWord badWord);

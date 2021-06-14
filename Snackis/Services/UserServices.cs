@@ -65,12 +65,26 @@ namespace Snackis.Services
             await _context.SaveChangesAsync();
         }
 
-
-
-
         public UserImage GetUserImage(SnackisUser user)
         {
             return _context.UserImages.FirstOrDefault(i => i.SnackisUserId == user.Id);
+        }
+
+        public string ConvertUserImageToImage(SnackisUser user)
+        {
+            string ImageUrl;
+            UserImage img = GetUserImage(user);
+            if (img == null)
+            {
+                ImageUrl = "http://placehold.it/300x300";
+            }
+            else
+            {
+                string imageBase64Data = Convert.ToBase64String(img.Data);
+                ImageUrl = string.Format($"data:image/jpg;base64, {imageBase64Data}");
+            }
+            return ImageUrl;
+
         }
 
     }

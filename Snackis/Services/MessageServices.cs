@@ -37,10 +37,39 @@ namespace Snackis.Services
 
         public async Task<Message> GetSingleMessage(int messageId)
         {
-            var message = await _context.Messages.FirstAsync(m => m.Id == messageId);
+            var message = await _context.Messages
+                .Include(m => m.MessageImages)
+                .FirstAsync(m => m.Id == messageId);
             message.SnackisUser = await _context.Users.FirstAsync(u => u.Id == message.SnackisUserId);
             return message;
         }
+
+        //TEST
+        public string GetMessageImage(MessageImage image)
+        {
+            string ImageUrl;
+            MessageImage img = image;
+            if (img == null)
+            {
+                ImageUrl = "http://placehold.it/300x300";
+            }
+            else
+            {
+                string imageBase64Data = Convert.ToBase64String(img.Data);
+                ImageUrl = string.Format($"data:image/jpg;base64, {imageBase64Data}");
+            }
+            return ImageUrl;
+        }
+
+        public async Task DeleteMessageImageAsync(int imageId)
+        {
+            MessageImage img = await _context.MessageImages.FindAsync(imageId);
+            _context.MessageImages.Remove(img);
+            await _context.SaveChangesAsync();
+        }
+
+
+        //TEST
 
 
         public async Task<List<Message>> GetMessagesWithReportingsAsync()

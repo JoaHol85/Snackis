@@ -9,6 +9,7 @@ namespace Snackis.Services
 {
     public interface IUserServices
     {
+        string ConvertUserImageToImage(SnackisUser user);
         Task<List<SnackisUser>> GetAllUsersAsync();
         SnackisUser GetUser(string id);
         UserImage GetUserImage(SnackisUser user);
