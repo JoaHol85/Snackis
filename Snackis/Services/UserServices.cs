@@ -87,5 +87,22 @@ namespace Snackis.Services
 
         }
 
+        public async Task RemoveUserFromGroupsAsync(SnackisUser user)
+        {
+            var groups = await _context.Groups
+                .Include(g => g.Users)
+                .ToListAsync();
+
+            foreach (var group in groups)
+            {
+                if (group.Users.Contains(user))
+                {
+                    group.Users.Remove(user);
+                }
+            }
+            await _context.SaveChangesAsync();
+        }
+
+
     }
 }

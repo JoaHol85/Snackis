@@ -44,7 +44,6 @@ namespace Snackis.Services
             return message;
         }
 
-        //TEST
         public string GetMessageImage(MessageImage image)
         {
             string ImageUrl;
@@ -67,10 +66,6 @@ namespace Snackis.Services
             _context.MessageImages.Remove(img);
             await _context.SaveChangesAsync();
         }
-
-
-        //TEST
-
 
         public async Task<List<Message>> GetMessagesWithReportingsAsync()
         {
@@ -126,7 +121,6 @@ namespace Snackis.Services
         public async Task ChangeRemovedMessage(Message message, string newText)
         {
             message.TextMessage = newText;
-            // Här ska finnas kod för att ändra texten i meddelandet.
             message.TimesReported = 0;
             await _context.SaveChangesAsync();
         }
@@ -176,7 +170,6 @@ namespace Snackis.Services
                     smileyInfo.ThumbUp--;
                     break;
             }
-
             await _context.SaveChangesAsync();
         }
 
@@ -202,7 +195,6 @@ namespace Snackis.Services
                     break;
             }
             await _context.SaveChangesAsync();
-
         }
 
         public async Task<bool> SaveMessageImage(MessageImage img)
@@ -216,20 +208,6 @@ namespace Snackis.Services
             _context.MessageImages.Add(img);
             await _context.SaveChangesAsync();
             return true;
-
-
-
-
-
-
-
-            //if (_context.UserImages.FirstOrDefault(i => i.SnackisUserId == img.SnackisUserId) != null)
-            //{
-            //    _context.UserImages
-            //        .Remove(_context.UserImages.FirstOrDefault(i => i.SnackisUserId == img.SnackisUserId));
-            //}
-            //_context.Add(img);
-            //await _context.SaveChangesAsync();
         }
 
 

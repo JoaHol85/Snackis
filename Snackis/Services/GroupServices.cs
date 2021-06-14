@@ -26,6 +26,7 @@ namespace Snackis.Services
 
             foreach (var message in group.GroupMessages)
             {
+                message.SnackisUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == message.SnackisUserId);
                 message.SnackisUser.UserImage = await _context.UserImages.FirstOrDefaultAsync(i => i.SnackisUserId == message.SnackisUserId);
             }
 

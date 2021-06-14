@@ -14,6 +14,7 @@ namespace Snackis.Services
         SnackisUser GetUser(string id);
         UserImage GetUserImage(SnackisUser user);
         Task<SnackisUser> GetUserWithMessagesAndSubThreadsAsync(string userId);
+        Task RemoveUserFromGroupsAsync(SnackisUser user);
         Task SaveUserImage(UserImage img);
     }
 }
