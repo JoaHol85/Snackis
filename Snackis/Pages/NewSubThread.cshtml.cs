@@ -16,13 +16,11 @@ namespace Snackis.Pages.Shared
     {
         private readonly ISubThreadServices _subService;
         private readonly UserManager<SnackisUser> _userManager;
-        private readonly SignInManager<SnackisUser> _signInManager;
 
-        public NewSubThreadModel(ISubThreadServices subService, UserManager<SnackisUser> userManager, SignInManager<SnackisUser> signInManager)
+        public NewSubThreadModel(ISubThreadServices subService, UserManager<SnackisUser> userManager)
         {
             _subService = subService;
             _userManager = userManager;
-            _signInManager = signInManager;
         }
 
         [BindProperty(SupportsGet = true)]

@@ -16,13 +16,11 @@ namespace Snackis.Pages
     {
         private readonly ISubThreadServices _subServices;
         private readonly IMessageServices _messageServices;
-        private readonly IUserServices _userServices;
         private readonly SignInManager<SnackisUser> _signInManager;
         private readonly UserManager<SnackisUser> _userManager;
 
-        public MessagePageModel(IUserServices userServices, IMessageServices messageServices, ISubThreadServices subServices, SignInManager<SnackisUser> signInManager, UserManager<SnackisUser> userManager)
+        public MessagePageModel(IMessageServices messageServices, ISubThreadServices subServices, SignInManager<SnackisUser> signInManager, UserManager<SnackisUser> userManager)
         {
-            _userServices = userServices;
             _subServices = subServices;
             _messageServices = messageServices;
             _signInManager = signInManager;

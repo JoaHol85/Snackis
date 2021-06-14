@@ -12,13 +12,11 @@ namespace Snackis.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
         private readonly IMainThreadServices _mainServices;
 
-        public IndexModel(ILogger<IndexModel> logger, IMainThreadServices mainServices)
+        public IndexModel(IMainThreadServices mainServices)
         {
             _mainServices = mainServices;
-            _logger = logger;
         }
 
         public List<MainThread> MainThreads { get; set; }
