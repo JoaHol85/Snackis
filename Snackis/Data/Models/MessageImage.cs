@@ -14,6 +14,7 @@ namespace Snackis.Data.Models
 
         //nytt nedan
         public int? MessageId { get; set; }
+        public int? GroupMessageId { get; set; }
 
     }
 }
