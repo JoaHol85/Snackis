@@ -26,16 +26,16 @@ namespace Snackis.Areas.Identity.Pages.Account
         private readonly UserManager<SnackisUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly SnackisContext _context;       //NYTT
+        private readonly SnackisContext _context;       
 
         public RegisterModel(
-            SnackisContext context, //NYTT
+            SnackisContext context, 
             UserManager<SnackisUser> userManager,
             SignInManager<SnackisUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
-            _context = context; // NYTT
+            _context = context; 
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
@@ -85,12 +85,10 @@ namespace Snackis.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                //NYTT
                 List<string> nickNames = await _context.Users.Select(u => u.NickName.ToLower()).ToListAsync();
                 NickNameTaken = nickNames.Contains(Input.NickName.ToLower());
                 if (!NickNameTaken)
                 {
-                    //NYTT
                     var user = new SnackisUser { UserName = Input.Email, Email = Input.Email, NickName = Input.NickName};
                     var result = await _userManager.CreateAsync(user, Input.Password);
                     if (result.Succeeded)
@@ -122,7 +120,7 @@ namespace Snackis.Areas.Identity.Pages.Account
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
-                } //NYTT
+                } 
 
             }
 
