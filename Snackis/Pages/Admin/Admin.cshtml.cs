@@ -52,7 +52,7 @@ namespace Snackis.Pages.Admin
             {
                 await _gateway.DeleteBadWordAsync(DeleteBadWordId);
             }
-            if (_signInManager.IsSignedIn(User) && identity.UserName == "Admin@admin.admin")
+            if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin")) /* identity.UserName == "Admin@admin.admin")*/ //TESTA!!!
             {
                 AdminIsLoggedIn = true;
                 RoleList = _roleManager.Roles.ToList();

@@ -27,5 +27,12 @@ namespace Snackis.Services
             return await _context.MainThreads.FindAsync(MainThreadId);
         }
 
+
+        public async Task test()
+        {
+
+        }
+
+
     }
 }
