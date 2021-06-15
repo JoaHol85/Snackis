@@ -76,7 +76,7 @@ namespace Snackis.Services
             UserImage img = GetUserImage(user);
             if (img == null)
             {
-                ImageUrl = "http://placehold.it/300x300";
+                ImageUrl = "http://placehold.it/120x120";
             }
             else
             {

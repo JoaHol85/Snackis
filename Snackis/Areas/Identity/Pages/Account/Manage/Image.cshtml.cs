@@ -13,11 +13,11 @@ namespace Snackis.Areas.Identity.Pages.Account.Manage
     public class ImageModel : PageModel
     {
         private readonly UserManager<SnackisUser> _userManager;
-        private readonly UserServices _userServices;
+        private readonly IUserServices _userServices;
 
         public ImageModel(
             UserManager<SnackisUser> userManager,
-            UserServices userServices)
+            IUserServices userServices)
         {
             _userServices = userServices;
             _userManager = userManager;
