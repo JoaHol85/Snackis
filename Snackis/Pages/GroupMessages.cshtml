@@ -6,6 +6,7 @@
 @inject UserManager<SnackisUser> UserManager
 @inject SignInManager<SnackisUser> SignInManager
 @inject IUserServices UserServices 
+@inject IMessageServices MessageServices  
 
 @{
     var user = await UserManager.GetUserAsync(User);
@@ -130,6 +131,7 @@
                             <form method="post" enctype="multipart/form-data">
                                 <textarea name="AGroupMessage.Text" cols="96" rows="6"></textarea>
                                 <input type="file" id="file1" name="file1" />
+                                <input type="file" id="file2" name="file2" />
                                 <button href="/GroupMessages?MessageInGroup=@Model.GroupId&GroupId=@Model.GroupId" type="submit" class="btn btn-primary">Skicka</button>
                             </form>
                         </div>
@@ -153,6 +155,19 @@
                                     <div class="col-md-10">
                                         <small class="float-right">@message.Time</small><br />
                                         @message.Text<br />
+                                        @*TEXT*@
+                                        @if (message.MessageImages != null)
+                                        {
+                                            <div style="align-items:center">
+                                                @foreach (var img in message.MessageImages)
+                                                {
+                                                    <a href="/ShowImage?ImageId=@img.Id" target="_blank">
+                                                        <img src="@MessageServices.GetMessageImage(img)" width="200" height="200" alt="@img.Title" class="m-3" />
+                                                    </a>
+                                                }
+                                            </div>
+                                        }
+                                        @*TEXT*@
                                     </div>
                                 </div>
                             </div>

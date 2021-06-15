@@ -25,11 +25,12 @@ namespace Snackis.Services
                 .SingleOrDefaultAsync(g => g.Id == groupId);
 
             foreach (var message in group.GroupMessages)
-            {
+            {              
+                List<MessageImage> images = await _context.MessageImages.Where(m => m.GroupMessageId == message.Id).ToListAsync();
+                message.MessageImages = images;
                 message.SnackisUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == message.SnackisUserId);
                 message.SnackisUser.UserImage = await _context.UserImages.FirstOrDefaultAsync(i => i.SnackisUserId == message.SnackisUserId);
             }
-
             return group;
         }
 
@@ -45,8 +46,6 @@ namespace Snackis.Services
                 user.Groups.Add(group);
                 await _context.SaveChangesAsync();
             }
-
-
         }
 
         public async Task RemoveUserFromGroup(string userId, int groupId)

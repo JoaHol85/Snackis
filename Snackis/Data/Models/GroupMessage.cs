@@ -16,5 +16,7 @@ namespace Snackis.Data.Models
         public int GroupId { get; set; }
         public Group Group { get; set; }
 
+        //nytt
+        public ICollection<MessageImage> MessageImages { get; set; }
     }
 }

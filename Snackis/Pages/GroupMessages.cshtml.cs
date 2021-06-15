@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -80,6 +81,20 @@ namespace Snackis.Pages
             if (AGroupMessage.Text != null)
             {
                 var user = await _userManager.GetUserAsync(User);
+                AGroupMessage.MessageImages = new List<MessageImage>();
+                var files = Request.Form.Files;
+                foreach (var file in files)
+                {
+                    MessageImage img = new();
+                    img.Title = file.FileName;
+
+                    using (MemoryStream ms = new())
+                    {
+                        file.CopyTo(ms);
+                        img.Data = ms.ToArray();
+                    }
+                    AGroupMessage.MessageImages.Add(img);
+                }
                 await _groupServices.SaveGroupMessageAsync(user, GroupId, AGroupMessage);
             }
             if (AddUserToGroup != null)
