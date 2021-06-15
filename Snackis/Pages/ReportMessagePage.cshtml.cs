@@ -40,11 +40,11 @@ namespace Snackis.Pages
         public List<ReportedMessage> ListOfReports { get; set; }
 
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
             if (ReportedMessageId == 0 && DeleteMessageId == 0)
             {
-                RedirectToPage("/Index");
+                return RedirectToPage("/Index");
             }
             if (DeleteImageId != 0)
             {
@@ -53,7 +53,7 @@ namespace Snackis.Pages
             //OM INLOGGAD SOM ADMIN-->
             ReportedMessage = await _messageServices.GetSingleMessage(ReportedMessageId);
             ListOfReports = await _messageServices.GetReportedMessagesAsync(ReportedMessageId);
-
+            return null;
             //<--OM INLOGGAD SOM ADMIN
         }
 

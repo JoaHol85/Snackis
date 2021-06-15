@@ -55,6 +55,9 @@ namespace Snackis
             {
                 options.Conventions.AuthorizeFolder("/Admin", "RoleMustBeAdmin");
                 options.Conventions.AuthorizePage("/UserInfo", "RoleMustBeUser");
+                options.Conventions.AuthorizePage("/GroupMessages"); 
+                options.Conventions.AuthorizePage("/NewSubThread");
+                options.Conventions.AuthorizePage("/ReportMessagePage");
             });
 
             services.Configure<CookiePolicyOptions>(options =>
