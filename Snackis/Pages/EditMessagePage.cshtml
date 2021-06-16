@@ -9,7 +9,14 @@
 <div class="col-md-12 card">
     <div class="card-body text-center">
         <div class="card-header">
-            <h3>Ändra Gruppmeddelande</h3>
+            @if (Model.GroupMessageToEdit != null)
+            {
+                <h3>Ändra Gruppmeddelande</h3>
+            }
+            @if (Model.MessageToEdit != null)
+            {
+                <h3>Ändra meddelande</h3>
+            }
         </div>
         <div>
 
