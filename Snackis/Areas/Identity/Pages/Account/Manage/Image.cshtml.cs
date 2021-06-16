@@ -62,16 +62,19 @@ namespace Snackis.Areas.Identity.Pages.Account.Manage
         {
             UserImage img = new();
             var files = Request.Form.Files;
-            var file = files[0];
-            img.Title = file.FileName;
-            img.SnackisUserId = user.Id;
-
-            using (MemoryStream ms = new())
+            if (files.Count != 0)
             {
-                file.CopyTo(ms);
-                img.Data = ms.ToArray();
+                var file = files[0];
+                img.Title = file.FileName;
+                img.SnackisUserId = user.Id;
+
+                using (MemoryStream ms = new())
+                {
+                    file.CopyTo(ms);
+                    img.Data = ms.ToArray();
+                }
+                await _userServices.SaveUserImage(img);
             }
-            await _userServices.SaveUserImage(img);
         }
 
     }

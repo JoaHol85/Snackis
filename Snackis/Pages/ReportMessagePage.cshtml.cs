@@ -51,7 +51,7 @@ namespace Snackis.Pages
                 await _messageServices.DeleteMessageImageAsync(DeleteImageId);
             }
             //OM INLOGGAD SOM ADMIN-->
-            ReportedMessage = await _messageServices.GetSingleMessage(ReportedMessageId);
+            ReportedMessage = await _messageServices.GetSingleMessageAsync(ReportedMessageId);
             ListOfReports = await _messageServices.GetReportedMessagesAsync(ReportedMessageId);
             return null;
             //<--OM INLOGGAD SOM ADMIN
@@ -69,14 +69,14 @@ namespace Snackis.Pages
 
         public async Task OnPost()
         {
-            ReportedMessage = await _messageServices.GetSingleMessage(ReportedMessageId);
+            ReportedMessage = await _messageServices.GetSingleMessageAsync(ReportedMessageId);
             ReportedMessage.TimesReported++;
             await _messageServices.ReportMessageAsync(ReportedMessage, MessageToAdmin);
         }
 
         public async Task DeleteReportedMessageAndOtherAsync()
         {
-            ReportedMessage = await _messageServices.GetSingleMessage(ReportedMessageId);
+            ReportedMessage = await _messageServices.GetSingleMessageAsync(ReportedMessageId);
             await _messageServices.DeleterReportedMessagesAsync(DeleteMessageId);   //Ta bort alla anmälningar - klar
             await _messageServices.ChangeRemovedMessage(ReportedMessage, NewMessage);           //Ta bort alla "reports" - klar
         }

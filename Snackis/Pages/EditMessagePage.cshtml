@@ -1,0 +1,93 @@
+﻿@page
+@model Snackis.Pages.EditMessagePageModel
+@using Snackis.Services 
+@inject IMessageServices MessageServices
+@{
+    int numberOfImages = 0;
+}
+
+<div class="col-md-12 card">
+    <div class="card-body text-center">
+        <div class="card-header">
+            <h3>Ändra meddelande</h3>
+        </div>
+        <div>
+            @if (Model.GroupMessageToEdit != null)
+            {
+                <textarea cols="145" rows="10" name="NewMessage">@Model.GroupMessageToEdit.Text</textarea>
+                @if (Model.GroupMessageToEdit.MessageImages != null)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        if (Model.GroupMessageImagesToEdit[i] != null)
+                        {
+                            <a href="/ShowImage?ImageId=@Model.GroupMessageImagesToEdit[i].Id" target="_blank">
+                                <img src="@MessageServices.GetMessageImage(Model.GroupMessageImagesToEdit[i])" width="100" height="100" alt="@Model.GroupMessageImagesToEdit[i].Title" class="m-3" />
+                            </a>
+                            <a href="/EditMessagePage?DeleteImageId=@Model.GroupMessageImagesToEdit[i].Id&GroupMessageId=@Model.GroupMessageToEdit.Id">Ta bort bild</a>
+                        }
+                        else
+                        {
+
+                        }
+                    }
+
+
+
+
+                    @foreach (var image in Model.GroupMessageToEdit.MessageImages)
+                    {
+                    }
+                }
+            }
+            @if (Model.MessageToEdit != null)
+            {
+                <form method="post">
+                    <textarea cols="145" rows="10" name="NewText">@Model.MessageToEdit.TextMessage</textarea>
+                    <input type="hidden" value="@Model.MessageToEdit.Id" name="MessageId" />
+                    <button type="submit" asp-page-handler="ChangeMessageText">Ändra meddelande</button>
+                </form>
+                @if (Model.MessageToEdit.MessageImages.Count() != 0)
+                {
+                    <div class="row">
+                        @foreach (var image in Model.MessageToEdit.MessageImages)
+                        {
+                            <div class="col-md-4 pt-3">
+                                <a href="/ShowImage?ImageId=@image.Id" target="_blank">
+                                    <img src="@MessageServices.GetMessageImage(image)" width="100" height="100" alt="@image.Title" />
+                                </a>
+                                <a href="/EditMessagePage?DeleteImageId=@image.Id&MessageId=@Model.MessageToEdit.Id">Ta bort bild</a>
+                            </div>
+                            numberOfImages++;
+                        }
+                        @for (int i = numberOfImages; i < 3; i++)
+                        {
+                            <div class="col-md-4 pt-3">
+                                <form method="post" asp-page-handler="MessageImage" enctype="multipart/form-data">
+                                    <input type="hidden" value="@Model.MessageToEdit.Id" name="MessageId" />
+                                    <input type="file" id="file1" name="file1" />
+                                    <button type="submit" class="btn btn-primary">Ladda upp bild</button>
+                                </form>
+                            </div>
+                        }
+                    </div>
+                }
+                if (Model.MessageToEdit.MessageImages.Count() == 0)
+                {
+                    <div class="row">
+                        @for (int i = numberOfImages; i < 3; i++)
+                        {
+                            <div class="col-md-4 pt-3">
+                                <form method="post" asp-page-handler="MessageImage" enctype="multipart/form-data">
+                                    <input type="hidden" value="@Model.MessageToEdit.Id" name="MessageId" />
+                                    <input type="file" id="file1" name="file1" />
+                                    <button type="submit" class="btn btn-primary">Ladda upp bild</button>
+                                </form>
+                            </div>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

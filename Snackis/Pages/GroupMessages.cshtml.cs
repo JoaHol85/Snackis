@@ -27,9 +27,6 @@ namespace Snackis.Pages
         }
         [BindProperty(SupportsGet = true)]
         public int GroupId { get; set; }
-        //[BindProperty(SupportsGet = true)]
-        //public int MessageInGroup { get; set; }
-
 
         [BindProperty]
         public GroupMessage AGroupMessage { get; set; }

@@ -12,6 +12,7 @@ namespace Snackis.Services
         Task AddUserToGroupAsync(string userId, int groupId);
         Task<List<Group>> GetAllGroupsFromUserAsync(SnackisUser user);
         Task<Group> GetSingleGroupByIdAsync(int groupId);
+        Task<GroupMessage> GetSingleGroupMessageAsync(int groupMessageId);
         Task RemoveUserFromGroup(string userId, int groupId);
         Task SaveGroupAsync(Group group);
         Task SaveGroupMessageAsync(SnackisUser user, int groupId, GroupMessage message);

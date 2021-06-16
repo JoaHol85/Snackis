@@ -84,5 +84,16 @@ namespace Snackis.Services
             _context.Groups.Add(group);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<GroupMessage> GetSingleGroupMessageAsync(int groupMessageId)
+        {
+            var groupMessage = await _context.GroupMessages
+                .Include(m => m.MessageImages)
+                .FirstAsync(m => m.Id == groupMessageId);
+            groupMessage.SnackisUser = await _context.Users.FirstAsync(u => u.Id == groupMessage.SnackisUserId);
+            return groupMessage;
+        }
+
+
     }
 }

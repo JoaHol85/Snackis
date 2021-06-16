@@ -10,6 +10,7 @@
 @inject IUserServices UserServices
 @inject IMessageServices MessageServices
 @{
+    var user = await UserManager.GetUserAsync(User);
 }
 
 <div class="text-center m-5">
@@ -80,6 +81,10 @@
                                 if (Model.ListOfMessages.Where(m => m.MessageId == message.Id).Count() >= 1)
                                 {
                                     <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == message.Id).Count())</button>
+                                }
+                                @if (message.SnackisUserId == user.Id)
+                                {
+                                    <a href="/EditMessagePage?MessageId=@message.Id">Ändra</a>
                                 }
                                 <button style="float:right" onclick="ShowItemNoTextChange(@message.Id@message.Id)" class="btn btn-primary">Kommentera</button>
                                 <div class="d-none" id="@message.Id@message.Id">

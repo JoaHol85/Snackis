@@ -35,7 +35,7 @@ namespace Snackis.Services
             return x;
         }
 
-        public async Task<Message> GetSingleMessage(int messageId)
+        public async Task<Message> GetSingleMessageAsync(int messageId)
         {
             var message = await _context.Messages
                 .Include(m => m.MessageImages)
@@ -208,6 +208,13 @@ namespace Snackis.Services
             _context.MessageImages.Add(img);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task EditMessageTextAsync(string newText, int messageId)
+        {
+            var message = await _context.Messages.FindAsync(messageId);
+            message.TextMessage = newText;
+            await _context.SaveChangesAsync();
         }
 
 
