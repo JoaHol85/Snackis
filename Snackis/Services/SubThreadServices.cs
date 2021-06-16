@@ -30,7 +30,9 @@ namespace Snackis.Services
 
         public async Task<SubThread> GetSingleSubThreadAync(int subThreadId)
         {
-            return await _context.SubThreads.FindAsync(subThreadId);
+            var subThread = await _context.SubThreads.FindAsync(subThreadId);
+            subThread.MainThread = await _context.MainThreads.FindAsync(subThread.MainThreadId);
+            return subThread;
         }
 
         public async Task<int> CreateNewSubThreadAsync(SubThread subThread, Message message, SnackisUser user)

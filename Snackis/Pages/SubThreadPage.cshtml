@@ -12,6 +12,9 @@
     <h1>@Model.MainThreadCopy.Title</h1>
 </div>
 
+<div style="color:white">
+    <a class="text-light ml-2 mr-2" href="/Index">Main Threads</a>/<a class="text-light ml-2 mr-2" href="/SubThreadPage?MainThreadId=@Model.MainThreadCopy.Id">@Model.MainThreadCopy.Title</a>
+</div>
 
 @if (SignInManager.IsSignedIn(User))
 {

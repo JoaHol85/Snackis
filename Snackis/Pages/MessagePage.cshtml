@@ -17,6 +17,10 @@
     <h1>@Model.SubThreadCopy.HeaderText</h1>
 </div>
 
+<div style="color:white">
+    <a class="text-light mr-2" href="/Index">Main Threads</a>/<a class="text-light ml-2 mr-2" href="/SubThreadPage?MainThreadId=@Model.SubThreadCopy.MainThreadId">@Model.SubThreadCopy.MainThread.Title</a>/<a class="text-light ml-2 mr-2" href="/MessagePage?SubThreadId=@Model.SubThreadCopy.Id">@Model.SubThreadCopy.HeaderText</a>
+</div>
+
 @*ORGINAL MEDDELANDET:*@
 @foreach (var message in Model.ListOfMessages.Where(m => m.MessageId == null).OrderBy(m => m.Time))
 {

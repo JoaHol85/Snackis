@@ -76,8 +76,5 @@ namespace Snackis.Pages
                 await _userService.SaveUserImage(img);
             }
         }
-
-
-
     }
 }

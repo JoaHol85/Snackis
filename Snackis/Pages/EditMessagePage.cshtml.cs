@@ -91,17 +91,23 @@ namespace Snackis.Pages
             await OnGetAsync();
         }
 
-        public async Task OnPostChangeMessageTextAsync()
+        public async Task<IActionResult> OnPostChangeMessageTextAsync()
         {
             if (MessageId != 0 && GroupMessageId == 0)
             {
                 await _messageServices.EditMessageTextAsync(NewText, MessageId);
+                var message = await _messageServices.GetSingleMessageAsync(MessageId);
+                return Redirect($"/MessagePage?SubThreadId={message.SubThreadId}");
             }
             if (MessageId == 0 && GroupMessageId != 0)
             {
                 await _groupServices.EditGroupMessageTextAsync(NewText, GroupMessageId);
+                var groupmessage = await _groupServices.GetSingleGroupMessageAsync(GroupMessageId);
+                return Redirect($"/GroupMessages?GroupId={groupmessage.GroupId}");
             }
-            await OnGetAsync();
+
+            return null;
+            //await OnGetAsync();
         }
     }
 }

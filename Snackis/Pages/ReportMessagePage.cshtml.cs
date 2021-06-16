@@ -23,8 +23,6 @@ namespace Snackis.Pages
         public int ReportedMessageId { get; set; }
         [BindProperty(SupportsGet = true)]
         public int DeleteImageId { get; set; }
-        //[BindProperty(SupportsGet = true)]
-        //public int DeleteMessageId { get; set; }
         [BindProperty]
         public int DeleteMessageId { get; set; }
 

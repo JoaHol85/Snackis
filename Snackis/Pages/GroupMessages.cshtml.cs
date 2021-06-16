@@ -59,7 +59,6 @@ namespace Snackis.Pages
                 ListOfGroupMessages = Group.GroupMessages.ToList();
                 ListOfUsers = await _userServices.GetAllUsersAsync();
                 List<SnackisUser> list = new();
-                //TEST
                 foreach (var aUser in ListOfUsers)
                 {
                     bool inGroup = Group.Users.Contains(aUser);
@@ -69,7 +68,6 @@ namespace Snackis.Pages
                     }
                 }
                 ListOfUsersNotInGroup = list;
-                //TEST
             }
         }
 
