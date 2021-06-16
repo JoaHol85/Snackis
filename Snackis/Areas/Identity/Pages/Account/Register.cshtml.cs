@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Snackis.Areas.Identity.Data;
 using Snackis.Data;
+using Snackis.Services;
 
 namespace Snackis.Areas.Identity.Pages.Account
 {
@@ -26,15 +27,18 @@ namespace Snackis.Areas.Identity.Pages.Account
         private readonly UserManager<SnackisUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly SnackisContext _context;       
+        private readonly SnackisContext _context;
+        private readonly IAdminServices _adminServices; //NYTT
 
         public RegisterModel(
+            IAdminServices adminServices,
             SnackisContext context, 
             UserManager<SnackisUser> userManager,
             SignInManager<SnackisUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
+            _adminServices = adminServices;
             _context = context; 
             _userManager = userManager;
             _signInManager = signInManager;
@@ -89,8 +93,37 @@ namespace Snackis.Areas.Identity.Pages.Account
                 NickNameTaken = nickNames.Contains(Input.NickName.ToLower());
                 if (!NickNameTaken)
                 {
-
+                    
                     bool admin = _context.Users.Any(); //NYTT
+                    //NYTT v
+                    List<IdentityRole> roleList = await _context.Roles.ToListAsync();
+                    if (roleList.Count() != 0)
+                    {
+                        bool adminInRoles = false;
+                        bool userInRoles = false;
+                        foreach (var role in roleList)
+                        {
+                            if (role.NormalizedName == "ADMIN")
+                                adminInRoles = true;
+                            if (role.NormalizedName == "USER")
+                                userInRoles = true;    
+                        }
+                        if (!adminInRoles)
+                        {
+                            await _adminServices.CreateRoleAsync("Admin");
+                        }
+                        if (!userInRoles)
+                        {
+                            await _adminServices.CreateRoleAsync("User");
+                        }
+                    }
+                    if (roleList.Count() == 0)
+                    {
+                        await _adminServices.CreateRoleAsync("Admin");
+                        await _adminServices.CreateRoleAsync("User");
+                    }
+
+                    //NYTT ^
                     var user = new SnackisUser { UserName = Input.Email, Email = Input.Email, NickName = Input.NickName};
                     var result = await _userManager.CreateAsync(user, Input.Password);
                     await _userManager.AddToRoleAsync(user, "User");

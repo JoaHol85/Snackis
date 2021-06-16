@@ -75,7 +75,7 @@ namespace Snackis.Pages.Admin
         {
             if (RoleName != null)
             {
-                await _adminServices.CreateRole(RoleName);
+                await _adminServices.CreateRoleAsync(RoleName);
             }
             return RedirectToPage("/Admin/Admin");
         }

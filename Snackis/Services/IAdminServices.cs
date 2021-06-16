@@ -8,7 +8,7 @@ namespace Snackis.Services
 {
     public interface IAdminServices
     {
-        Task CreateRole(string roleName);
+        Task CreateRoleAsync(string roleName);
         Task PostMainThreadAsync(MainThread mainThread);
     }
 }

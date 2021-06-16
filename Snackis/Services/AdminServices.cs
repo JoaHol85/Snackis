@@ -26,7 +26,7 @@ namespace Snackis.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task CreateRole(string roleName)       
+        public async Task CreateRoleAsync(string roleName)       
         {
             bool exist = await _roleManager.RoleExistsAsync(roleName);
 
