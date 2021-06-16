@@ -58,6 +58,7 @@ namespace Snackis
                 options.Conventions.AuthorizePage("/GroupMessages"); 
                 options.Conventions.AuthorizePage("/NewSubThread");
                 options.Conventions.AuthorizePage("/ReportMessagePage");
+                options.Conventions.AuthorizePage("/EditMessagePage");
             });
 
             services.Configure<CookiePolicyOptions>(options =>
