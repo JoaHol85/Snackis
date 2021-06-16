@@ -9,37 +9,61 @@
 <div class="col-md-12 card">
     <div class="card-body text-center">
         <div class="card-header">
-            <h3>Ändra meddelande</h3>
+            <h3>Ändra Gruppmeddelande</h3>
         </div>
         <div>
+
+
             @if (Model.GroupMessageToEdit != null)
             {
-                <textarea cols="145" rows="10" name="NewMessage">@Model.GroupMessageToEdit.Text</textarea>
-                @if (Model.GroupMessageToEdit.MessageImages != null)
+                <form method="post">
+                    <textarea cols="145" rows="10" name="NewText">@Model.GroupMessageToEdit.Text</textarea>
+                    <input type="hidden" value="@Model.GroupMessageToEdit.Id" name="GroupMessageId" />
+                    <button type="submit" asp-page-handler="ChangeMessageText">Ändra meddelande</button>
+                </form>
+                @if (Model.GroupMessageToEdit.MessageImages.Count() != 0)
                 {
-                    for (int i = 0; i < 2; i++)
-                    {
-                        if (Model.GroupMessageImagesToEdit[i] != null)
+                    <div class="row">
+                        @foreach (var image in Model.GroupMessageToEdit.MessageImages)
                         {
-                            <a href="/ShowImage?ImageId=@Model.GroupMessageImagesToEdit[i].Id" target="_blank">
-                                <img src="@MessageServices.GetMessageImage(Model.GroupMessageImagesToEdit[i])" width="100" height="100" alt="@Model.GroupMessageImagesToEdit[i].Title" class="m-3" />
-                            </a>
-                            <a href="/EditMessagePage?DeleteImageId=@Model.GroupMessageImagesToEdit[i].Id&GroupMessageId=@Model.GroupMessageToEdit.Id">Ta bort bild</a>
+                            <div class="col-md-6 pt-3">
+                                <a href="/ShowImage?ImageId=@image.Id" target="_blank">
+                                    <img src="@MessageServices.GetMessageImage(image)" width="100" height="100" alt="@image.Title" />
+                                </a>
+                                <a href="/EditMessagePage?DeleteImageId=@image.Id&GroupMessageId=@Model.GroupMessageToEdit.Id">Ta bort bild</a>
+                            </div>
+                            numberOfImages++;
                         }
-                        else
+                        @for (int i = numberOfImages; i < 2; i++)
                         {
-
+                            <div class="col-md-6 pt-3">
+                                <form method="post" asp-page-handler="MessageImage" enctype="multipart/form-data">
+                                    <input type="hidden" value="@Model.GroupMessageToEdit.Id" name="GroupMessageId" />
+                                    <input type="file" id="file1" name="file1" />
+                                    <button type="submit" class="btn btn-primary">Ladda upp bild</button>
+                                </form>
+                            </div>
                         }
-                    }
-
-
-
-
-                    @foreach (var image in Model.GroupMessageToEdit.MessageImages)
-                    {
-                    }
+                    </div>
+                }
+                if (Model.GroupMessageToEdit.MessageImages.Count() == 0)
+                {
+                    <div class="row">
+                        @for (int i = numberOfImages; i < 2; i++)
+                        {
+                            <div class="col-md-6 pt-3">
+                                <form method="post" asp-page-handler="MessageImage" enctype="multipart/form-data">
+                                    <input type="hidden" value="@Model.GroupMessageToEdit.Id" name="GroupMessageId" />
+                                    <input type="file" id="file1" name="file1" />
+                                    <button type="submit" class="btn btn-primary">Ladda upp bild</button>
+                                </form>
+                            </div>
+                        }
+                    </div>
                 }
             }
+
+
             @if (Model.MessageToEdit != null)
             {
                 <form method="post">

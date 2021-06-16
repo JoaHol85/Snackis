@@ -45,6 +45,12 @@
                                     <a href="MessagePage?SmileyNumber=4&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" /></a>@message.SmileyInfo.AngrySmiley
                                     <a href="MessagePage?SmileyNumber=5&SubThreadId=@Model.SubThreadId&MessageId=@message.Id" name="SmileyNumber"><img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumbUp" /></a>@message.SmileyInfo.ThumbUp
                                 </div>
+                                @if (message.SnackisUserId == user.Id)
+                                {
+                                    <div style="float:right" class="mr-3">
+                                        <a href="/EditMessagePage?MessageId=@message.Id"><img src="~/img/EditIcon.svg" height="20" width="20" title="Ändra" /></a>
+                                    </div>
+                                }
                             }
                             else
                             {
@@ -81,10 +87,6 @@
                                 if (Model.ListOfMessages.Where(m => m.MessageId == message.Id).Count() >= 1)
                                 {
                                     <button onclick="ShowItemNoTextChange(@message.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == message.Id).Count())</button>
-                                }
-                                @if (message.SnackisUserId == user.Id)
-                                {
-                                    <a href="/EditMessagePage?MessageId=@message.Id">Ändra</a>
                                 }
                                 <button style="float:right" onclick="ShowItemNoTextChange(@message.Id@message.Id)" class="btn btn-primary">Kommentera</button>
                                 <div class="d-none" id="@message.Id@message.Id">
@@ -144,6 +146,13 @@
                                         <a href="MessagePage?SmileyNumber=4&SubThreadId=@Model.SubThreadId&MessageId=@comment1.Id" name="SmileyNumber"><img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" /></a>@comment1.SmileyInfo.AngrySmiley
                                         <a href="MessagePage?SmileyNumber=5&SubThreadId=@Model.SubThreadId&MessageId=@comment1.Id" name="SmileyNumber"><img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumbUp" /></a>@comment1.SmileyInfo.ThumbUp
                                     </div>
+                                    @if (comment1.SnackisUserId == user.Id)
+                                    {
+                                        <div style="float:right" class="mr-3">
+                                            <a href="/EditMessagePage?MessageId=@comment1.Id"><img src="~/img/EditIcon.svg" height="20" width="20" title="Ändra" /></a>
+                                        </div>
+                                    }
+
                                 }
                                 else
                                 {
@@ -247,6 +256,13 @@
                                                 <a href="MessagePage?SmileyNumber=4&SubThreadId=@Model.SubThreadId&MessageId=@comment2.Id" name="SmileyNumber"><img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" /></a>@comment2.SmileyInfo.AngrySmiley
                                                 <a href="MessagePage?SmileyNumber=5&SubThreadId=@Model.SubThreadId&MessageId=@comment2.Id" name="SmileyNumber"><img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumbUp" /></a>@comment2.SmileyInfo.ThumbUp
                                             </div>
+                                            @if (comment2.SnackisUserId == user.Id)
+                                            {
+                                                <div style="float:right" class="mr-3">
+                                                    <a href="/EditMessagePage?MessageId=@comment2.Id"><img src="~/img/EditIcon.svg" height="20" width="20" title="Ändra" /></a>
+                                                </div>
+                                            }
+
                                         }
                                         else
                                         {
@@ -352,6 +368,13 @@
                                                         <a href="MessagePage?SmileyNumber=4&SubThreadId=@Model.SubThreadId&MessageId=@comment3.Id" name="SmileyNumber"><img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" /></a>@comment3.SmileyInfo.AngrySmiley
                                                         <a href="MessagePage?SmileyNumber=5&SubThreadId=@Model.SubThreadId&MessageId=@comment3.Id" name="SmileyNumber"><img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumbUp" /></a>@comment3.SmileyInfo.ThumbUp
                                                     </div>
+                                                    @if (comment3.SnackisUserId == user.Id)
+                                                    {
+                                                        <div style="float:right" class="mr-3">
+                                                            <a href="/EditMessagePage?MessageId=@comment3.Id"><img src="~/img/EditIcon.svg" height="20" width="20" title="Ändra" /></a>
+                                                        </div>
+                                                    }
+
                                                 }
                                                 else
                                                 {
@@ -457,6 +480,12 @@
                                                                 <a href="MessagePage?SmileyNumber=4&SubThreadId=@Model.SubThreadId&MessageId=@comment4.Id" name="SmileyNumber"><img src="~/img/AngryEmoji.svg" height="30" width="30" title="Angry" /></a>@comment4.SmileyInfo.AngrySmiley
                                                                 <a href="MessagePage?SmileyNumber=5&SubThreadId=@Model.SubThreadId&MessageId=@comment4.Id" name="SmileyNumber"><img src="~/img/ThumbUp.svg" height="30" width="30" title="ThumbUp" /></a>@comment4.SmileyInfo.ThumbUp
                                                             </div>
+                                                            @if (comment4.SnackisUserId == user.Id)
+                                                            {
+                                                                <div style="float:right" class="mr-3">
+                                                                    <a href="/EditMessagePage?MessageId=@comment4.Id"><img src="~/img/EditIcon.svg" height="20" width="20" title="Ändra" /></a>
+                                                                </div>
+                                                            }
                                                         }
                                                         else
                                                         {
@@ -491,31 +520,6 @@
 
 
                                                     </div>
-                                                            @*<div class="card-footer p-0">*@
-                                                                @*@if (SignInManager.IsSignedIn(User))
-                                                                {
-                                                                    if (Model.ListOfMessages.Where(m => m.MessageId == comment4.Id).Count() >= 1)
-                                                                    {
-                                                                <button onclick="ShowItemNoTextChange(@comment4.Id)" class="btn btn-primary">Kommentarer(@Model.ListOfMessages.Where(m => m.MessageId == comment4.Id).Count())</button>
-                                                                    }
-                                                                    <button style="float:right" onclick="ShowItemNoTextChange(@comment4.Id@comment4.Id)" class="btn btn-primary">Kommentera</button>
-                                                                    <div class="d-none" id="@comment4.Id@comment4.Id">
-                                                                        <form method="post" asp-page-handler="PostComment">
-                                                                            <input type="hidden" name="Amessage.MessageId" value="@comment4.Id" />
-                                                                            <input type="hidden" name="Amessage.SubThreadId" value="@comment4.SubThreadId" />
-                                                                            <textarea name="Amessage.TextMessage" class="mt-1" cols="111" rows="2"></textarea>
-                                                                            <button type="submit" class="btn btn-primary">Skicka</button>
-                                                                        </form>
-                                                                    </div>
-                                                                }
-                                                                else
-                                                                {
-                                                                    if (Model.ListOfMessages.Where(m => m.MessageId == comment4.Id).Count() >= 1)
-                                                                    {
-                                                                        <button onclick="ShowItemNoTextChange(@comment4.Id)" class="btn btn-primary">Kommentarer</button>
-                                                                    }
-                                                                }*@
-                                                            @*</div>*@
                                                 </div>
                                             </div>
                                         </div>

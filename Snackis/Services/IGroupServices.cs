@@ -10,6 +10,7 @@ namespace Snackis.Services
     public interface IGroupServices
     {
         Task AddUserToGroupAsync(string userId, int groupId);
+        Task EditGroupMessageTextAsync(string newText, int groupMessageId);
         Task<List<Group>> GetAllGroupsFromUserAsync(SnackisUser user);
         Task<Group> GetSingleGroupByIdAsync(int groupId);
         Task<GroupMessage> GetSingleGroupMessageAsync(int groupMessageId);

@@ -94,6 +94,13 @@ namespace Snackis.Services
             return groupMessage;
         }
 
+        public async Task EditGroupMessageTextAsync(string newText, int groupMessageId)
+        {
+            var message = await _context.GroupMessages.FindAsync(groupMessageId);
+            message.Text = newText;
+            await _context.SaveChangesAsync();
+        }
+
 
     }
 }

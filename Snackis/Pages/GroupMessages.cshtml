@@ -144,7 +144,11 @@
                                         @message.SnackisUser.NickName
                                     </div>
                                     <div class="col-md-10">
-                                        <small class="float-right">@message.Time</small><br />
+                                        @if (message.SnackisUserId == user.Id)
+                                        {
+                                            <small class="float-right"><a href="/EditMessagePage?GroupMessageId=@message.Id"><img src="~/img/EditIcon.svg" height="20" width="20" title="Ändra" /></a></small>
+                                        }
+                                        <small>@message.Time</small><br />
                                         @message.Text<br />
                                         @*TEXT*@
                                         @if (message.MessageImages != null)

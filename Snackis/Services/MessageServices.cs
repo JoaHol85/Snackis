@@ -199,11 +199,23 @@ namespace Snackis.Services
 
         public async Task<bool> SaveMessageImage(MessageImage img)
         {
-            var listOfImagesForMessage = await _context.MessageImages.Where(i => i.MessageId == img.MessageId).ToListAsync();
-            int imagesInMessage = listOfImagesForMessage.Count();
-            if (imagesInMessage >= 3)
+            if (img.MessageId != 0 && img.GroupMessageId == 0)
             {
-                return false;
+                var listOfImagesForMessage = await _context.MessageImages.Where(i => i.MessageId == img.MessageId).ToListAsync();
+                int imagesInMessage = listOfImagesForMessage.Count();
+                if (imagesInMessage >= 3)
+                {
+                    return false;
+                }
+            }
+            if (img.MessageId == 0 && img.GroupMessageId != 0)
+            {
+                var listOfImagesForMessage = await _context.MessageImages.Where(i => i.MessageId == img.GroupMessageId).ToListAsync();
+                int imagesInMessage = listOfImagesForMessage.Count();
+                if (imagesInMessage >= 2)
+                {
+                    return false;
+                }
             }
             _context.MessageImages.Add(img);
             await _context.SaveChangesAsync();
