@@ -52,7 +52,7 @@ namespace Snackis.Pages.Admin
             {
                 await _gateway.DeleteBadWordAsync(DeleteBadWordId);
             }
-            if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin")) /* identity.UserName == "Admin@admin.admin")*/ //TESTA!!!
+            if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
             {
                 AdminIsLoggedIn = true;
                 RoleList = _roleManager.Roles.ToList();
@@ -75,7 +75,7 @@ namespace Snackis.Pages.Admin
         {
             if (RoleName != null)
             {
-                await CreateRole(RoleName);
+                await _adminServices.CreateRole(RoleName);
             }
             return RedirectToPage("/Admin/Admin");
         }
@@ -86,18 +86,5 @@ namespace Snackis.Pages.Admin
             return RedirectToPage("/Admin/Admin");
         }
 
-        public async Task CreateRole(string roleName)
-        {
-            bool exist = await _roleManager.RoleExistsAsync(roleName);
-
-            if (!exist)
-            {
-                var role = new IdentityRole
-                {
-                    Name = roleName
-                };
-                await _roleManager.CreateAsync(role);
-            }
-        }
     }
 }

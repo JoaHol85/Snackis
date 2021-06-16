@@ -89,9 +89,17 @@ namespace Snackis.Areas.Identity.Pages.Account
                 NickNameTaken = nickNames.Contains(Input.NickName.ToLower());
                 if (!NickNameTaken)
                 {
+
+                    bool admin = _context.Users.Any(); //NYTT
                     var user = new SnackisUser { UserName = Input.Email, Email = Input.Email, NickName = Input.NickName};
                     var result = await _userManager.CreateAsync(user, Input.Password);
                     await _userManager.AddToRoleAsync(user, "User");
+                    //NYTT v
+                    if (!admin)
+                    {
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                    }
+                    //NYTT ^
                     if (result.Succeeded)
                     {
                         _logger.LogInformation("User created a new account with password.");
