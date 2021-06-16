@@ -11,7 +11,7 @@
 
 
     @*<component type="typeof(Components.HeadersComponent)" render-mode="Static" param-MainThreads='Model.MainThreads' />*@
-    @foreach (var Header in Model.MainThreads)
+    @foreach (var Header in Model.MainThreads.OrderBy(m => m.Title))
     {
         <div class="card p-3 m-2" style="background-color:grey">
             <h3 style="padding-bottom:2px"><a href="/SubThreadPage?MainThreadId=@Header.Id">@Header.Title</a></h3>

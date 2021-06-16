@@ -57,7 +57,6 @@ namespace Snackis.Pages.Admin
                 AdminIsLoggedIn = true;
                 RoleList = _roleManager.Roles.ToList();
                 ListOfBadWords = await _gateway.GetAllBadWordsAsync();
-                //ska lägga in users i UserList!
             }
             else
             {
@@ -66,9 +65,10 @@ namespace Snackis.Pages.Admin
             return Page();
         }
 
-        public async Task OnPostMainThreadAsync()
+        public async Task<IActionResult> OnPostMainThreadAsync()
         {
             await _adminServices.PostMainThreadAsync(AMainThread);
+            return RedirectToPage("/Index");
         }
 
         public async Task<IActionResult> OnPostCreateRoleAsync()
