@@ -12,6 +12,8 @@ namespace Snackis.Data.Models
         public string HeaderText { get; set; }
         public DateTime Time { get; set; }
 
+        public DateTime LatestMessage { get; set; }
+
 
         public int MainThreadId { get; set; }
         public MainThread MainThread { get; set; }

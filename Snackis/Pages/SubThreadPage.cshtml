@@ -20,11 +20,12 @@
     </div>
 }
 
-@foreach (var subThread in Model.ListOfSubThreads)
+@foreach (var subThread in Model.ListOfSubThreads.OrderByDescending(s => s.LatestMessage).ThenByDescending(s => s.Time))
 {
     <div class="card p-3 m-2" style="background-color:grey">
         <a href="/MessagePage?SubThreadId=@subThread.Id"><h3 style="padding-bottom:2px">@subThread.HeaderText</h3></a>
-        <hr class="pt-0" />
-        <h6>Skapat av: @Model.GetUserNickName(subThread.SnackisUserId), skapat den: @subThread.Time</h6>
+        <small>Skapat av: @Model.GetUserNickName(subThread.SnackisUserId), skapat den: @subThread.Time</small>
+        <hr class="m-1" />
+        <h6 class="m-0 p-0">Senaste inlägg: @subThread.LatestMessage</h6>
     </div>
 }

@@ -57,7 +57,7 @@
                     @if (Model.Group != null)
                     {
                         @UserServices.GetUser(Model.Group.GroupStartedById).NickName<small>-(Admin)</small><br />
-                        @foreach (var aUser in Model.Group.Users)
+                        @foreach (var aUser in Model.Group.Users.OrderBy(u => u.NickName))
                         {
                             @aUser.NickName;<br />
                         }

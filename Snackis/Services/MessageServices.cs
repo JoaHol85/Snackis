@@ -93,10 +93,12 @@ namespace Snackis.Services
 
         public async Task<int> SaveMessageAsync(Message message, SnackisUser user, int subThreadId)
         {
+            var group = await _context.SubThreads.FindAsync(subThreadId);
             message.SnackisUserId = user.Id;
             message.Time = DateTime.Now;
             message.SubThreadId = subThreadId;
             _context.Messages.Add(message);
+            group.LatestMessage = message.Time;
             SmileyInfo smiley = new()
             {
                 Message = message
