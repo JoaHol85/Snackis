@@ -65,11 +65,12 @@ namespace Snackis.Pages
         }
 
 
-        public async Task OnPost()
+        public async Task<IActionResult> OnPost()
         {
             ReportedMessage = await _messageServices.GetSingleMessageAsync(ReportedMessageId);
             ReportedMessage.TimesReported++;
             await _messageServices.ReportMessageAsync(ReportedMessage, MessageToAdmin);
+            return RedirectToPage($"./MessagePage", new { SubThreadId = ReportedMessage.SubThreadId });
         }
 
         public async Task DeleteReportedMessageAndOtherAsync()

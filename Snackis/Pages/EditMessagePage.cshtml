@@ -122,3 +122,14 @@
         </div>
     </div>
 </div>
+
+<div class="text-center">
+    @if (Model.GroupMessageToEdit != null)
+    {
+        <a class="btn btn-primary" href="/GroupMessages?GroupId=@Model.GroupMessageToEdit.GroupId">Tillbaka</a>
+    }
+    @if (Model.MessageToEdit != null)
+    {
+        <a class="btn btn-primary" href="/MessagePage?SubThreadId=@Model.MessageToEdit.SubThreadId">Tillbaka</a>
+    }
+</div>
