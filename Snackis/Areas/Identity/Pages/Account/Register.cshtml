@@ -1,7 +1,7 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Registrera";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -9,11 +9,11 @@
 <div class="row">
     <div class="col-md-4" style="color:white">
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4 style="font-weight:500">Create a new account.</h4>
+            <h4 style="font-weight:500">Skapa nytt konto.</h4>
             <hr style="border-top:1px solid white"/>
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Input.NickName"></label>
+                <label asp-for="Input.NickName">Användarnamn</label>
                 <input asp-for="Input.NickName" class="form-control" />
                 <span asp-validation-for="Input.NickName" class="text-danger"></span>
                 @if (Model.NickNameTaken)
@@ -27,16 +27,16 @@
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.Password"></label>
+                <label asp-for="Input.Password">Lösenord</label>
                 <input asp-for="Input.Password" class="form-control" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
+                <label asp-for="Input.ConfirmPassword">Upprepa lösenord</label>
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">Registrera</button>
         </form>
     </div>
     <div class="col-md-6 col-md-offset-2">

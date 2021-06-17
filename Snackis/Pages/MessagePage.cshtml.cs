@@ -63,7 +63,26 @@ namespace Snackis.Pages
 
         public async Task OnPost()
         {
-            if (AMessage.TextMessage != null)
+            if (AMessage.TextMessage != null && AMessage.MessageId != null)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                AMessage.MessageImages = new List<MessageImage>();
+                var files = Request.Form.Files;
+                foreach (var file in files)
+                {
+                    MessageImage img = new();
+                    img.Title = file.FileName;
+
+                    using (MemoryStream ms = new())
+                    {
+                        file.CopyTo(ms);
+                        img.Data = ms.ToArray();
+                    }
+                    AMessage.MessageImages.Add(img);
+                }
+                await _messageServices.SaveMessageAsync(AMessage, user, AMessage.SubThreadId);
+            }
+            if (AMessage.TextMessage != null && AMessage.MessageId == null)
             {
                 var user = await _userManager.GetUserAsync(User);
                 AMessage.MessageImages = new List<MessageImage>();
@@ -85,29 +104,5 @@ namespace Snackis.Pages
             await OnGetAsync();
         }
 
-        public async Task OnPostPostCommentAsync()
-        {
-            if (AMessage.TextMessage != null && AMessage.MessageId != null)
-            {
-                var user = await _userManager.GetUserAsync(User);
-                AMessage.MessageImages = new List<MessageImage>();
-                var files = Request.Form.Files;
-                foreach (var file in files)
-                {
-                    MessageImage img = new();
-                    img.Title = file.FileName;
-
-                    using (MemoryStream ms = new())
-                    {
-                        file.CopyTo(ms);
-                        img.Data = ms.ToArray();
-                    }
-                    AMessage.MessageImages.Add(img);
-                }
-                await _messageServices.SaveMessageAsync(AMessage, user, AMessage.SubThreadId);
-            }
-            SubThreadId = AMessage.SubThreadId;
-            await OnGetAsync();
-        }
     }
 }

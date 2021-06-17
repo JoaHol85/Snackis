@@ -18,9 +18,11 @@ namespace Snackis.Pages.Admin
         private readonly UserManager<SnackisUser> _userManager;
         private readonly IAdminServices _adminServices;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IUserServices _userServices; //NYTT
 
-        public AdminModel(RoleManager<IdentityRole> roleManager, IBadWordGateway gateway, IAdminServices adminServices, SignInManager<SnackisUser> signInManager, UserManager<SnackisUser> userManager)
+        public AdminModel(IUserServices userServices, RoleManager<IdentityRole> roleManager, IBadWordGateway gateway, IAdminServices adminServices, SignInManager<SnackisUser> signInManager, UserManager<SnackisUser> userManager)
         {
+            _userServices = userServices;
             _roleManager = roleManager;
             _adminServices = adminServices;
             _signInManager = signInManager;
@@ -29,6 +31,17 @@ namespace Snackis.Pages.Admin
         }
         [BindProperty(SupportsGet = true)]
         public int DeleteBadWordId { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string AddUserIdToRole { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string RemoveUserIdFromRole { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string Role { get; set; }
+
+
+
+
+
 
         [BindProperty]
         public MainThread AMainThread { get; set; }
@@ -56,7 +69,18 @@ namespace Snackis.Pages.Admin
             {
                 AdminIsLoggedIn = true;
                 RoleList = _roleManager.Roles.ToList();
+                UserList = await _userServices.GetAllUsersAsync();
                 ListOfBadWords = await _gateway.GetAllBadWordsAsync();
+                if (AddUserIdToRole != null)
+                {
+                    var userToChangeRole = await _userManager.FindByIdAsync(AddUserIdToRole);
+                    await _userManager.AddToRoleAsync(userToChangeRole, Role);
+                }
+                if (RemoveUserIdFromRole != null)
+                {
+                    var userToRemmoveFromRole = await _userManager.FindByIdAsync(RemoveUserIdFromRole);
+                    await _userManager.RemoveFromRoleAsync(userToRemmoveFromRole, Role);
+                }
             }
             else
             {

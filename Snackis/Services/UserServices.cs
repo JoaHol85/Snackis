@@ -33,7 +33,6 @@ namespace Snackis.Services
             var users = await _context.Users.ToListAsync();
             foreach (var user in users)
             {
-                //user.Groups = new List<Group>();
                 user.Groups = new List<Group>(await _groupService.GetAllGroupsFromUserAsync(user));
             }
             return users;

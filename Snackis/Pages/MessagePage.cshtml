@@ -94,11 +94,11 @@
                                 }
                                 <button style="float:right" onclick="ShowItemNoTextChange(@message.Id@message.Id)" class="btn btn-primary">Kommentera</button>
                                 <div class="d-none" id="@message.Id@message.Id">
-                                    <form method="post" asp-page-handler="PostComment" enctype="multipart/form-data">
+                                    <form method="post" enctype="multipart/form-data">
                                         <input type="hidden" name="Amessage.MessageId" value="@message.Id" />
                                         <input type="hidden" name="Amessage.SubThreadId" value="@message.SubThreadId" />
                                         <textarea name="Amessage.TextMessage" class="ml-3 mt-1 mr-3" cols="123" rows="2"></textarea>
-                                        <input type="file" id="file1" name="file1" class="ml-3"/>
+                                        <input type="file" id="file1" name="file1" class="ml-3" />
                                         <input type="file" id="file2" name="file2" />
                                         <input type="file" id="file3" name="file3" />
                                         <button type="submit" class="btn btn-primary mt-1 ml-3">Skicka</button>
@@ -196,7 +196,7 @@
                                     }
                                     <button style="float:right" onclick="ShowItemNoTextChange(@comment1.Id@comment1.Id)" class="btn btn-primary">Kommentera</button>
                                     <div class="d-none" id="@comment1.Id@comment1.Id">
-                                        <form method="post" asp-page-handler="PostComment" enctype="multipart/form-data">
+                                        <form method="post" enctype="multipart/form-data">
                                             <input type="hidden" name="Amessage.MessageId" value="@comment1.Id" />
                                             <input type="hidden" name="Amessage.SubThreadId" value="@comment1.SubThreadId" />
                                             <textarea name="Amessage.TextMessage" class="ml-3 mt-1 mr-3" cols="112" rows="2"></textarea>
@@ -307,7 +307,7 @@
 
                                             <button style="float:right" onclick="ShowItemNoTextChange(@comment2.Id@comment2.Id)" class="btn btn-primary">Kommentera</button>
                                             <div class="d-none" id="@comment2.Id@comment2.Id">
-                                                <form method="post" asp-page-handler="PostComment" enctype="multipart/form-data">
+                                                <form method="post" enctype="multipart/form-data">
                                                     <input type="hidden" name="Amessage.MessageId" value="@comment2.Id" />
                                                     <input type="hidden" name="Amessage.SubThreadId" value="@comment2.SubThreadId" />
                                                     <textarea name="Amessage.TextMessage" class="mt-1 ml-3" cols="100" rows="2"></textarea>
@@ -419,7 +419,7 @@
 
                                                     <button style="float:right" onclick="ShowItemNoTextChange(@comment3.Id@comment3.Id)" class="btn btn-primary">Kommentera</button>
                                                     <div class="d-none" id="@comment3.Id@comment3.Id">
-                                                        <form method="post" asp-page-handler="PostComment" enctype="multipart/form-data">
+                                                        <form method="post" enctype="multipart/form-data">
                                                             <input type="hidden" name="Amessage.MessageId" value="@comment3.Id" />
                                                             <input type="hidden" name="Amessage.SubThreadId" value="@comment3.SubThreadId" />
                                                             <textarea name="Amessage.TextMessage" class="mt-1 ml-3" cols="89" rows="2"></textarea>

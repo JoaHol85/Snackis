@@ -1,5 +1,11 @@
 ﻿@page
 @model Snackis.Pages.Admin.AdminModel
+
+@using Microsoft.AspNetCore.Identity
+@using Snackis.Areas.Identity.Data
+
+@inject UserManager<SnackisUser> UserManager 
+@inject RoleManager<IdentityRole> RoleManager
 @{
 }
 
@@ -101,10 +107,10 @@
         </div>
 
         <div class="col-md-12">
-            <div class="card text-center">
+            <div class="card text-center admin-card-style">
                 <div class="card-body text-center">
                     <div class="card-header">
-                        <h3>???</h3>
+                        <h3>Användare</h3>
                     </div>
                     <div class="m-3">
                         <table>
@@ -115,12 +121,25 @@
                                     <th>@role.Name</th>
                                 }
                             </tr>
-
+                            @foreach (var user in Model.UserList)
+	                        {
+                                <tr>
+                                    <td>@user.NickName </td>
+                                    @foreach (var role in Model.RoleList)
+                                    {
+                                        if (await UserManager.IsInRoleAsync(user, role.Name))
+                                        {
+                                            <td><a href="?RemoveUserIdFromRole=@user.Id&Role=@role.Name" class="bg-success text-white">YES</a></td>
+                                        }
+                                        else
+                                        {
+                                            <td><a href="?AddUserIdToRole=@user.Id&Role=@role.Name" class="bg-danger text-white">NO</a></td>
+                                        }
+                                    }
+                                </tr>
+	                        }
                         </table>
                     </div>
-                </div>
-                <div class="card-footer">
-
                 </div>
             </div>
         </div>
