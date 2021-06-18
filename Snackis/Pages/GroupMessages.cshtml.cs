@@ -71,7 +71,7 @@ namespace Snackis.Pages
             }
         }
 
-        public async Task OnPostAsync()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (AGroupMessage.Text != null)
             {
@@ -100,7 +100,7 @@ namespace Snackis.Pages
             {
                 await _groupServices.RemoveUserFromGroup(RemoveUserFromGroup, GroupId);
             }
-            await OnGetAsync();
+            return Redirect($"/GroupMessages?GroupId={GroupId}");
         }
 
         public async Task OnPostCreateGroupAsync()

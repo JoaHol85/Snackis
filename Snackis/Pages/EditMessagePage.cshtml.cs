@@ -47,7 +47,14 @@ namespace Snackis.Pages
             {
                 if (DeleteImageId != 0)
                 {
-                    await _messageServices.DeleteMessageImageAsync(DeleteImageId);
+                    try
+                    {
+                        await _messageServices.DeleteMessageImageAsync(DeleteImageId);
+                    }
+                    catch
+                    {
+                        Redirect($"/EditMessagePage?MessageId={MessageId}");
+                    }
                 }
                 MessageToEdit = await _messageServices.GetSingleMessageAsync(MessageId);
             }
@@ -55,13 +62,20 @@ namespace Snackis.Pages
             {
                 if (DeleteImageId != 0)
                 {
-                    await _messageServices.DeleteMessageImageAsync(DeleteImageId);
+                    try
+                    {
+                        await _messageServices.DeleteMessageImageAsync(DeleteImageId);
+                    }
+                    catch
+                    {
+                        Redirect($"/EditMessagePage?GroupMessageId={GroupMessageId}");
+                    }
                 }
                 GroupMessageToEdit = await _groupServices.GetSingleGroupMessageAsync(GroupMessageId);
             }
         }
 
-        public async Task OnPostMessageImageAsync()
+        public async Task<IActionResult> OnPostMessageImageAsync()
         {
             MessageImage img = new();
             var files = Request.Form.Files;
@@ -88,7 +102,16 @@ namespace Snackis.Pages
                 }
                 await _messageServices.SaveMessageImage(img);
             }
-            await OnGetAsync();
+
+            if (MessageId != 0 && GroupMessageId == 0)
+            {
+                return Redirect($"/EditMessagePage?MessageId={MessageId}");
+            }
+            if (MessageId == 0 && GroupMessageId != 0)
+            {
+                return Redirect($"/EditMessagePage?GroupMessageId={GroupMessageId}");
+            }
+            return Redirect($"/EditMessagePage?MessageId={MessageId}");
         }
 
         public async Task<IActionResult> OnPostChangeMessageTextAsync()

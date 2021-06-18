@@ -61,7 +61,7 @@ namespace Snackis.Pages
             
         }
 
-        public async Task OnPost()
+        public async Task<IActionResult> OnPost()
         {
             if (AMessage.TextMessage != null && AMessage.MessageId != null)
             {
@@ -101,7 +101,9 @@ namespace Snackis.Pages
                 }
                 await _messageServices.SaveMessageAsync(AMessage, user, SubThreadId);
             }
-            await OnGetAsync();
+            return Redirect($"/MessagePage?SubThreadId={SubThreadId}");
+            //return RedirectToPage()
+            //await OnGetAsync();
         }
 
     }
