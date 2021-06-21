@@ -16,11 +16,9 @@ namespace Snackis.Pages
     {
         private readonly IMessageServices _messageServices;
         private readonly IGroupServices _groupServices;
-        private readonly UserManager<SnackisUser> _userManager;
 
-        public EditMessagePageModel(UserManager<SnackisUser> userManager, IMessageServices messageServices, IGroupServices groupServices)
+        public EditMessagePageModel(IMessageServices messageServices, IGroupServices groupServices)
         {
-            _userManager = userManager;
             _messageServices = messageServices;
             _groupServices = groupServices;
         }
@@ -84,7 +82,6 @@ namespace Snackis.Pages
                 var file = files[0];
                 img.Title = file.FileName;
 
-                //TEST
                 if (MessageId != 0 && GroupMessageId == 0)
                 {
                     img.MessageId = MessageId;
@@ -93,7 +90,6 @@ namespace Snackis.Pages
                 {
                     img.GroupMessageId = GroupMessageId;
                 }
-                //TEST
 
                 using (MemoryStream ms = new())
                 {
@@ -130,7 +126,6 @@ namespace Snackis.Pages
             }
 
             return null;
-            //await OnGetAsync();
         }
     }
 }

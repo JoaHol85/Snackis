@@ -58,8 +58,7 @@ namespace Snackis.Pages
 
             ListOfMessages = await _messageServices.GetSubIdMessagesAsync(SubThreadId);
             SubThreadCopy = await _subServices.GetSingleSubThreadAync(SubThreadId);
-            
-        }
+                    }
 
         public async Task<IActionResult> OnPost()
         {
@@ -102,8 +101,6 @@ namespace Snackis.Pages
                 await _messageServices.SaveMessageAsync(AMessage, user, SubThreadId);
             }
             return Redirect($"/MessagePage?SubThreadId={SubThreadId}");
-            //return RedirectToPage()
-            //await OnGetAsync();
         }
 
     }

@@ -18,7 +18,7 @@ namespace Snackis.Pages.Admin
         private readonly UserManager<SnackisUser> _userManager;
         private readonly IAdminServices _adminServices;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IUserServices _userServices; //NYTT
+        private readonly IUserServices _userServices; 
 
         public AdminModel(IUserServices userServices, RoleManager<IdentityRole> roleManager, IBadWordGateway gateway, IAdminServices adminServices, SignInManager<SnackisUser> signInManager, UserManager<SnackisUser> userManager)
         {
@@ -60,7 +60,6 @@ namespace Snackis.Pages.Admin
 
         public async Task<IActionResult> OnGet()
         {
-            IdentityUser identity = await _userManager.GetUserAsync(User);
             if (DeleteBadWordId != 0)
             {
                 await _gateway.DeleteBadWordAsync(DeleteBadWordId);
