@@ -37,7 +37,7 @@ namespace Snackis
                     policy => policy.RequireRole("User"));
             });
 
-            services.AddMvc(option => option.EnableEndpointRouting = false);    //NYTT KANSKE SKA VARA TRUE??
+            services.AddMvc(option => option.EnableEndpointRouting = false);
 
             services.AddHttpClient<BadWordGateway>();
             services.AddTransient<IBadWordGateway, BadWordGateway>();
