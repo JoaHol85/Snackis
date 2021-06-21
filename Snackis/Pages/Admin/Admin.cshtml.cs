@@ -66,13 +66,9 @@ namespace Snackis.Pages.Admin
             }
             if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
             {
-                AdminIsLoggedIn = true;
-                RoleList = _roleManager.Roles.ToList();
-                UserList = await _userServices.GetAllUsersAsync();
-                ListOfBadWords = await _gateway.GetAllBadWordsAsync();
                 if (AddUserIdToRole != null)
                 {
-                    var userToChangeRole = await _userManager.FindByIdAsync(AddUserIdToRole);
+                    SnackisUser userToChangeRole = await _userManager.FindByIdAsync(AddUserIdToRole);
                     await _userManager.AddToRoleAsync(userToChangeRole, Role);
                 }
                 if (RemoveUserIdFromRole != null)
@@ -80,6 +76,10 @@ namespace Snackis.Pages.Admin
                     var userToRemmoveFromRole = await _userManager.FindByIdAsync(RemoveUserIdFromRole);
                     await _userManager.RemoveFromRoleAsync(userToRemmoveFromRole, Role);
                 }
+                AdminIsLoggedIn = true;
+                RoleList = _roleManager.Roles.ToList();
+                UserList = await _userServices.GetAllUsersAsync();
+                ListOfBadWords = await _gateway.GetAllBadWordsAsync();
             }
             else
             {

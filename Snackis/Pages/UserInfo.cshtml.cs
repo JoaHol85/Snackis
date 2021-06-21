@@ -16,9 +16,11 @@ namespace Snackis.Pages
     {
         private readonly IUserServices _userService;
         private readonly UserManager<SnackisUser> _userManager;
+        private readonly IGroupServices _groupServices;
 
-        public UserInfoModel(IUserServices userService, UserManager<SnackisUser> userManager)
+        public UserInfoModel(IUserServices userService, UserManager<SnackisUser> userManager, IGroupServices groupServices)
         {
+            _groupServices = groupServices;
             _userService = userService;
             _userManager = userManager;
         }
@@ -30,6 +32,9 @@ namespace Snackis.Pages
         public string ImageUrl { get; set; }
 
         public SnackisUser SnackisUser { get; set; }
+        public int SubThreadStarted { get; set; }
+        public int ForumMessages { get; set; }
+        public int MemberInGroups { get; set; }
 
 
 
@@ -47,7 +52,9 @@ namespace Snackis.Pages
                 string imageBase64Data = Convert.ToBase64String(img.Data);
                 ImageUrl = string.Format($"data:image/jpg;base64, {imageBase64Data}");
             }
-
+            var userInfo = await _userService.GetUserWithMessagesAndSubThreadsAsync(user.Id);
+            SubThreadStarted = userInfo.SubThreads.Count();
+            ForumMessages = userInfo.Messages.Count();
             return Page();
         }
 
